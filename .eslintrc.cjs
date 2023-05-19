@@ -18,6 +18,19 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["react", "@typescript-eslint"],
-  rules: {},
+  rules: {
+    "@typescript-eslint/no-restricted-imports": [
+      "error",
+      {
+        paths: [
+          {
+            name: "react-redux",
+            importNames: ["useDispatch", "useSelector"],
+            message: "Use `useAppDispatch` or `useAppSelector` instead",
+          },
+        ],
+      },
+    ],
+  },
   reportUnusedDisableDirectives: true,
 };
