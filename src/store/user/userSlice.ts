@@ -11,17 +11,27 @@ const userSlice = createSlice({
     },
 
     setAvatarPending(state) {
-      state.isLoading = true;
+      state.avatarSvg.isLoading = true;
+    },
+
+    setAvatarRejected(state, action: PayloadAction<unknown>) {
+      state.avatarSvg.isLoading = false;
+      state.avatarSvg.error = action.payload;
     },
 
     setAvatarResolved(state, action: PayloadAction<string>) {
-      state.avatarSvg = action.payload;
-      state.isLoading = false;
+      state.avatarSvg.data = action.payload;
+      state.avatarSvg.isLoading = false;
+      state.avatarSvg.error = null;
     },
   },
 });
 
-export const { setName, setAvatarResolved, setAvatarPending } =
-  userSlice.actions;
+export const {
+  setName,
+  setAvatarResolved,
+  setAvatarPending,
+  setAvatarRejected,
+} = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,13 +1,17 @@
+import { AsyncData } from "../../types/store";
+
 export interface UserState {
   name: string;
-  avatarSvg: string | null;
-  isLoading: boolean;
+  avatarSvg: AsyncData<string>;
 }
 
 export function createInitialUserState(): UserState {
   return {
     name: "",
-    avatarSvg: null,
-    isLoading: false,
+    avatarSvg: {
+      data: "",
+      isLoading: false,
+      error: null,
+    },
   };
 }

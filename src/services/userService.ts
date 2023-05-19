@@ -9,9 +9,6 @@ export const userService = {
 
     const res = await axios.get(url, { params: { seed: name } });
 
-    // the avatar api is pretty fast, so just adding this to include some visual delay.
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
     return res.data;
   },
 };

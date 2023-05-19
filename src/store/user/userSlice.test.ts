@@ -1,5 +1,8 @@
+import { vitest } from "vitest";
+
 import { mockApiService } from "../../../test/helpers/axios";
 import { createTestStore } from "../../../test/helpers/store";
+import { userService } from "../../services/userService";
 import { fetchAvatar } from "./actions";
 import { setName } from "./userSlice";
 
@@ -24,8 +27,52 @@ describe("userSlice", () => {
 
       expect(updatedState.user).toEqual({
         name: "test name",
-        avatarSvg: mockResponseAvatar,
-        isLoading: false,
+        avatarSvg: {
+          data: mockResponseAvatar,
+          error: null,
+          isLoading: false,
+        },
+      });
+    });
+
+    it("logs an error to the store if the api service fails", async () => {
+      mockApiService().onGet().networkError();
+      const store = createTestStore();
+
+      store.dispatch(setName("test name 2"));
+
+      await store.dispatch(fetchAvatar());
+
+      const updatedState = store.getState();
+
+      expect(updatedState.user).toEqual({
+        name: "test name 2",
+        avatarSvg: {
+          data: "",
+          error: expect.stringContaining("Network Error"),
+          isLoading: false,
+        },
+      });
+    });
+
+    it("logs an error if no username has been set and does not call the api", async () => {
+      const serviceSpy = vitest
+        .spyOn(userService, "getUserAvatar")
+        .mockResolvedValue({});
+      const store = createTestStore();
+
+      await store.dispatch(fetchAvatar());
+
+      const updatedState = store.getState();
+
+      expect(serviceSpy).not.toBeCalled();
+      expect(updatedState.user).toEqual({
+        name: "",
+        avatarSvg: {
+          data: "",
+          error: expect.stringContaining("No Name Set"),
+          isLoading: false,
+        },
       });
     });
   });

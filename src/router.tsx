@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 import App from "./App";
-import PageWrapper from "./components/PageWrapper";
+import PageWrapper from "./components/common/PageWrapper";
 
 const LandingPage = React.lazy(() => import("./components/LandingPage"));
 const UserPage = React.lazy(() => import("./components/UserPage"));

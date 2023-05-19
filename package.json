@@ -10,9 +10,9 @@
     "prepare": "husky install",
     "lint:format": "prettier . --ignore-unknown --write",
     "lint:style": "eslint . --cache",
-    "lint": "lint:format && lint:style",
+    "lint": "npm run lint:format && npm run lint:style",
     "test": "vitest run .",
-    "prepush": "lint:style && tsc --noEmit && test"
+    "prepush": "npm run lint:style && tsc && test"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
