@@ -10,7 +10,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
-    setupFiles: "./test/setup.js",
+    setupFiles: "./test/setup.ts",
     coverage: {
       provider: "c8",
 
@@ -19,6 +19,7 @@ export default defineConfig({
       exclude: [
         ...configDefaults.coverage.exclude,
         "src/assets/**",
+        "src/*.{ts,tsx}",
         "src/**/types/*.ts",
       ],
     },

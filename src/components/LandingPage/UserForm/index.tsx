@@ -1,4 +1,4 @@
-import { FormEventHandler } from "react";
+import { ChangeEventHandler, FormEventHandler } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { PageRoutes } from "../../../router";
@@ -12,8 +12,8 @@ export const UserForm = () => {
   const navigate = useNavigate();
   const userName = useAppSelector(selectUserName);
 
-  const handleUserName: FormEventHandler<HTMLInputElement> = (e) => {
-    dispatch(setName(e.currentTarget.value));
+  const handleUserName: ChangeEventHandler<HTMLInputElement> = (e) => {
+    dispatch(setName(e.target.value));
   };
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
