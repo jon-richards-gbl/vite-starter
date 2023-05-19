@@ -1,5 +1,11 @@
+import UserForm from "../UserForm";
+
 const LandingPage = () => {
-  return <main>Hello</main>;
+  return (
+    <main>
+      <UserForm />
+    </main>
+  );
 };
 
 export default LandingPage;

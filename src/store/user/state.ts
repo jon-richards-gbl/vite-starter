@@ -1,13 +1,13 @@
 export interface UserState {
   name: string;
-  avatarUrl: string | null;
+  avatarSvg: string | null;
   isLoading: boolean;
 }
 
 export function createInitialUserState(): UserState {
   return {
     name: "",
-    avatarUrl: null,
+    avatarSvg: null,
     isLoading: false,
   };
 }

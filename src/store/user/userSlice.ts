@@ -15,7 +15,7 @@ const userSlice = createSlice({
     },
 
     setAvatarResolved(state, action: PayloadAction<string>) {
-      state.avatarUrl = action.payload;
+      state.avatarSvg = action.payload;
       state.isLoading = false;
     },
   },
