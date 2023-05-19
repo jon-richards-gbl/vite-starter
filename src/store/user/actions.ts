@@ -6,11 +6,9 @@ export const fetchAvatar = (): ActionWithThunk => {
   return async (dispatch, getState) => {
     dispatch(setAvatarPending);
 
-    const name = getState().user.name;
+    const { name } = getState().user;
     const avatar = await userService.getUserAvatar(name);
 
     dispatch(setAvatarResolved(avatar));
-
-    console.log("redirect?");
   };
 };

@@ -1,11 +1,11 @@
 import { FormEventHandler } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { PageRoutes } from "../../router";
-import { useAppDispatch, useAppSelector } from "../../store";
-import { fetchAvatar } from "../../store/user/actions";
-import { selectUserName } from "../../store/user/selectors";
-import { setName } from "../../store/user/userSlice";
+import { PageRoutes } from "../../../router";
+import { useAppDispatch, useAppSelector } from "../../../store";
+import { fetchAvatar } from "../../../store/user/actions";
+import { selectUserName } from "../../../store/user/selectors";
+import { setName } from "../../../store/user/userSlice";
 
 export const UserForm = () => {
   const dispatch = useAppDispatch();

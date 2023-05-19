@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import App from "./App";
+import PageWrapper from "./components/PageWrapper";
 
 const LandingPage = React.lazy(() => import("./components/LandingPage"));
 const UserPage = React.lazy(() => import("./components/UserPage"));
@@ -18,8 +19,11 @@ export const enum PageRoutes {
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path={PageRoutes.LandingPage} element={<App />}>
-      <Route index element={<LandingPage />} />
-      <Route path={PageRoutes.UserPage} element={<UserPage />} />
+      <Route index element={<PageWrapper page={<LandingPage />} />} />
+      <Route
+        path={PageRoutes.UserPage}
+        element={<PageWrapper page={<UserPage />} />}
+      />
     </Route>
   )
 );
