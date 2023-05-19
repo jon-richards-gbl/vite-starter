@@ -12,7 +12,7 @@
     "lint:style": "eslint . --cache",
     "lint": "npm run lint:format && npm run lint:style",
     "test": "vitest run .",
-    "prepush": "npm run lint:style && tsc && test"
+    "prepush": "npm run lint:style && tsc && npm run test"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
