@@ -1,14 +1,17 @@
 import { useAppSelector } from "../../store";
-import { selectUserAvatar, selectUserName } from "../../store/user/selectors";
+import { selectUserName } from "../../store/user/selectors";
+import UserForm from "./UserForm";
 
 const UserPage = () => {
   const userName = useAppSelector(selectUserName);
-  const userAvatar = useAppSelector(selectUserAvatar);
 
   return (
     <main>
+      <UserForm />
+
+      <hr />
+
       <h1>Hello {userName}</h1>
-      {userAvatar && <div dangerouslySetInnerHTML={{ __html: userAvatar }} />}
     </main>
   );
 };

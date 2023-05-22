@@ -3,8 +3,8 @@ import eslint from "vite-plugin-eslint";
 import { configDefaults, defineConfig } from "vitest/config";
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react(), eslint()],
+export default defineConfig(({ mode }) => ({
+  plugins: [react(), mode !== "test" && eslint()].filter(Boolean),
 
   // https://vitest.dev/config/
   test: {
@@ -24,4 +24,4 @@ export default defineConfig({
       ],
     },
   },
-});
+}));

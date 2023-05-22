@@ -1,9 +1,7 @@
-import UserForm from "./UserForm";
-
 const LandingPage = () => {
   return (
     <main>
-      <UserForm />
+      <p>Hello world</p>
     </main>
   );
 };

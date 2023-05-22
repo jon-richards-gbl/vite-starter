@@ -31,6 +31,8 @@ export default class PageWrapper extends React.Component<
       return <h1>Something went wrong.</h1>;
     }
 
-    return <Suspense>{this.props.page}</Suspense>;
+    return (
+      <Suspense fallback={<div>loading...</div>}>{this.props.page}</Suspense>
+    );
   }
 }
