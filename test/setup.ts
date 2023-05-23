@@ -1,7 +1,6 @@
 import "@testing-library/jest-dom";
-import matchers from "@testing-library/jest-dom/matchers";
+import "@testing-library/jest-dom/extend-expect";
 import { cleanup } from "@testing-library/react";
-import { vitest } from "vitest";
 
 import { mockThrowUnhandledApiRequests } from "./helpers/axios";
 import { unmuteConsole } from "./helpers/debug";
@@ -10,12 +9,9 @@ beforeEach(() => {
   mockThrowUnhandledApiRequests();
 });
 
-// extends Vitest's expect method with methods from react-testing-library
-expect.extend(matchers);
-
 // runs a cleanup after each test case (e.g. clearing jsdom)
 afterEach(() => {
   cleanup();
-  vitest.resetAllMocks();
+  jest.resetAllMocks();
   unmuteConsole();
 });
