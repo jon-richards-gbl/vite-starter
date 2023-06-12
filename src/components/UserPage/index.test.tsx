@@ -9,7 +9,7 @@ describe("User Page", () => {
       renderComponent(<UserPage />);
 
       //expect(screen.getByLabelText("Your name:")).toBeInTheDocument();
-      let prevBtn: HTMLElement = screen.getByText("Previous");
+      const prevBtn: HTMLElement = screen.getByText("Previous");
       expect(prevBtn).toBeInTheDocument();
       expect(prevBtn).toBeDisabled();
       expect(screen.getByText("Next")).toBeInTheDocument();
