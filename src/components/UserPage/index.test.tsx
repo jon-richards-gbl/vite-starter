@@ -13,7 +13,7 @@ describe("User Page", () => {
       expect(prevBtn).toBeInTheDocument();
       expect(prevBtn).toBeDisabled();
       expect(screen.getByText("Next")).toBeInTheDocument();
-      expect(screen.getByText("Next")).toEnabled();
+      expect(screen.getByText("Next")).toBeEnabled();
     });
   });
 
