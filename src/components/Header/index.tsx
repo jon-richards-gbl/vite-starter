@@ -10,15 +10,18 @@ import "./styles.css";
 const Header = () => {
   return (
     <header>
-      {/* <h1>Global Logic</h1> */}
-
-      {/* <img src={reactIcon} alt="React Icon" /> */}
       <div className="svg-logo-div">
         <Logo />
       </div>
       <nav className="nav-bar">
-        <NavLink to={PageRoutes.LandingPage}>Home</NavLink>
-        <NavLink to={PageRoutes.UserPage}>User</NavLink>
+        <ul className="nav-list">
+          <li className="nav-link align-left">
+            <NavLink to={PageRoutes.LandingPage}>Home</NavLink>
+          </li>
+          <li className="nav-link align-right">
+            <NavLink to={PageRoutes.UserPage}>User</NavLink>
+          </li>
+        </ul>
       </nav>
     </header>
   );
