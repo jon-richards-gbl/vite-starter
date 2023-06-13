@@ -11,6 +11,7 @@
   color: gray;
 }
 
+/* TODO: Rough size used for now - need to make this responsive */
 .svg-logo-div {
-  width: 10em;
+  width: 40em;
 }
