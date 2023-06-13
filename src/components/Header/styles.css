@@ -1,0 +1,16 @@
+/* CSS styles for the app header */
+
+/* Flex nav */
+.nav-bar {
+  /* gap between all flex items */
+  gap: 1em, 1em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 1rem 1rem 2rem;
+  color: gray;
+}
+
+.svg-logo-div {
+  width: 10em;
+}
