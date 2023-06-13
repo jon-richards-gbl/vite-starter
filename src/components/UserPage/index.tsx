@@ -7,9 +7,10 @@ const UserPage = () => {
 
   return (
     <main>
+      <hr />
       <UserForm />
 
-      <hr />
+      {/* <hr /> */}
 
       <h1>Hello {userName}</h1>
     </main>
