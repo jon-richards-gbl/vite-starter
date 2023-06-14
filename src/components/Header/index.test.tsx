@@ -9,7 +9,7 @@ describe("Header", () => {
       renderComponent(<Header />);
 
       expect(screen.getByText("Home")).toBeInTheDocument();
-      expect(screen.getByText("User")).toBeInTheDocument();
+      expect(screen.getByText("Sign In")).toBeInTheDocument();
       expect(
         screen.getByTitle("Global Logic - A Hitachi Group Company")
       ).toBeInTheDocument();
