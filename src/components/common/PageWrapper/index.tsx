@@ -25,10 +25,21 @@ export default class PageWrapper extends React.Component<
     //   logErrorToMyService(error, errorInfo);
   }
 
+  // TODO: Update this to show some cool 'Oops!' graphic and the error text?
   render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return <h1>Something went wrong.</h1>;
+      return (
+        <div className="error-page">
+          <h1>Oops!</h1>
+          <p>Something went wrong.</p>
+          <p>
+            {/* Need to show error message here?  
+            Can we use { isRouteErrorResponse } from "react-router-dom";*/}
+            <i></i>
+          </p>
+        </div>
+      );
     }
 
     return (
