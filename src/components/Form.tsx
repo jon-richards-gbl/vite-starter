@@ -5,9 +5,22 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
-const Form: React.FC = () => {
+import MapContainer from "./MapContainer";
+
+//Props to be sent to App.tsx
+interface FormProps {
+  setWeight: Dispatch<SetStateAction<string>>;
+  setDropdown: Dispatch<SetStateAction<string>>;
+  setName: Dispatch<SetStateAction<string>>;
+}
+
+const Form = ({
+  setWeight: setWeightProp,
+  setDropdown: setDropdownProp,
+  setName: setNameProp,
+}: FormProps) => {
   const [weight, setWeight] = useState<string>("");
   const [time, setTime] = useState<string>("");
   const [dropdown, setDropdown] = useState<string>("fast");
@@ -110,6 +123,7 @@ const Form: React.FC = () => {
           </div>
         </div>
       </div>
+      <MapContainer weight={weight} dropdown={dropdown} name={name} />
     </>
   );
 };
