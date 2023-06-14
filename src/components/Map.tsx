@@ -24,7 +24,7 @@ const Map = ({ weight, dropdown, name }: MapProps) => {
   console.log("Weight", weight);
   const [office, setOffice] = useState<LatLngLiteral>();
   const [directions, setDirections] = useState<DirectionsResult>();
-  const mapRef = useRef<GoogleMap>();
+  const mapRef = useRef<google.maps.Map | null>(null);
   const center = useMemo<LatLngLiteral>(
     () => ({ lat: 53.483959, lng: -2.244644 }),
     []
@@ -32,13 +32,15 @@ const Map = ({ weight, dropdown, name }: MapProps) => {
   const options = useMemo<MapOptions>(
     () => ({
       mapId: "55ec9d32771d5e8c",
-      disaableDefaultUI: true,
+      disableDefaultUI: true,
       clickableIcons: false,
     }),
     []
   );
 
-  const onLoad = useCallback((map: GoogleMap) => (mapRef.current = map), []);
+  const onLoad = useCallback((map: google.maps.Map) => {
+    mapRef.current = map;
+  }, []);
   const houses = useMemo(() => generateHouses(center), [center]);
 
   const fetchDirections = (house: LatLngLiteral) => {
@@ -58,6 +60,7 @@ const Map = ({ weight, dropdown, name }: MapProps) => {
       }
     );
   };
+
   return (
     <div className="container">
       <div className="controls">
