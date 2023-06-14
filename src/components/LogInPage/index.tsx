@@ -7,10 +7,7 @@ const LogInPage = () => {
 
   return (
     <main>
-      <hr />
       <LogInForm />
-
-      {/* <hr /> */}
 
       <h1>Hello {userName}</h1>
     </main>
