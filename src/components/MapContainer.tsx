@@ -8,6 +8,7 @@ type MapContainerProps = {
   dropdown: string;
   name: string;
 };
+const apiKey = import.meta.env.VITE_REACT_APP_GOOGLE_API_KEY;
 
 const MapContainer: React.FC<MapContainerProps> = ({
   weight,
@@ -15,7 +16,7 @@ const MapContainer: React.FC<MapContainerProps> = ({
   name,
 }) => {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: import.meta.env.VITE_REACT_APP_GOOGLE_API_KEY,
+    googleMapsApiKey: apiKey,
     libraries: ["places"],
   });
 
