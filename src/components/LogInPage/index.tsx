@@ -1,20 +1,17 @@
 import { useAppSelector } from "../../store";
 import { selectUserName } from "../../store/user/selectors";
-import UserForm from "./UserForm";
+import LogInForm from "../LogInForm";
 
-const UserPage = () => {
+const LogInPage = () => {
   const userName = useAppSelector(selectUserName);
 
   return (
     <main>
-      <hr />
-      <UserForm />
-
-      {/* <hr /> */}
+      <LogInForm />
 
       <h1>Hello {userName}</h1>
     </main>
   );
 };
 
-export default UserPage;
+export default LogInPage;
