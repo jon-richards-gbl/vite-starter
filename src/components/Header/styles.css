@@ -1,7 +1,7 @@
 /* CSS styles for the app header */
 /* TODO: Rough size used for now - need to make this responsive */
 .svg-logo-div {
-  width: 20rem;
+  width: 15rem;
   display: inline-flex;
 }
 
@@ -16,7 +16,7 @@ ul.nav-list {
   padding: 1rem;
   margin: 1rem;
   background-color: black;
-  width: 90%;
+  min-width: 99%;
   border-radius: 20px;
   display: flex;
   /* wrap along multiple lines if necessary */
@@ -54,4 +54,35 @@ to the right hand side */
   margin-left: auto;
 }
 
-/* @media screen and (min-width: 768px) {} */
+/* For tablet sizes */
+@media screen and (min-width: 768px) {
+  .svg-logo-div {
+    max-width: 20rem;
+  }
+
+  ul.nav-list {
+    min-width: 97%;
+  }
+}
+
+/* Laptop screens */
+@media screen and (min-width: 1024px) {
+  .svg-logo-div {
+    max-width: 25rem;
+  }
+
+  ul.nav-list {
+    min-width: 95%;
+  }
+}
+
+/* Large laptop screens */
+@media screen and (min-width: 1440px) {
+  .svg-logo-div {
+    max-width: 35rem;
+  }
+
+  ul.nav-list {
+    min-width: 90%;
+  }
+}

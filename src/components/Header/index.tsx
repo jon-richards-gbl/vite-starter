@@ -19,7 +19,7 @@ const Header = () => {
             <NavLink to={PageRoutes.LandingPage}>Home</NavLink>
           </li>
           <li className="nav-link align-right">
-            <NavLink to={PageRoutes.SignInPage}>User</NavLink>
+            <NavLink to={PageRoutes.SignInPage}>Sign In</NavLink>
           </li>
         </ul>
       </nav>
