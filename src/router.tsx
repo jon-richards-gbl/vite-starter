@@ -26,6 +26,10 @@ const router = createBrowserRouter(
         path={PageRoutes.LogInPage}
         element={<PageWrapper page={<LogInPage />} />}
       />
+      <Route
+        path={PageRoutes.SignUpPage}
+        element={<PageWrapper page={<SignUpPage />} />}
+      ></Route>
     </Route>
   )
 );

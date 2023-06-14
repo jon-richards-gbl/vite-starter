@@ -18,8 +18,12 @@ const Header = () => {
           <li className="nav-link align-left">
             <NavLink to={PageRoutes.LandingPage}>Home</NavLink>
           </li>
+          {/* Items after this will all be right aligned */}
           <li className="nav-link align-right">
-            <NavLink to={PageRoutes.LogInPage}>Sign In</NavLink>
+            <NavLink to={PageRoutes.LogInPage}>Log In</NavLink>
+          </li>
+          <li className="nav-link">
+            <NavLink to={PageRoutes.SignUpPage}>Sign Up</NavLink>
           </li>
         </ul>
       </nav>
