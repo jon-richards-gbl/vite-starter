@@ -7,6 +7,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
+import MapContainer from "./MapContainer";
+
 const Form: React.FC = () => {
   const [weight, setWeight] = useState<string>("");
   const [time, setTime] = useState<string>("");
@@ -110,6 +112,7 @@ const Form: React.FC = () => {
           </div>
         </div>
       </div>
+      <MapContainer weight={weight} dropdown={dropdown} name={name} />
     </>
   );
 };
