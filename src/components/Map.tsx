@@ -38,7 +38,7 @@ const Map = ({ weight, dropdown, name }: MapProps) => {
     []
   );
 
-  const onLoad = useCallback((map) => (mapRef.current = map), []);
+  const onLoad = useCallback((map: GoogleMap) => (mapRef.current = map), []);
   const houses = useMemo(() => generateHouses(center), [center]);
 
   const fetchDirections = (house: LatLngLiteral) => {
@@ -105,18 +105,20 @@ const Map = ({ weight, dropdown, name }: MapProps) => {
                 icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
               />
               <MarkerClusterer>
-                {(clusterer) =>
-                  houses.map((house) => (
-                    <Marker
-                      key={house.lat}
-                      position={house}
-                      clusterer={clusterer}
-                      onClick={() => {
-                        fetchDirections(house);
-                      }}
-                    />
-                  ))
-                }
+                {(clusterer) => (
+                  <div>
+                    {houses.map((house) => (
+                      <Marker
+                        key={house.lat}
+                        position={house}
+                        clusterer={clusterer}
+                        onClick={() => {
+                          fetchDirections(house);
+                        }}
+                      />
+                    ))}
+                  </div>
+                )}
               </MarkerClusterer>
 
               <Circle center={office} radius={15000} options={closeOptions} />

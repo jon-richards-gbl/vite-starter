@@ -2,10 +2,18 @@ import { useLoadScript } from "@react-google-maps/api";
 
 import Map from "./Map";
 
-const MapContainer = ({ weight, dropdown, name }) => {
-  console.log("weight:", weight);
-  console.log("dropdown:", dropdown);
-  console.log("name:", name);
+type MapContainerProps = {
+  weight: string;
+
+  dropdown: string;
+  name: string;
+};
+
+const MapContainer: React.FC<MapContainerProps> = ({
+  weight,
+  dropdown,
+  name,
+}) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_REACT_APP_GOOGLE_API_KEY,
     libraries: ["places"],
