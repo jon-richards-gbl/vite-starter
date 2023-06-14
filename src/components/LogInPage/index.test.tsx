@@ -1,12 +1,12 @@
 import { fireEvent, screen } from "@testing-library/react";
 
-import UserPage from ".";
+import LogInPage from ".";
 import { renderComponent } from "../../../test/helpers/render";
 
 describe("User Page", () => {
   describe("render", () => {
     it("renders how we'd expect", () => {
-      renderComponent(<UserPage />);
+      renderComponent(<LogInPage />);
 
       expect(screen.getByLabelText("Your name:")).toBeInTheDocument();
       //const prevBtn: HTMLElement = screen.getByText("Previous");
@@ -22,7 +22,7 @@ describe("User Page", () => {
   // TODO: Use this as an example to test the email entry on the first page.
   describe("interact", () => {
     it("submitting the form triggers a 'setUsername' action", () => {
-      const { store } = renderComponent(<UserPage />);
+      const { store } = renderComponent(<LogInPage />);
       const actionSpy = jest.spyOn(store, "dispatch");
 
       fireEvent.input(screen.getByLabelText("Your name:"), {

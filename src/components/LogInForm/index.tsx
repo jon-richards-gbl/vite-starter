@@ -3,7 +3,7 @@ import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { useAppDispatch } from "../../store";
 import { setUserName } from "../../store/user/userSlice";
 
-export const UserForm = () => {
+export const LogInForm = () => {
   const [name, setName] = useState("");
   const dispatch = useAppDispatch();
 
@@ -18,9 +18,6 @@ export const UserForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="title">
-        <h1>Let's get you signed up!</h1>
-      </div>
       <label htmlFor="username">Your name:</label>
       <input
         id="username"
@@ -35,4 +32,4 @@ export const UserForm = () => {
   );
 };
 
-export default UserForm;
+export default LogInForm;
