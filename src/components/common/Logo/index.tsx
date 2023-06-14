@@ -8,6 +8,8 @@ const Logo: React.FC = (): JSX.Element => {
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMinYMin meet"
+      // Added the following as Safari wasn't rendering
+      // TODO: Need to ensure this is not preventing media queries working
       width="40em"
       viewBox="0 0 800 270"
       role="img"
