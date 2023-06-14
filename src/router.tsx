@@ -9,11 +9,11 @@ import App from "./App";
 import PageWrapper from "./components/common/PageWrapper";
 
 const LandingPage = React.lazy(() => import("./components/LandingPage"));
-const UserPage = React.lazy(() => import("./components/UserPage"));
+const SignInPage = React.lazy(() => import("./components/SignInPage"));
 
 export const enum PageRoutes {
   LandingPage = "/",
-  UserPage = "/user",
+  SignInPage = "/sign-in",
 }
 
 const router = createBrowserRouter(
@@ -21,8 +21,8 @@ const router = createBrowserRouter(
     <Route path={PageRoutes.LandingPage} element={<App />}>
       <Route index element={<PageWrapper page={<LandingPage />} />} />
       <Route
-        path={PageRoutes.UserPage}
-        element={<PageWrapper page={<UserPage />} />}
+        path={PageRoutes.SignInPage}
+        element={<PageWrapper page={<SignInPage />} />}
       />
     </Route>
   )
