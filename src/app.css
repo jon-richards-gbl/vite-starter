@@ -1,0 +1,59 @@
+/* Base styles for the whole app */
+
+/* NOTE: For WCAG AA - ensure a contrast of 4.5:1 minimum */
+
+/* define custom properties for our theme colours */
+:root {
+  --primary-colour: white;
+  --secondary-colour: black;
+  --shadow-colour-rgb: rgba(7, 7, 7);
+  /* Standard shadow alpha channel (transparency) 
+    property but other strengths can be used */
+  --shadow-alpha: 0.29;
+  /* Setting this here ensures we can use rem units 
+    to set relative sizes for other text 
+    100% default for browsers is typically 16px */
+
+  /* Unnecessary as 100% is set by reset.css */
+  /* font-size: 100%; */
+  /* Use this to convert from rem */
+  --base-pixels: 16;
+  --pixels: 16;
+  /* Pixel to rem calc */
+  --font-size: calc((var(--pixels) / var(--base-pixels)) * 1);
+}
+
+/* Div container for page content */
+div.main-container {
+  border-radius: 5px;
+  border-color: var(--secondary-colour);
+  background-color: var(--primary-colour);
+  width: 80%;
+  padding: 4rem;
+}
+
+/* Relative - not absolute sizes for headings
+and also classes which can be used to size the text
+without affecting the semantics of the page - A11y! */
+h1,
+h1.size {
+  --pixels: 64;
+  /* font-size: 1.5625rem; this is equivalent to 25px if root is 16px*/
+  font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
+}
+
+h2,
+h2.size {
+  --pixels: 32;
+  font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
+}
+
+h3,
+h3.size {
+  font-size: medium;
+}
+
+h4,
+.h4-size {
+  font-size: small;
+}
