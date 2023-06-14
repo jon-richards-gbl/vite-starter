@@ -1,6 +1,6 @@
 import { useAppSelector } from "../../store";
 import { selectUserName } from "../../store/user/selectors";
-import UserForm from "./UserForm";
+import UserForm from "../UserForm";
 
 const UserPage = () => {
   const userName = useAppSelector(selectUserName);

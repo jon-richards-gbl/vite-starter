@@ -1,7 +1,7 @@
 import { ChangeEventHandler, FormEventHandler, useState } from "react";
 
-import { useAppDispatch } from "../../../store";
-import { setUserName } from "../../../store/user/userSlice";
+import { useAppDispatch } from "../../store";
+import { setUserName } from "../../store/user/userSlice";
 
 export const UserForm = () => {
   const [name, setName] = useState("");
