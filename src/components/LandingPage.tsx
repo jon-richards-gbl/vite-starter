@@ -11,7 +11,6 @@ const LandingPage = () => {
       </header>
       <main>
         <div className="logo-container">
-          {/* <img src="/images/hop-guy.jpeg" alt="Hop" /> */}
           <FontAwesomeIcon
             className="fa-icon fa-light fa-hippo"
             icon={faHippo}
@@ -28,9 +27,54 @@ const LandingPage = () => {
       </main>
       <aside>
         <div className="landing-card-container">
-          <div className="landing-card1">hello</div>
-          <div className="landing-card2"></div>
-          <div className="landing-card3"></div>
+          <div className="landing-card-col">
+            <div className="landing-card">
+              {" "}
+              <div className="landing-card-image">
+                <img src="images/hop-guy-walking.jpeg" alt="" />
+              </div>
+              <div className="landing-card-header">
+                <h3>Calorie Map</h3>
+                <hr></hr>
+              </div>
+              <div className="landing-card-text">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              </div>
+            </div>
+          </div>
+          <div className="landing-card-col">
+            {" "}
+            <div className="landing-card">
+              {" "}
+              <div className="landing-card-image">
+                <img src="images/hop-guy.jpeg" alt="" />
+              </div>
+              <div className="landing-card-header">
+                <h3>Calorie Map</h3>
+                <hr></hr>
+              </div>
+              <div className="landing-card-text">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="landing-card-col">
+            {" "}
+            <div className="landing-card">
+              {" "}
+              <div className="landing-card-image">
+                <img src="images/hop-guy-2beers.jpeg" alt="" />
+              </div>
+              <div className="landing-card-header">
+                <h3>Calorie Map</h3>
+                <hr></hr>
+              </div>
+              <div className="landing-card-text">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </aside>
     </>

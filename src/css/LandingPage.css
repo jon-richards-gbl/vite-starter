@@ -3,6 +3,8 @@
   text-transform: uppercase;
   justify-content: center;
   font-size: 30px;
+  background-color: #a3b18a;
+  margin-top: 0;
 }
 
 .logo-container {
@@ -42,19 +44,41 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+@media screen and (max-width: 500px) {
+  .landing-card-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding-top: 10px;
+  }
 }
 
-.landing-card1 {
+.landing-card-col {
   display: grid;
-  height: 150px;
+  justify-content: center;
 }
 
-.landing-card2 {
+.landing-card {
+  width: 150px;
+  margin-bottom: 20px;
+  margin-top: 20px;
   display: grid;
-  height: 170px;
+  box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border-radius: 5px;
 }
 
-.landing-card3 {
-  display: grid;
-  height: 150px;
+.landing-card-text,
+.landing-card-header {
+  margin: auto;
+  margin-top: 10px;
+  padding: 2px;
+  text-align: center;
+}
+
+.landing-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
