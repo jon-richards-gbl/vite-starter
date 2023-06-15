@@ -1,17 +1,21 @@
 import { NavLink } from "react-router-dom";
 
 //import globalLogicIcon from "../../assets/global-logic-icon.png";
-// import globalLogicIcon from '../../assets/gl-hitachi-Black-icon.svg'
+import globalLogicIcon from "../../assets/gl-hitachi-Black-icon.svg";
 // import reactIcon from "../../assets/react.svg";
 import { PageRoutes } from "../../router";
-import Logo from "../common/Logo";
+// import Logo from "../common/Logo";
 import "./styles.css";
 
 const Header = () => {
   return (
     <header>
       <div className="svg-logo-div">
-        <Logo />
+        {/* <Logo /> */}
+        <img
+          alt="Global Logic - A Hitachi Group Company"
+          src={globalLogicIcon}
+        ></img>
       </div>
       <nav className="nav-bar">
         <ul className="nav-list">
