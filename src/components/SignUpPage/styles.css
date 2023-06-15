@@ -1,0 +1,13 @@
+/* Styles for SignUpPage and child components */
+
+.block-label {
+  display: block;
+}
+
+.block-input {
+  display: block;
+}
+
+#instructions {
+  color: var(--secondary-colour);
+}
