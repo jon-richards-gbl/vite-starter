@@ -15,7 +15,7 @@ const Header = () => {
       </div>
       <nav className="nav-bar">
         <ul className="nav-list">
-          <li className="nav-link align-left">
+          <li className="nav-link">
             <NavLink to={PageRoutes.LandingPage}>Home</NavLink>
           </li>
           {/* Items after this will all be right aligned */}
