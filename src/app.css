@@ -1,6 +1,7 @@
 /* Base styles for the whole app */
 
 /* NOTE: For WCAG AA - ensure a contrast of 4.5:1 minimum */
+/* Don't forget - design for mobile first and then scale UP in media queries */
 
 /* define custom properties for our theme colours */
 :root {
@@ -10,17 +11,16 @@
   /* Standard shadow alpha channel (transparency) 
     property but other strengths can be used */
   --shadow-alpha: 0.29;
-  /* Setting this here ensures we can use rem units 
-    to set relative sizes for other text 
-    100% default for browsers is typically 16px */
+  /* font-size: 100% is set by reset.css
+  this helps us to use rem units to
+  set relative sizes for other text 
+  100% for browsers typically defaults to 16px */
 
-  /* Unnecessary as 100% is set by reset.css */
-  /* font-size: 100%; */
   /* Use this to convert from rem */
   --base-pixels: 16;
   --pixels: 16;
   /* Pixel to rem calc */
-  --font-size: calc((var(--pixels) / var(--base-pixels)) * 1);
+  /* --font-size: calc((var(--pixels) / var(--base-pixels)) * 1rem); */
 }
 
 /* Div container for page content */
@@ -28,32 +28,121 @@ div.main-container {
   border-radius: 5px;
   border-color: var(--secondary-colour);
   background-color: var(--primary-colour);
-  width: 80%;
-  padding: 4rem;
+  width: 100%;
+  padding: 0.5rem;
 }
 
 /* Relative - not absolute sizes for headings
 and also classes which can be used to size the text
 without affecting the semantics of the page - A11y! */
 h1,
-h1.size {
-  --pixels: 64;
-  /* font-size: 1.5625rem; this is equivalent to 25px if root is 16px*/
+h1.style {
+  --pixels: 20;
+  /* this is equivalent to 25px if root is 16px */
+  /* font-size: 1.5625rem; */
   font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
 }
 
 h2,
-h2.size {
-  --pixels: 32;
+h2.style {
+  --pixels: 16;
   font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
 }
 
 h3,
-h3.size {
-  font-size: medium;
+h3.style {
+  --pixels: 14;
+  font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
+  font-weight: bold;
 }
 
+/* As this text is smaller - increase the weight to balance
+the contrast */
 h4,
-.h4-size {
-  font-size: small;
+.h4-style {
+  --pixels: 14;
+  font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
+  font-weight: 600;
+}
+
+/* For tablet sizes */
+@media screen and (min-width: 768px) {
+  /*  */
+  h1,
+  h1.style {
+    --pixels: 25;
+    /* this is equivalent to 25px if root is 16px */
+    /* font-size: 1.5625rem; */
+    font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
+  }
+
+  h2,
+  h2.style {
+    --pixels: 20;
+    font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
+  }
+
+  h3,
+  h3.style {
+    --pixels: 16;
+    font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
+    font-weight: bold;
+  }
+
+  /* As this text is smaller - increase the weight to balance
+  the contrast */
+  h4,
+  .h4-style {
+    --pixels: 14;
+    font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
+    font-weight: 600;
+  }
+}
+
+/* Laptop screens */
+@media screen and (min-width: 1024px) {
+  /*  */
+}
+
+/* larger laptop screens */
+@media screen and (min-width: 1366px) {
+  /*  */
+  h1,
+  h1.style {
+    --pixels: 48;
+    /* this is equivalent to 25px if root is 16px */
+    /* font-size: 1.5625rem; */
+    font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
+  }
+
+  h2,
+  h2.style {
+    --pixels: 32;
+    font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
+  }
+
+  h3,
+  h3.style {
+    --pixels: 24;
+    font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
+    font-weight: bold;
+  }
+
+  /* As this text is smaller - increase the weight to balance
+                the contrast */
+  h4,
+  .h4-style {
+    --pixels: 18;
+    font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
+    font-weight: 600;
+  }
+
+  div.main-container {
+    width: 80%;
+    padding: 4rem;
+  }
+}
+
+/* Desktops */
+@media screen and (min-width: 1920px) {
 }
