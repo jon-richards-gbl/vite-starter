@@ -18,8 +18,6 @@ a {
 .container {
   display: flex;
   height: 100vh;
-  background-color: red;
-  border: #14161a 3px solid;
 }
 
 .controls {

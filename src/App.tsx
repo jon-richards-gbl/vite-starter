@@ -1,9 +1,11 @@
 import { useState } from "react";
 
+import Footer from "./components/Footer";
 import Form from "./components/Form";
 import Map from "./components/Map";
 import Nav from "./components/Nav";
 import "./css/CalorieMap.css";
+import "./css/Footer.css";
 import "./css/Form.css";
 import "./css/Nav.css";
 
@@ -24,6 +26,7 @@ function App() {
       {weight && dropdown && name && (
         <Map weight={weight} dropdown={dropdown} name={name} />
       )}
+      <Footer />
     </>
   );
 }
