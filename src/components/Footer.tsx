@@ -13,7 +13,7 @@ const Footer = () => {
   return (
     <>
       <footer>
-        {/* <div className="outer-footer">
+        <div className="outer-footer">
           {" "}
           <ul>
             <li></li>
@@ -22,36 +22,80 @@ const Footer = () => {
             <li></li>
             <li></li>
           </ul>{" "}
-        </div> */}
+        </div>
         <div className="inner-footer">
           <ul className="socialList">
             <li>
-              <FontAwesomeIcon className="socialIcon" icon={faLinkedin} />
+              <a
+                href="https://uk.linkedin.com/"
+                rel="noreferrer noopener"
+                target="_blank"
+              >
+                {" "}
+                <FontAwesomeIcon className="socialIcon" icon={faLinkedin} />
+              </a>
             </li>
             <li>
               {" "}
-              <FontAwesomeIcon className=" fa socialIcon" icon={faGithub} />
+              <a
+                href="https://github.com/"
+                rel="noreferrer noopener"
+                target="_blank"
+              >
+                {" "}
+                <FontAwesomeIcon className=" fa socialIcon" icon={faGithub} />
+              </a>
             </li>
             <li>
               {" "}
-              <FontAwesomeIcon className="socialIcon" icon={faInstagram} />
+              <a
+                href="https://www.instagram.com/"
+                rel="noreferrer noopener"
+                target="_blank"
+              >
+                <FontAwesomeIcon className="socialIcon" icon={faInstagram} />
+              </a>
             </li>
           </ul>
           <ul className="techList">
             <li>
-              <FontAwesomeIcon className="socialIcon" icon={faReact} />
+              <a
+                href="https://react.dev/"
+                rel="noreferrer noopener"
+                target="_blank"
+              >
+                <FontAwesomeIcon className="socialIcon" icon={faReact} />
+              </a>
             </li>
             <li>
               {" "}
-              <FontAwesomeIcon className="socialIcon" icon={faSquareJs} />
+              <a
+                href="https://www.javascript.com/"
+                rel="noreferrer noopener"
+                target="_blank"
+              >
+                <FontAwesomeIcon className="socialIcon" icon={faSquareJs} />
+              </a>
             </li>
             <li>
               {" "}
-              <FontAwesomeIcon className="socialIcon" icon={faHtml5} />
+              <a
+                href="https://en.wikipedia.org/wiki/HTML5"
+                rel="noreferrer noopener"
+                target="_blank"
+              >
+                <FontAwesomeIcon className="socialIcon" icon={faHtml5} />
+              </a>
             </li>
             <li>
               {" "}
-              <FontAwesomeIcon className="socialIcon" icon={faCss3Alt} />
+              <a
+                href="https://www.w3schools.com/css"
+                rel="noreferrer noopener"
+                target="_blank"
+              >
+                <FontAwesomeIcon className="socialIcon" icon={faCss3Alt} />
+              </a>
             </li>
           </ul>
         </div>
