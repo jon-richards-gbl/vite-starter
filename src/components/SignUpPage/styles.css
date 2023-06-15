@@ -11,3 +11,32 @@
 #instructions {
   color: var(--secondary-colour);
 }
+
+div.separator {
+  border-top: 0.1rem solid black;
+}
+
+/* .breadcrumb-trail {
+    /* gap between all flex items */
+/* gap: 1em, 1em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 1rem 1rem 2rem;
+} */
+
+.breadcrumb-trail li {
+  list-style-type: none;
+  display: inline-block;
+  text-align: center;
+  padding: 0.01rem;
+}
+
+[aria-current] {
+  box-shadow: 0 0 20px 0 rgba(7, 7, 7, 0.29);
+  /* text-decoration-line: overline underline; */
+}
+
+.breadcrumb p {
+  padding: 0.01rem;
+}

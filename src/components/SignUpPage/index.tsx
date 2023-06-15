@@ -1,8 +1,10 @@
 import { useState } from "react";
 
+import "./styles.css";
+
 const SignUpPage = (): JSX.Element => {
   const formTitles: Array<string> = [
-    "Sign Up",
+    "Sign Up - Guidance",
     "Login Details",
     "Personal Information",
     "Address",
@@ -11,9 +13,46 @@ const SignUpPage = (): JSX.Element => {
   // Store the current page the user is viewing
   const [page, setPage] = useState<number>(0);
 
+  const BreadcrumbDisplay = () => {
+    const content: Array<JSX.Element> = [];
+
+    for (let i = 0; i < page; i++) {
+      // if last element - mark as current for aria
+      content.push(
+        <li id={`crumb ${i}`} aria-current={i === page - 1 ? "step" : false}>
+          <p>Step {i + 1}</p>
+          <p>{formTitles[i]} &gt;</p>
+        </li>
+      );
+    }
+
+    content.push(
+      <div className="breadcrumb-item">
+        <p>Steps Remaining</p>
+        <p>{formTitles.length - page}</p>
+      </div>
+    );
+
+    return (
+      <div className="breadcrumb-trail">
+        <ol>{content}</ol>
+      </div>
+    );
+  };
+
   return (
     <main>
-      <h1>This will be the sign up page</h1>
+      <div className="title">
+        <h1>Let's get you signed up!</h1>
+      </div>
+      <br />
+      {/* Draw breadcrumb trail, showing where the user is up to */}
+      {BreadcrumbDisplay()}
+      <br />
+      <div className="header">
+        {/* Display the relevant title for the current page */}
+        <h3>{formTitles[page]}</h3>
+      </div>
       <div className="main-container">
         {/* TODO: Include instructions for completing sign up - inc save option */}
         <p id="instructions">
