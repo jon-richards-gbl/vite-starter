@@ -13,16 +13,7 @@ const Footer = () => {
   return (
     <>
       <footer>
-        <div className="outer-footer">
-          {" "}
-          <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>{" "}
-        </div>
+        <div className="outer-footer"> </div>
         <div className="inner-footer">
           <ul className="socialList">
             <li>

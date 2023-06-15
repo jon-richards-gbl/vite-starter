@@ -2,23 +2,36 @@
   display: flex;
   text-transform: uppercase;
   justify-content: center;
-  font-size: 30px;
+  font-size: 40px;
   background-color: #a3b18a;
   margin-top: 0;
+  color: pink;
+  padding-top: 5px;
+  -webkit-text-stroke-width: 0.3px;
+  -webkit-text-stroke-color: black;
 }
 
 .logo-container {
   display: flex;
   height: 30vh;
+  background-color: #a3b18a;
 }
 
 .landing-text {
-  display: flex;
-
+  /* display: flex; */
+  background-color: #344e41;
+  color: white;
   justify-content: center;
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 2px solid pink;
+}
+
+.landing-text h2 {
+  font-size: 24px;
+  padding-bottom: 2px;
+  margin-bottom: 4px;
 }
 
 .landing-p {
@@ -38,6 +51,13 @@
   font-size: 200px;
   display: flex;
   margin: auto;
+  color: pink;
+}
+
+.fa-beer {
+  font-size: 100px;
+  display: flex;
+  margin: auto;
 }
 
 .landing-card-container {
@@ -46,7 +66,8 @@
   gap: 0.5rem;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  padding-bottom: 20px;
+  background-color: #a3b18a;
 }
 @media screen and (max-width: 500px) {
   .landing-card-container {

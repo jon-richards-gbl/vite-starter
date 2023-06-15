@@ -1,4 +1,9 @@
-import { faHippo } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBeer,
+  faHippo,
+  faMapLocationDot,
+  faMapPin,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const LandingPage = () => {
@@ -11,12 +16,11 @@ const LandingPage = () => {
       </header>
       <main>
         <div className="logo-container">
-          <FontAwesomeIcon
-            className="fa-icon fa-light fa-hippo"
-            icon={faHippo}
-          />{" "}
+          <FontAwesomeIcon className="fa-icon fa-hippo" icon={faHippo} fade />{" "}
         </div>
         <div className="landing-text">
+          <h2>What we do </h2>
+
           <p className="landing-p">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
             est eos praesentium, asperiores cumque molestias voluptas rem
@@ -31,7 +35,7 @@ const LandingPage = () => {
             <div className="landing-card">
               {" "}
               <div className="landing-card-image">
-                <img src="images/hop-guy-walking.jpeg" alt="" />
+                <FontAwesomeIcon className="fa-icon  fa-beer" icon={faMapPin} />
               </div>
               <div className="landing-card-header">
                 <h3>Calorie Map</h3>
@@ -47,10 +51,13 @@ const LandingPage = () => {
             <div className="landing-card">
               {" "}
               <div className="landing-card-image">
-                <img src="images/hop-guy.jpeg" alt="" />
+                <FontAwesomeIcon
+                  className="fa-icon  fa-beer"
+                  icon={faMapLocationDot}
+                />
               </div>
               <div className="landing-card-header">
-                <h3>Calorie Map</h3>
+                <h3>Way-point map</h3>
                 <hr></hr>
               </div>
               <div className="landing-card-text">
@@ -64,10 +71,10 @@ const LandingPage = () => {
             <div className="landing-card">
               {" "}
               <div className="landing-card-image">
-                <img src="images/hop-guy-2beers.jpeg" alt="" />
+                <FontAwesomeIcon className="fa-icon  fa-beer" icon={faBeer} />
               </div>
               <div className="landing-card-header">
-                <h3>Calorie Map</h3>
+                <h3>Geo-location map</h3>
                 <hr></hr>
               </div>
               <div className="landing-card-text">
