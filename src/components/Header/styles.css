@@ -14,9 +14,9 @@
 /* TODO: extract theme colours to a base styles css file
             and create as custom properties */
 ul.nav-list {
-  padding: 1rem;
-  margin: 1rem;
-  background-color: black;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  background-color: var(--secondary-colour);
   min-width: 99%;
   border-radius: 20px;
   display: flex;
@@ -32,28 +32,13 @@ ul.nav-list {
   padding: 0.3rem;
 }
 
-a.active {
-  color: orange;
-}
-
 a:link {
-  color: white;
+  color: var(--primary-colour);
 }
 
 /* All links appear as visited already? */
 a:visited {
-  color: white;
-}
-
-.align-left {
-  float: left;
-}
-
-/* Flex container child - move the free space to 
-the left rather than default of right to move the item
-to the right hand side */
-.align-right {
-  margin-left: auto;
+  color: var(--primary-colour);
 }
 
 /* For tablet sizes */
@@ -64,6 +49,12 @@ to the right hand side */
 
   ul.nav-list {
     min-width: 97%;
+  }
+  /* Flex container child - move the free space to 
+                                                                  the left rather than default of right to move the item
+                                                                  to the right hand side */
+  .align-right {
+    margin-left: auto;
   }
 }
 
@@ -78,7 +69,7 @@ to the right hand side */
   }
 }
 
-/* laptop screens */
+/* larger laptop screens */
 @media screen and (min-width: 1366px) {
   .svg-logo-div {
     max-width: 30rem;
