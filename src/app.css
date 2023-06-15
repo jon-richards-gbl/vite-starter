@@ -27,9 +27,16 @@
 div.main-container {
   border-radius: 5px;
   border-color: var(--secondary-colour);
+  border-style: dashed;
   background-color: var(--primary-colour);
-  width: 100%;
+  border-width: 0.1rem;
+  /* TODO: Need to adjust this for larger sizes? */
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
   padding: 0.5rem;
+  display: flex;
+  justify-content: center;
 }
 
 /* Relative - not absolute sizes for headings
@@ -99,13 +106,16 @@ h4,
   }
 }
 
-/* Laptop screens */
-@media screen and (min-width: 1024px) {
-  /*  */
-}
+/* laptop screens */
+/* @media screen and (min-width: 1024px) {
+} */
 
-/* larger laptop screens */
-@media screen and (min-width: 1366px) {
+/* Larger Laptop screens */
+/* @media screen and (min-width: 1366px) {
+}  */
+
+/* Desktops */
+@media screen and (min-width: 1920px) {
   /*  */
   h1,
   h1.style {
@@ -141,8 +151,4 @@ h4,
     width: 80%;
     padding: 4rem;
   }
-}
-
-/* Desktops */
-@media screen and (min-width: 1920px) {
 }
