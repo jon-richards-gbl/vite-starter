@@ -17,27 +17,34 @@ const SignUpPage = (): JSX.Element => {
     const content: Array<JSX.Element> = [];
 
     for (let i = 0; i < page; i++) {
-      // if last element - mark as current for aria
       content.push(
-        <li key={`crumb-${i}`} aria-current={i === page - 1 ? "step" : false}>
-          <p>Step {i + 1}</p>
-          <p>{formTitles[i]} &gt;</p>
-        </li>
+        <>
+          <div
+            className="crumb"
+            key={`crumb-${i}`}
+            // if last element - mark as current step for aria,
+            // mark all others as false
+            aria-current={i === page - 1 ? "step" : "false"}
+          >
+            <h4>Step {i + 1}</h4>
+            <p>{formTitles[i]}</p>
+          </div>
+          <div className="divider">
+            {/* TODO: Add font awesome icon */}
+            <span>&gt</span>
+          </div>
+        </>
       );
     }
 
     content.push(
-      <div className="breadcrumb-item">
+      <div className="crumb" key={page}>
         <p>Steps Remaining</p>
         <p>{formTitles.length - page}</p>
       </div>
     );
 
-    return (
-      <div className="breadcrumb-trail">
-        <ol>{content}</ol>
-      </div>
-    );
+    return <div className="breadcrumb-trail">{content}</div>;
   };
 
   return (
