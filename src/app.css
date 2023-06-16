@@ -11,17 +11,24 @@
   --orange-shadow-rgba: rgba(244, 95, 26, 0.85);
   --gl-orange: #f45f1a;
   /* font-size: 100% is set by reset.css
-  this helps us to use rem units to
-  set relative sizes for other text 
+  this helps us to use rem units to set relative sizes for other text
   100% for browsers typically defaults to 16px */
 
-  /* Use this to convert from rem */
-  --base-pixels: 16;
-  --pixels: 16;
-  /* Pixel to rem calc */
-  /* --font-size: calc((var(--pixels) / var(--base-pixels)) * 1rem); */
+  /* @link https://utopia.fyi/type/calculator?c=320,16,1.2,1920,24,1.618,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+  --step--2: clamp(0.57rem, calc(0.72rem + -0.12vw), 0.69rem);
+  --step--1: clamp(0.83rem, calc(0.81rem + 0.09vw), 0.93rem);
+  --step-0: clamp(1rem, calc(0.9rem + 0.5vw), 1.5rem);
+  --step-1: clamp(1.2rem, calc(0.95rem + 1.23vw), 2.43rem);
+  --step-2: clamp(1.44rem, calc(0.94rem + 2.49vw), 3.93rem);
+  --step-3: clamp(1.73rem, calc(0.8rem + 4.63vw), 6.35rem);
+  --step-4: clamp(2.07rem, calc(0.43rem + 8.21vw), 10.28rem);
+  --step-5: clamp(2.49rem, calc(-0.34rem + 14.15vw), 16.63rem);
 }
 
+header {
+  margin-bottom: max(3vh, 2rem);
+}
 /* Div container for page content */
 div.main-container {
   border-radius: 5px;
@@ -42,22 +49,17 @@ and also classes which can be used to size the text
 without affecting the semantics of the page - A11y! */
 h1,
 h1.style {
-  --pixels: 20;
-  /* this is equivalent to 25px if root is 16px */
-  /* font-size: 1.5625rem; */
-  font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
+  font-size: var(--step-4);
 }
 
 h2,
 h2.style {
-  --pixels: 16;
-  font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
+  font-size: var(--step-3);
 }
 
 h3,
 h3.style {
-  --pixels: 14;
-  font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
+  font-size: var(--step-2);
   font-weight: bold;
 }
 
@@ -65,88 +67,10 @@ h3.style {
 the contrast */
 h4,
 .h4-style {
-  --pixels: 14;
-  font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
+  font-size: var(--step-1);
   font-weight: 600;
 }
 
-/* For tablet sizes */
-@media screen and (min-width: 768px) {
-  /*  */
-  h1,
-  h1.style {
-    --pixels: 25;
-    /* this is equivalent to 25px if root is 16px */
-    /* font-size: 1.5625rem; */
-    font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
-  }
-
-  h2,
-  h2.style {
-    --pixels: 20;
-    font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
-  }
-
-  h3,
-  h3.style {
-    --pixels: 16;
-    font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
-    font-weight: bold;
-  }
-
-  /* As this text is smaller - increase the weight to balance
-  the contrast */
-  h4,
-  .h4-style {
-    --pixels: 14;
-    font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
-    font-weight: 600;
-  }
-}
-
-/* laptop screens */
-/* @media screen and (min-width: 1024px) {
-} */
-
-/* Larger Laptop screens */
-/* @media screen and (min-width: 1366px) {
-}  */
-
-/* Desktops */
-@media screen and (min-width: 1920px) {
-  /*  */
-  h1,
-  h1.style {
-    --pixels: 48;
-    /* this is equivalent to 25px if root is 16px */
-    /* font-size: 1.5625rem; */
-    font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
-  }
-
-  h2,
-  h2.style {
-    --pixels: 32;
-    font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
-  }
-
-  h3,
-  h3.style {
-    --pixels: 24;
-    font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
-    font-weight: bold;
-  }
-
-  /* As this text is smaller - increase the weight to balance
-                the contrast */
-  h4,
-  .h4-style {
-    --pixels: 18;
-    font-size: calc(var(--pixels) / var(--base-pixels) * 1rem);
-    font-weight: 600;
-  }
-
-  div.main-container {
-    width: 80%;
-    padding: 4rem;
-  }
+body {
+  font-size: var(--step-0);
 }
