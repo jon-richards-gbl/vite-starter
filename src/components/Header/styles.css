@@ -46,16 +46,13 @@ a:visited {
   color: var(--primary-colour);
 }
 
+/* Font awesome user logo */
 .fa-user {
   color: var(--gl-orange);
   padding-right: 0.3rem;
 }
 /* For tablet sizes */
 @media screen and (min-width: 768px) {
-  /* .svg-logo-div {
-            max-width: 10%;
-          } */
-
   ul.nav-list {
     min-width: 97%;
   }
@@ -68,32 +65,7 @@ the left rather than default of right to move the item to the right hand side */
 
 /* Laptop screens */
 @media screen and (min-width: 1024px) {
-  /* .svg-logo-div {
-            max-width: 15%;
-          } */
-
   ul.nav-list {
     min-width: 95%;
-  }
-}
-
-/* larger laptop screens */
-@media screen and (min-width: 1366px) {
-  /* .svg-logo-div {
-            max-width: 18%;
-          } */
-
-  ul.nav-list {
-    min-width: 90%;
-  }
-}
-/* Desktops */
-@media screen and (min-width: 1920px) {
-  /* .svg-logo-div {
-            min-width: 20%;
-          } */
-
-  ul.nav-list {
-    min-width: 90%;
   }
 }
