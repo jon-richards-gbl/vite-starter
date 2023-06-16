@@ -26,7 +26,7 @@ const SignUpPage = (): JSX.Element => {
             // mark all others as false
             aria-current={i === page - 1 ? "step" : "false"}
           >
-            <h4>Step {i + 1}</h4>
+            <h5>Step {i + 1}</h5>
             <p>{formTitles[i]}</p>
           </div>
           <div className="divider">
@@ -43,7 +43,7 @@ const SignUpPage = (): JSX.Element => {
 
     content.push(
       <div className="crumb" key={page}>
-        <p>Steps Remaining</p>
+        <h5>Steps Remaining</h5>
         <p>{formTitles.length - page}</p>
       </div>
     );
