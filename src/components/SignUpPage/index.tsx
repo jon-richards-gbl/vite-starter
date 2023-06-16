@@ -30,8 +30,12 @@ const SignUpPage = (): JSX.Element => {
             <p>{formTitles[i]}</p>
           </div>
           <div className="divider">
-            {/* TODO: Add font awesome icon */}
-            <span aria-hidden="true">&gt</span>
+            {/* Add chevrons but only BETWEEN steps */}
+            {i === page - 1 ? null : (
+              <span aria-hidden="true">
+                <i className="fa-solid fa-chevron-right"></i>
+              </span>
+            )}
           </div>
         </>
       );
