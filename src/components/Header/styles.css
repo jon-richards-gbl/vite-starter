@@ -45,6 +45,10 @@ a:visited {
   color: var(--primary-colour);
 }
 
+.fa-user {
+  color: var(--gl-orange);
+  padding-right: 0.3rem;
+}
 /* For tablet sizes */
 @media screen and (min-width: 768px) {
   /* .svg-logo-div {

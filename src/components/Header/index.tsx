@@ -24,6 +24,7 @@ const Header = () => {
           </li>
           {/* Items after this will all be right aligned */}
           <li className="nav-link align-right">
+            <i className="fa-solid fa-user" aria-hidden="true"></i>
             <NavLink to={PageRoutes.LogInPage}>Log In</NavLink>
           </li>
           <li className="nav-link">
