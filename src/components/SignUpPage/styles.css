@@ -30,9 +30,7 @@ div.crumb {
 }
 
 [aria-current="step"] {
-  box-shadow: 0 0 20px 0 rgba(7, 7, 7, 0.29);
-  box-shadow: 00, 20px, 0, var(--orange);
-  /* text-decoration-line: overline underline; */
+  box-shadow: 0 0 20px 0 var(--orange-shadow-rgba);
 }
 
 .breadcrumb p {
