@@ -25,15 +25,14 @@
 /* Div container for page content */
 div.main-container {
   border-radius: 5px;
-  border-color: var(--secondary-colour);
-  border-style: dashed;
+  border: 0.1rem dashed var(--secondary-colour);
   background-color: var(--primary-colour);
-  border-width: 0.1rem;
-  /* TODO: Need to adjust this for larger sizes? */
-  width: 98%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0.5rem;
+  /* width will be AT MOST 200rem wide but will be smaller if viewport is smaller */
+  width: min(90%, 200rem);
+  /* Right and left margin */
+  margin-inline: auto;
+  /* 1st value = top and bottom, 2nd = right and left */
+  padding: 1.5rem max(3vh, 0.5rem);
   display: flex;
   justify-content: center;
 }
