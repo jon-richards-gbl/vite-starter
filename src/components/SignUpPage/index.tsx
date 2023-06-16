@@ -19,7 +19,7 @@ const SignUpPage = (): JSX.Element => {
     for (let i = 0; i < page; i++) {
       // if last element - mark as current for aria
       content.push(
-        <li id={`crumb ${i}`} aria-current={i === page - 1 ? "step" : false}>
+        <li key={`crumb-${i}`} aria-current={i === page - 1 ? "step" : false}>
           <p>Step {i + 1}</p>
           <p>{formTitles[i]} &gt;</p>
         </li>
