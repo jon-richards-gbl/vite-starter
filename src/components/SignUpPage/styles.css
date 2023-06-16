@@ -13,7 +13,7 @@
 }
 
 div.divider {
-  border-top: 0.1rem solid black;
+  /* border-top: 0.1rem solid black; */
   display: flex;
   justify-content: center;
   align-items: center;
