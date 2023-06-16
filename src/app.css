@@ -13,17 +13,16 @@
   /* font-size: 100% is set by reset.css
   this helps us to use rem units to set relative sizes for other text
   100% for browsers typically defaults to 16px */
-
-  /* @link https://utopia.fyi/type/calculator?c=320,16,1.2,1920,24,1.618,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
-
-  --step--2: clamp(0.57rem, calc(0.72rem + -0.12vw), 0.69rem);
-  --step--1: clamp(0.83rem, calc(0.81rem + 0.09vw), 0.93rem);
-  --step-0: clamp(1rem, calc(0.9rem + 0.5vw), 1.5rem);
-  --step-1: clamp(1.2rem, calc(0.95rem + 1.23vw), 2.43rem);
-  --step-2: clamp(1.44rem, calc(0.94rem + 2.49vw), 3.93rem);
-  --step-3: clamp(1.73rem, calc(0.8rem + 4.63vw), 6.35rem);
-  --step-4: clamp(2.07rem, calc(0.43rem + 8.21vw), 10.28rem);
-  --step-5: clamp(2.49rem, calc(-0.34rem + 14.15vw), 16.63rem);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  /* @link https://utopia.fyi/type/calculator?c=320,16,1.2,1920,17,1.414,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+  --step--2: clamp(0.53rem, calc(0.73rem + -0.16vw), 0.69rem);
+  --step--1: clamp(0.75rem, calc(0.85rem + -0.08vw), 0.83rem);
+  --step-0: clamp(1rem, calc(0.99rem + 0.06vw), 1.06rem);
+  --step-1: clamp(1.2rem, calc(1.14rem + 0.3vw), 1.5rem);
+  --step-2: clamp(1.44rem, calc(1.3rem + 0.68vw), 2.12rem);
+  --step-3: clamp(1.73rem, calc(1.47rem + 1.28vw), 3rem);
+  --step-4: clamp(2.07rem, calc(1.64rem + 2.17vw), 4.25rem);
+  --step-5: clamp(2.49rem, calc(1.78rem + 3.52vw), 6.01rem);
 }
 
 header {
@@ -60,7 +59,6 @@ h2.style {
 h3,
 h3.style {
   font-size: var(--step-2);
-  font-weight: bold;
 }
 
 /* As this text is smaller - increase the weight to balance
@@ -68,9 +66,14 @@ the contrast */
 h4,
 .h4-style {
   font-size: var(--step-1);
-  font-weight: 600;
+  font-weight: bold;
 }
 
+h5,
+.h5-style {
+  font-size: var(--step-0);
+  font-weight: 600;
+}
 body {
   font-size: var(--step-0);
 }
