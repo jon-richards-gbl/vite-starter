@@ -28,7 +28,7 @@ ul.nav-list {
   flex-wrap: wrap;
   /* center items vertically */
   align-items: center;
-  box-shadow: 0 4px 10px 2px rgba(7, 7, 7, 0.29);
+  box-shadow: 0 4px 10px 2px var(--gray-shadow-rgba);
 }
 
 .nav-link {
