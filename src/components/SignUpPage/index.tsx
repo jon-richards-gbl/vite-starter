@@ -31,7 +31,7 @@ const SignUpPage = (): JSX.Element => {
           </div>
           <div className="divider">
             {/* TODO: Add font awesome icon */}
-            <span>&gt</span>
+            <span aria-hidden="true">&gt</span>
           </div>
         </>
       );
