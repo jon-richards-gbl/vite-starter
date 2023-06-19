@@ -47,17 +47,17 @@ div.main-container {
 and also classes which can be used to size the text
 without affecting the semantics of the page - A11y! */
 h1,
-h1.style {
+.h1-style {
   font-size: var(--step-4);
 }
 
 h2,
-h2.style {
+.h2-style {
   font-size: var(--step-3);
 }
 
 h3,
-h3.style {
+.h3-style {
   font-size: var(--step-2);
 }
 
