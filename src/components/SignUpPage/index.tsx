@@ -1,19 +1,33 @@
 import { useState } from "react";
 
+import UserData from "../../types/types";
+import EmailPage from "./EmailPage";
 import GuidancePage from "./GuidancePage";
 import "./styles.css";
 
 const SignUpPage = (): JSX.Element => {
   const formTitles: Array<string> = [
     "Sign Up - Guidance",
-    "Login Details",
+    "Email Address",
     "Personal Information",
     "Address",
   ];
 
+  // TS type for formData
+  const [userData, setUserData] = useState<UserData>({
+    email: "",
+    password: "",
+    firstName: "",
+    surname: "",
+    birthDate: null,
+    address: "",
+  });
+
   const PageDisplay = () => {
     if (page === 0) {
       return <GuidancePage />;
+    } else if (page === 1) {
+      return <EmailPage userData={userData} setUserData={setUserData} />;
     }
   };
 
