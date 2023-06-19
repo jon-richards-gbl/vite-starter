@@ -52,20 +52,8 @@ div.separator {
   justify-content: center;
 }
 
-[aria-invalid="true"] {
+input[aria-invalid="true"] {
   border-color: red;
-}
-
-/* Hide any elements visibly as well as for aria */
-[aria-hidden="true"] {
-  /* display: none; */
-  visibility: hidden;
-}
-
-/* Visibly show any elements shown for aria */
-[aria-hidden="false"] {
-  /* display: block; */
-  visibility: visible;
 }
 
 .success {
@@ -74,4 +62,15 @@ div.separator {
 
 .error {
   color: #b22222;
+}
+/* Hide any elements visibly as well as for aria */
+div.feedback-text[aria-hidden="true"] {
+  /* display: none; */
+  visibility: hidden;
+}
+
+/* Visibly show any elements shown for aria */
+div.feedback-text[aria-hidden="false"] {
+  /* display: block; */
+  visibility: visible;
 }
