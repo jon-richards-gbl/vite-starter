@@ -13,3 +13,8 @@ export const selectUserWeight = createSelector(
   [selectFormState],
   (formState) => formState.weight
 );
+
+export const selectUserDropdown = createSelector(
+  [selectFormState],
+  (formState) => formState.dropdown
+);

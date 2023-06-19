@@ -67,7 +67,10 @@ const Form = () => {
               <FontAwesomeIcon className="fa-icon" icon={faUser} />{" "}
               <input
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => {
+                  setWeight(e.target.value);
+                  dispatch(setUserName(e.target.value));
+                }}
                 placeholder="Name..."
                 type="text"
                 name="name"
@@ -82,7 +85,10 @@ const Form = () => {
               />{" "}
               <input
                 value={weight}
-                onChange={(e) => setWeight(e.target.value)}
+                onChange={(e) => {
+                  setWeight(e.target.value);
+                  dispatch(setUserWeight(e.target.value));
+                }}
                 placeholder="Weight in kg's"
                 type="text"
                 name="weight"
@@ -111,6 +117,7 @@ const Form = () => {
                 value={dropdown}
                 onChange={(e) => {
                   setDropdown(e.target.value);
+                  dispatch(setUserDropdown(e.target.value));
                 }}
               >
                 <option value="2.3">Slow: 1.7 mph</option>

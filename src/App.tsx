@@ -29,7 +29,7 @@ function App() {
   return (
     <>
       <Nav />
-      <Form setWeight={setWeight} setDropdown={setDropdown} setName={setName} />
+      <Form />
 
       {weight && dropdown && name && (
         <Map weight={weight} dropdown={dropdown} name={name} />

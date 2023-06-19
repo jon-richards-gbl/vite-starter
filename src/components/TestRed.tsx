@@ -1,16 +1,23 @@
 import React from "react";
 
 import { useAppSelector } from "../store";
-import { selectUserWeight } from "../store/form/formSelectors";
-import { selectUserName } from "../store/user/selectors";
+import {
+  selectUserDropdown,
+  selectUserName,
+  selectUserWeight,
+} from "../store/form/formSelectors";
+
+// import { selectUserName } from "../store/user/selectors";
 
 const TestRed = () => {
   const userName = useAppSelector(selectUserName);
   const userWeight = useAppSelector(selectUserWeight);
+  const userDropdown = useAppSelector(selectUserDropdown);
 
   return (
     <h1>
-      Hi {userName} twerking {userWeight}{" "}
+      Hi {userName} your weight is {userWeight} and your dropdown is{" "}
+      {userDropdown}{" "}
     </h1>
   );
 };
