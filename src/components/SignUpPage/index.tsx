@@ -70,6 +70,7 @@ const SignUpPage = (): JSX.Element => {
         {/* Draw breadcrumb trail, showing where the user is up to */}
         {BreadcrumbDisplay()}
         <br />
+
         {/* Output the header and page content for the step the user is currently at */}
         <div className="main-container">
           <div className="header">
@@ -78,6 +79,8 @@ const SignUpPage = (): JSX.Element => {
           </div>
           {PageDisplay()}
         </div>
+
+        {/* Buttons will be controlled here, not via the individual pages */}
         <div className="button-row">
           <button
             className="form-button h4-style"

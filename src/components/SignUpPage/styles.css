@@ -27,6 +27,10 @@ div.crumb {
   padding: 0.01rem;
 }
 
+h4 {
+  /* Add a top margin to h4s for the inner pages*/
+  margin-top: 0.5em;
+}
 .block-label {
   display: block;
 }
