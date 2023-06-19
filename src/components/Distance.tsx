@@ -22,7 +22,7 @@ const Distance: React.FC<DistanceProps> = ({ leg }) => {
     return <div>No distance information available</div>;
   }
 
-  // const parsedDropdown = parseInt(userDropdown);
+  const parsedDropdown = parseFloat(userDropdown);
   const parsedWeight = parseFloat(userWeight);
   console.log("UserDropsown:", userDropdown);
   // console.log("ParsedDropsown:", parsedDropdown);
@@ -33,7 +33,7 @@ const Distance: React.FC<DistanceProps> = ({ leg }) => {
 
   const parsedMins = parseFloat(mins() || "0");
 
-  const calsLost = ((userDropdown * 3.5 * parsedWeight) / 200) * parsedMins;
+  const calsLost = ((parsedDropdown * 3.5 * parsedWeight) / 200) * parsedMins;
 
   return (
     <div className="distance-container">
