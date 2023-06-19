@@ -53,7 +53,7 @@ const SignUpPage = (): JSX.Element => {
           </div>
           <div className="divider">
             {/* Add chevrons but only BETWEEN steps */}
-            {i === page - 1 ? null : (
+            {i >= page ? null : (
               <span aria-hidden="true">
                 <i className="fa-solid fa-chevron-right"></i>
               </span>
