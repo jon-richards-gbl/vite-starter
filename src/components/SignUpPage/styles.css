@@ -31,8 +31,15 @@ h4 {
   /* Add a top margin to h4s for the inner pages*/
   margin-top: 0.5em;
 }
-.block-label {
+.input-label {
   display: block;
+  width: fit-content;
+  color: var(--secondary-colour);
+}
+
+div.separator {
+  border-top: 0.1rem solid var(--secondary-colour);
+  margin: 1rem 0.3rem;
 }
 
 .block-input {
@@ -43,4 +50,28 @@ h4 {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+[aria-invalid="true"] {
+  border-color: red;
+}
+
+/* Hide any elements visibly as well as for aria */
+[aria-hidden="true"] {
+  /* display: none; */
+  visibility: hidden;
+}
+
+/* Visibly show any elements shown for aria */
+[aria-hidden="false"] {
+  /* display: block; */
+  visibility: visible;
+}
+
+.success {
+  color: #436e43;
+}
+
+.error {
+  color: #b22222;
 }
