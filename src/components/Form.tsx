@@ -5,28 +5,40 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, FormEventHandler, SetStateAction, useState } from "react";
 
 import { useAppDispatch } from "../store";
+import {
+  setUserCalsBun,
+  setUserDropdown,
+  setUserName,
+  setUserTime,
+  setUserWeight,
+} from "../store/form/formSlice";
 import MapContainer from "./MapContainer";
 
 //Props to be sent to App.tsx
-interface FormProps {
-  setWeight: Dispatch<SetStateAction<string>>;
-  setDropdown: Dispatch<SetStateAction<string>>;
-  setName: Dispatch<SetStateAction<string>>;
-}
+// interface FormProps {
+//   setWeight: Dispatch<SetStateAction<string>>;
+//   setDropdown: Dispatch<SetStateAction<string>>;
+//   setName: Dispatch<SetStateAction<string>>;
+// }
 
-const Form = ({
-  setWeight: setWeightProp,
-  setDropdown: setDropdownProp,
-  setName: setNameProp,
-}: FormProps) => {
+const Form = () => {
   const [weight, setWeight] = useState<string>("");
   const [time, setTime] = useState<string>("");
   const [dropdown, setDropdown] = useState<string>("fast");
   const [calsBun, setCalsBun] = useState<number | string>("");
   const [name, setName] = useState<string>("");
+  const dispatch = useAppDispatch();
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    dispatch(setUserName(name));
+    dispatch(setUserWeight(weight));
+    dispatch(setUserTime(time));
+    dispatch(setUserDropdown("selectedValue"));
+  };
 
   const handleGetSpeed = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -48,82 +60,90 @@ const Form = ({
 
   return (
     <>
-      <div className="grid-container">
-        <div className="grid-even-columns">
-          <div className="icon">
-            <FontAwesomeIcon className="fa-icon" icon={faUser} />{" "}
-            <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Name..."
-              type="text"
-              name="name"
-              required
-            />
+      <form onSubmit={handleSubmit}>
+        <div className="grid-container">
+          <div className="grid-even-columns">
+            <div className="icon">
+              <FontAwesomeIcon className="fa-icon" icon={faUser} />{" "}
+              <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Name..."
+                type="text"
+                name="name"
+                required
+              />
+            </div>
+            <div className="icon">
+              {" "}
+              <FontAwesomeIcon
+                className="fa-icon"
+                icon={faScaleBalanced}
+              />{" "}
+              <input
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
+                placeholder="Weight in kg's"
+                type="text"
+                name="weight"
+                required
+              />
+            </div>
+            <div className="icon">
+              {" "}
+              <FontAwesomeIcon className="fa-icon" icon={faClock} />
+              <input
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+                placeholder="Time"
+                type="text"
+                name="time"
+                required
+              />
+            </div>
+            <div className="icon">
+              {" "}
+              <FontAwesomeIcon
+                className="fa-icon"
+                icon={faPersonWalking}
+              />{" "}
+              <select
+                value={dropdown}
+                onChange={(e) => {
+                  setDropdown(e.target.value);
+                }}
+              >
+                <option value="2.3">Slow: 1.7 mph</option>
+                <option value="2.5">Medium: 2.9 mph</option>
+                <option value="3.3">Fast: 3 mph</option>
+                <option value="3.8">Faster 3.6 mph</option>
+              </select>
+            </div>
+            <div className="row">
+              <input
+                className="submitBtn"
+                onClick={handleGetSpeed}
+                type="submit"
+              />
+            </div>
           </div>
-          <div className="icon">
-            {" "}
-            <FontAwesomeIcon className="fa-icon" icon={faScaleBalanced} />{" "}
-            <input
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
-              placeholder="Weight in kg's"
-              type="text"
-              name="weight"
-              required
-            />
-          </div>
-          <div className="icon">
-            {" "}
-            <FontAwesomeIcon className="fa-icon" icon={faClock} />
-            <input
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              placeholder="Time"
-              type="text"
-              name="time"
-              required
-            />
-          </div>
-          <div className="icon">
-            {" "}
-            <FontAwesomeIcon className="fa-icon" icon={faPersonWalking} />{" "}
-            <select
-              value={dropdown}
-              onChange={(e) => {
-                setDropdown(e.target.value);
-              }}
-            >
-              <option value="2.3">Slow: 1.7 mph</option>
-              <option value="2.5">Medium: 2.9 mph</option>
-              <option value="3.3">Fast: 3 mph</option>
-              <option value="3.8">Faster 3.6 mph</option>
-            </select>
-          </div>
-          <div className="row">
-            <input
-              className="submitBtn"
-              onClick={handleGetSpeed}
-              type="submit"
-            />
-          </div>
-        </div>
 
-        <div className="grid-one-columns">
-          <div className="column col1">
-            <div className="card">
-              <div className="card-container">
-                <h4>
-                  <b className="name">{name}</b>
-                </h4>
-                <p>
-                  You burn {calsBun} calories on a {time} minute walk
-                </p>
+          <div className="grid-one-columns">
+            <div className="column col1">
+              <div className="card">
+                <div className="card-container">
+                  <h4>
+                    <b className="name">{name}</b>
+                  </h4>
+                  <p>
+                    You burn {calsBun} calories on a {time} minute walk
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
       <MapContainer weight={weight} dropdown={dropdown} name={name} />
     </>
   );

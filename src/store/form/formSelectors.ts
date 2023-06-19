@@ -8,3 +8,8 @@ export const selectUserName = createSelector(
   [selectFormState],
   (formState) => formState.name
 );
+
+export const selectUserWeight = createSelector(
+  [selectFormState],
+  (formState) => formState.weight
+);
