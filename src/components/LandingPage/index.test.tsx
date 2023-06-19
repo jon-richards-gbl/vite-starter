@@ -8,7 +8,14 @@ describe("Landing Page", () => {
     it("renders how we'd expect", () => {
       renderComponent(<LandingPage />);
 
-      expect(screen.getByText("Hello world")).toBeInTheDocument();
+      expect(screen.getByText("Hello, world! (h1)")).toBeInTheDocument();
+      expect(screen.getByText("These headings... (h2)")).toBeInTheDocument();
+      expect(
+        screen.getByText("...are here to enable... (h3)")
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText("...screen reader and contrast checking (h4)")
+      ).toBeInTheDocument();
     });
   });
 });

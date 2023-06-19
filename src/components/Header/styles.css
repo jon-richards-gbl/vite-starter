@@ -2,10 +2,15 @@
 /* TODO: Rough size used for now - need to make this responsive */
 .svg-logo-div {
   /* Is this working - or overridden by width in Logo <svg>? */
-  width: 15rem;
+  /* Max width 100% */
+  width: min(20rem, 100%);
   display: inline-flex;
 }
 
+img {
+  /* Necessary hack for IE? */
+  width: 100%;
+}
 .nav-bar {
   display: flex;
   justify-content: center;
@@ -14,9 +19,9 @@
 /* TODO: extract theme colours to a base styles css file
             and create as custom properties */
 ul.nav-list {
-  padding: 1rem;
-  margin: 1rem;
-  background-color: black;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  background-color: var(--secondary-colour);
   min-width: 99%;
   border-radius: 20px;
   display: flex;
@@ -24,7 +29,7 @@ ul.nav-list {
   flex-wrap: wrap;
   /* center items vertically */
   align-items: center;
-  box-shadow: 0 4px 10px 2px rgba(7, 7, 7, 0.29);
+  box-shadow: 0 4px 10px 2px var(--gray-shadow-rgba);
 }
 
 .nav-link {
@@ -32,69 +37,35 @@ ul.nav-list {
   padding: 0.3rem;
 }
 
-a.active {
-  color: orange;
-}
-
 a:link {
-  color: white;
+  color: var(--primary-colour);
 }
 
 /* All links appear as visited already? */
 a:visited {
-  color: white;
+  color: var(--primary-colour);
 }
 
-.align-left {
-  float: left;
+/* Font awesome user logo */
+.fa-user {
+  color: var(--gl-orange);
+  padding-right: 0.3rem;
 }
-
-/* Flex container child - move the free space to 
-the left rather than default of right to move the item
-to the right hand side */
-.align-right {
-  margin-left: auto;
-}
-
 /* For tablet sizes */
 @media screen and (min-width: 768px) {
-  .svg-logo-div {
-    max-width: 20rem;
-  }
-
   ul.nav-list {
     min-width: 97%;
+  }
+  /* Flex container child - move the free space to 
+the left rather than default of right to move the item to the right hand side */
+  .align-right {
+    margin-left: auto;
   }
 }
 
 /* Laptop screens */
 @media screen and (min-width: 1024px) {
-  .svg-logo-div {
-    max-width: 25rem;
-  }
-
   ul.nav-list {
     min-width: 95%;
-  }
-}
-
-/* laptop screens */
-@media screen and (min-width: 1366px) {
-  .svg-logo-div {
-    max-width: 30rem;
-  }
-
-  ul.nav-list {
-    min-width: 90%;
-  }
-}
-/* Desktops */
-@media screen and (min-width: 1920px) {
-  .svg-logo-div {
-    max-width: 45rem;
-  }
-
-  ul.nav-list {
-    min-width: 90%;
   }
 }

@@ -12,11 +12,8 @@ describe("Header", () => {
       expect(screen.getByText("Log In")).toBeInTheDocument();
       expect(screen.getByText("Sign Up")).toBeInTheDocument();
       expect(
-        screen.getByTitle("Global Logic - A Hitachi Group Company")
+        screen.getByAltText("Global Logic - A Hitachi Group Company")
       ).toBeInTheDocument();
-
-      // expect(screen.getByAltText("React Icon")).toBeInTheDocument();
-      // expect(screen.getByAltText("Global Logic Icon")).toBeInTheDocument();
     });
   });
 });

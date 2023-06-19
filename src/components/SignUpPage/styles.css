@@ -1,0 +1,46 @@
+/* Styles for SignUpPage and child components */
+
+div.divider {
+  /* border-top: 0.1rem solid black; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.breadcrumb-trail {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(3em, 7em));
+}
+
+div.crumb {
+  min-width: 4em;
+  padding: 0.2em;
+}
+
+[aria-current="step"] {
+  box-shadow: 0 0 20px 0 var(--orange-shadow-rgba);
+  border: 1px solid var(--gl-orange);
+  border-radius: 3px;
+}
+
+.breadcrumb p {
+  padding: 0.01rem;
+}
+
+h4 {
+  /* Add a top margin to h4s for the inner pages*/
+  margin-top: 0.5em;
+}
+.block-label {
+  display: block;
+}
+
+.block-input {
+  display: block;
+}
+
+.button-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
