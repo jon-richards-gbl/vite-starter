@@ -7,6 +7,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dispatch, SetStateAction, useState } from "react";
 
+import { useAppDispatch } from "../store";
 import MapContainer from "./MapContainer";
 
 //Props to be sent to App.tsx

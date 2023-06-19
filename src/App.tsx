@@ -23,11 +23,11 @@ function App() {
   return (
     <>
       <Nav />
-      {/* <Form setWeight={setWeight} setDropdown={setDropdown} setName={setName} />
+      <Form setWeight={setWeight} setDropdown={setDropdown} setName={setName} />
 
       {weight && dropdown && name && (
         <Map weight={weight} dropdown={dropdown} name={name} />
-      )} */}
+      )}
       <LandingPage />
       <Footer />
     </>
