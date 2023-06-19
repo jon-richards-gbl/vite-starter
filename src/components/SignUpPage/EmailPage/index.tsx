@@ -1,7 +1,6 @@
 import { ChangeEvent, FocusEvent, useRef, useState } from "react";
 
 import UserData from "../../../types/types";
-import "./styles.css";
 
 interface loginDetailsProps {
   userData: UserData;
