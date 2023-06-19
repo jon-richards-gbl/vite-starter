@@ -3,13 +3,14 @@ import { useState } from "react";
 import UserData from "../../types/types";
 import EmailPage from "./EmailPage";
 import GuidancePage from "./GuidancePage";
+import PasswordPage from "./PasswordPage";
 import "./styles.css";
 
 const SignUpPage = (): JSX.Element => {
   const formTitles: Array<string> = [
     "Sign Up - Guidance",
     "Email Address",
-    "Personal Information",
+    "Password",
     "Address",
   ];
 
@@ -28,6 +29,8 @@ const SignUpPage = (): JSX.Element => {
       return <GuidancePage />;
     } else if (page === 1) {
       return <EmailPage userData={userData} setUserData={setUserData} />;
+    } else if (page === 2) {
+      return <PasswordPage userData={userData} setUserData={setUserData} />;
     }
   };
 
