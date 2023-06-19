@@ -7,8 +7,6 @@ import {
   selectUserWeight,
 } from "../store/form/formSelectors";
 
-// import { selectUserName } from "../store/user/selectors";
-
 const TestRed = () => {
   const userName = useAppSelector(selectUserName);
   const userWeight = useAppSelector(selectUserWeight);

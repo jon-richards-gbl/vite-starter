@@ -3,23 +3,29 @@
 // const gasLitreCost = 1.5;
 // const litreCostKM = litresPerKM * gasLitreCost;
 // const secondsPerDay = 60 * 60 * 24;
+import { useAppSelector } from "../store";
+import {
+  selectUserDropdown,
+  selectUserName,
+  selectUserWeight,
+} from "../store/form/formSelectors";
 
 type DistanceProps = {
   leg: google.maps.DirectionsLeg;
-  weight: string;
-
-  dropdown: string;
-  name: string;
 };
 
-const Distance: React.FC<DistanceProps> = ({ leg, weight, dropdown, name }) => {
+const Distance: React.FC<DistanceProps> = ({ leg }) => {
+  const userName = useAppSelector(selectUserName);
+  const userWeight = useAppSelector(selectUserWeight);
+  const userDropdown = useAppSelector(selectUserDropdown);
   if (!leg) {
     return <div>No distance information available</div>;
   }
 
-  const parsedDropdown = parseInt(dropdown);
-  const parsedWeight = parseFloat(weight);
-
+  // const parsedDropdown = parseInt(userDropdown);
+  const parsedWeight = parseFloat(userWeight);
+  console.log("UserDropsown:", userDropdown);
+  // console.log("ParsedDropsown:", parsedDropdown);
   const mins = () => {
     if (leg.duration?.value === undefined) return "no";
     else return (leg.duration?.value / 60).toString();
@@ -27,7 +33,7 @@ const Distance: React.FC<DistanceProps> = ({ leg, weight, dropdown, name }) => {
 
   const parsedMins = parseFloat(mins() || "0");
 
-  const calsLost = ((parsedDropdown * 3.5 * parsedWeight) / 200) * parsedMins;
+  const calsLost = ((userDropdown * 3.5 * parsedWeight) / 200) * parsedMins;
 
   return (
     <div className="distance-container">
@@ -51,14 +57,14 @@ const Distance: React.FC<DistanceProps> = ({ leg, weight, dropdown, name }) => {
         <div>
           <strong>Duration in minutes:</strong> {mins()}
         </div>
-        <strong>Dropdown:</strong> {dropdown}
+        <strong>Dropdown:</strong> {userDropdown}
       </div>
       <div>
         <strong>cals lost :</strong> {calsLost}
       </div>
 
       <div>
-        <strong>Name:</strong> {name}
+        <strong>Name:</strong> {userName}
       </div>
     </div>
   );

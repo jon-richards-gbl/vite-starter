@@ -14,14 +14,7 @@ type LatLngLiteral = google.maps.LatLngLiteral;
 type DirectionsResult = google.maps.DirectionsResult;
 type MapOptions = google.maps.MapOptions;
 
-interface MapProps {
-  weight: string;
-  dropdown: string;
-  name: string;
-}
-
-const Map = ({ weight, dropdown, name }: MapProps) => {
-  console.log("Weight", weight);
+const Map = () => {
   const [office, setOffice] = useState<LatLngLiteral>();
   const [directions, setDirections] = useState<DirectionsResult>();
   const mapRef = useRef<google.maps.Map | null>(null);
@@ -72,14 +65,7 @@ const Map = ({ weight, dropdown, name }: MapProps) => {
           }}
         />
         {!office && <p>Enter the address of your office.</p>}
-        {directions && (
-          <Distance
-            leg={directions.routes[0].legs[0]}
-            weight={weight}
-            dropdown={dropdown}
-            name={name}
-          />
-        )}
+        {directions && <Distance leg={directions.routes[0].legs[0]} />}
       </div>
       <div className="map">
         <GoogleMap
@@ -129,7 +115,6 @@ const Map = ({ weight, dropdown, name }: MapProps) => {
               <Circle center={office} radius={45000} options={farOptions} />
             </>
           )}
-          <p>Weight: {weight}</p>
         </GoogleMap>
       </div>
     </div>

@@ -11,7 +11,7 @@ export function createInitialFormState(): FormState {
     name: "",
     weight: "",
     time: "",
-    dropdown: "fast",
+    dropdown: "",
     calsBun: "",
   };
 }

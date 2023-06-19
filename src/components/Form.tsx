@@ -5,7 +5,7 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dispatch, FormEventHandler, SetStateAction, useState } from "react";
+import { FormEventHandler, useState } from "react";
 
 import { useAppDispatch } from "../store";
 import {
@@ -15,16 +15,9 @@ import {
   setUserTime,
   setUserWeight,
 } from "../store/form/formSlice";
-import MapContainer from "./MapContainer";
-
-//Props to be sent to App.tsx
-// interface FormProps {
-//   setWeight: Dispatch<SetStateAction<string>>;
-//   setDropdown: Dispatch<SetStateAction<string>>;
-//   setName: Dispatch<SetStateAction<string>>;
-// }
 
 const Form = () => {
+  // variables to set the state for the form inputs
   const [weight, setWeight] = useState<string>("");
   const [time, setTime] = useState<string>("");
   const [dropdown, setDropdown] = useState<string>("fast");
@@ -32,12 +25,13 @@ const Form = () => {
   const [name, setName] = useState<string>("");
   const dispatch = useAppDispatch();
 
+  //Function to dispatch the form input data to the redux store
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     dispatch(setUserName(name));
     dispatch(setUserWeight(weight));
     dispatch(setUserTime(time));
-    dispatch(setUserDropdown("selectedValue"));
+    dispatch(setUserDropdown(dropdown));
   };
 
   const handleGetSpeed = (
@@ -68,7 +62,7 @@ const Form = () => {
               <input
                 value={name}
                 onChange={(e) => {
-                  setWeight(e.target.value);
+                  setName(e.target.value);
                   dispatch(setUserName(e.target.value));
                 }}
                 placeholder="Name..."
@@ -116,8 +110,9 @@ const Form = () => {
               <select
                 value={dropdown}
                 onChange={(e) => {
-                  setDropdown(e.target.value);
-                  dispatch(setUserDropdown(e.target.value));
+                  const selectedValue = e.target.value;
+                  setDropdown(selectedValue);
+                  dispatch(setUserDropdown(selectedValue));
                 }}
               >
                 <option value="2.3">Slow: 1.7 mph</option>
@@ -151,7 +146,6 @@ const Form = () => {
           </div>
         </div>
       </form>
-      <MapContainer weight={weight} dropdown={dropdown} name={name} />
     </>
   );
 };

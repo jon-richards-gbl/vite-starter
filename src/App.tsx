@@ -31,9 +31,8 @@ function App() {
       <Nav />
       <Form />
 
-      {weight && dropdown && name && (
-        <Map weight={weight} dropdown={dropdown} name={name} />
-      )}
+      <Map />
+
       {/* <LandingPage /> */}
       <UserForm />
       <TestRed />
