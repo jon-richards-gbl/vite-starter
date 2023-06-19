@@ -1,0 +1,6 @@
+/* Styles for the GuidancePage component */
+
+#instructions {
+  color: var(--secondary-colour);
+  margin-top: 1em;
+}
