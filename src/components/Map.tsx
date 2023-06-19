@@ -62,8 +62,8 @@ const Map = ({ weight, dropdown, name }: MapProps) => {
   };
 
   return (
-    <div className="container">
-      <div className="controls">
+    <div className="map-container">
+      <div className="controls-container">
         <h1>Where you wanna beee</h1>
         <Places
           setOffice={(position) => {
@@ -85,7 +85,7 @@ const Map = ({ weight, dropdown, name }: MapProps) => {
         <GoogleMap
           zoom={10}
           center={center}
-          mapContainerClassName="map-container"
+          mapContainerClassName="map-container1"
           options={options}
           onLoad={onLoad}
         >
@@ -129,7 +129,6 @@ const Map = ({ weight, dropdown, name }: MapProps) => {
               <Circle center={office} radius={45000} options={farOptions} />
             </>
           )}
-          <p>Weight: {weight}</p>
         </GoogleMap>
       </div>
     </div>
