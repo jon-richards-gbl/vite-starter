@@ -1,17 +1,5 @@
 /* Styles for SignUpPage and child components */
 
-.block-label {
-  display: block;
-}
-
-.block-input {
-  display: block;
-}
-
-#instructions {
-  color: var(--secondary-colour);
-}
-
 div.divider {
   /* border-top: 0.1rem solid black; */
   display: flex;
@@ -37,4 +25,18 @@ div.crumb {
 
 .breadcrumb p {
   padding: 0.01rem;
+}
+
+.block-label {
+  display: block;
+}
+
+.block-input {
+  display: block;
+}
+
+.button-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
