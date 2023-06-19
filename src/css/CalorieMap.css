@@ -15,6 +15,7 @@ a {
   box-sizing: border-box;
 }
 
+
 .map-container {
   display: grid;
   grid-template-columns: 20% 1fr;
@@ -22,7 +23,8 @@ a {
   gap: 0.5rem;
   background-color: black;
   /* height: 80vh; */
-}
+
+
 
 @media screen and (max-width: 500px) {
   .map-container {

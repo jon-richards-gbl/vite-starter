@@ -1,10 +1,14 @@
 import { useState } from "react";
 
+import Footer from "./components/Footer";
 import Form from "./components/Form";
+import LandingPage from "./components/LandingPage";
 import Map from "./components/Map";
 import Nav from "./components/Nav";
 import "./css/CalorieMap.css";
+import "./css/Footer.css";
 import "./css/Form.css";
+import "./css/LandingPage.css";
 import "./css/Nav.css";
 
 function App() {
@@ -19,11 +23,13 @@ function App() {
   return (
     <>
       <Nav />
-      <Form setWeight={setWeight} setDropdown={setDropdown} setName={setName} />
+      {/* <Form setWeight={setWeight} setDropdown={setDropdown} setName={setName} />
 
       {weight && dropdown && name && (
         <Map weight={weight} dropdown={dropdown} name={name} />
-      )}
+      )} */}
+      <LandingPage />
+      <Footer />
     </>
   );
 }
