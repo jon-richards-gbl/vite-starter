@@ -19,6 +19,7 @@ const SignUpPage = (): JSX.Element => {
   const [userData, setUserData] = useState<UserData>({
     email: "",
     password: "",
+    passwordConfirm: "",
     firstName: "",
     surname: "",
     birthDate: null,
@@ -116,6 +117,7 @@ const SignUpPage = (): JSX.Element => {
           <button
             className="form-button h4-style"
             type="button"
+            // TODO: Enable child page components to disable the next button
             disabled={page === formTitles.length - 1}
             onClick={() => {
               setPage((currentPg: number) => currentPg + 1);
