@@ -34,23 +34,42 @@ const Places = ({ setOffice }: PlacesProps) => {
   };
 
   return (
-    <Combobox onSelect={handleSelect}>
-      <ComboboxInput
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        disabled={!ready}
-        className="combobox-input"
-        placeholder="Search  address"
-      />
-      <ComboboxPopover>
-        <ComboboxList>
-          {status === "OK" &&
-            data.map(({ place_id, description }) => (
-              <ComboboxOption key={place_id} value={description} />
-            ))}
-        </ComboboxList>
-      </ComboboxPopover>
-    </Combobox>
+    <>
+      {/* <Combobox onSelect={handleSelect}>
+        <ComboboxInput
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          disabled={!ready}
+          className="combobox-input"
+          placeholder="Search address"
+        />
+        <ComboboxPopover>
+          <ComboboxList>
+            {status === "OK" &&
+              data.map(({ place_id, description }) => (
+                <ComboboxOption key={place_id} value={description} />
+              ))}
+          </ComboboxList>
+        </ComboboxPopover>
+      </Combobox> */}
+      <Combobox onSelect={handleSelect}>
+        <ComboboxInput
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          disabled={!ready}
+          className="combobox-input"
+          placeholder="Search address"
+        />
+        <ComboboxPopover>
+          <ComboboxList>
+            {status === "OK" &&
+              data.map(({ place_id, description }) => (
+                <ComboboxOption key={place_id} value={description} />
+              ))}
+          </ComboboxList>
+        </ComboboxPopover>
+      </Combobox>
+    </>
   );
 };
 

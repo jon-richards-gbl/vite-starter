@@ -12,11 +12,20 @@ const LandingPage = React.lazy(() => import("./components/LandingPage"));
 const About = React.lazy(() => import("./components/About"));
 const Form = React.lazy(() => import("./components/Form"));
 const Map = React.lazy(() => import("./components/Map"));
+const GeoLocationMap = React.lazy(
+  () => import("./components/GeoLocation-map/GeoLocationMap")
+);
+const WaypointMap = React.lazy(
+  () => import("./components/waypointMap/WaypointMap")
+);
 
 export const enum PageRoutes {
   LandingPage = "/",
   About = "/about",
   Form = "/form",
+  GeoLocationMap = "/geoMap",
+  WaypointMap = "/waypointMap",
+
   // Map = "/form/map",
 }
 
@@ -34,6 +43,8 @@ const router = createBrowserRouter(
           </>
         }
       />
+      <Route path="/geoMap" element={<GeoLocationMap />} />
+      <Route path="/waypointMap" element={<WaypointMap />} />
     </Route>
   )
 );

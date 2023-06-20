@@ -60,7 +60,9 @@ const LandingPage = () => {
                 />
               </div>
               <div className="landing-card-header">
-                <h3>Way-point map</h3>
+                <a href="/waypointMap">
+                  <h3>Way-point map</h3>
+                </a>
                 <hr></hr>
               </div>
               <div className="landing-card-text">
@@ -77,7 +79,9 @@ const LandingPage = () => {
                 <FontAwesomeIcon className="fa-icon  fa-beer" icon={faBeer} />
               </div>
               <div className="landing-card-header">
-                <h3>Geo-location map</h3>
+                <a href="/geoMap">
+                  <h3>Geo-location map</h3>
+                </a>
                 <hr></hr>
               </div>
               <div className="landing-card-text">
