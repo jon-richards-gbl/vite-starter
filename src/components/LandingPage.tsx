@@ -16,7 +16,7 @@ const LandingPage = () => {
       </header>
       <main>
         <div className="logo-container">
-          <FontAwesomeIcon className="fa-icon fa-hippo" icon={faHippo} fade />{" "}
+          <FontAwesomeIcon className="fa-icon fa-hippo" icon={faHippo} />{" "}
         </div>
         <div className="landing-text">
           <h2>What we do </h2>
@@ -38,7 +38,10 @@ const LandingPage = () => {
                 <FontAwesomeIcon className="fa-icon  fa-beer" icon={faMapPin} />
               </div>
               <div className="landing-card-header">
-                <h3>Calorie Map</h3>
+                <a href="/map">
+                  {" "}
+                  <h3>Calorie Map</h3>
+                </a>
                 <hr></hr>
               </div>
               <div className="landing-card-text">
