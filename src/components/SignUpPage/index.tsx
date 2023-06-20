@@ -7,6 +7,7 @@ import PasswordPage from "./PasswordPage";
 import "./styles.css";
 
 const SignUpPage = (): JSX.Element => {
+  // List of form pages
   const formTitles: Array<string> = [
     "Sign Up - Guidance",
     "Email Address",
@@ -46,7 +47,7 @@ const SignUpPage = (): JSX.Element => {
         <>
           <div
             className="crumb"
-            key={`crumb-${i}`}
+            key={i.toString()}
             // if last element - mark as current step for aria,
             // mark all others as false
             aria-current={i === page ? "step" : "false"}
@@ -78,10 +79,11 @@ const SignUpPage = (): JSX.Element => {
 
   return (
     <>
-      <div className="title">
-        <h1>Let's get you signed up!</h1>
-      </div>
       <main>
+        <hr />
+        <div className="title">
+          <h1>Let's get you signed up!</h1>
+        </div>
         {/* TODO: Add CSS padding to make the <br> tags unneccesary? */}
         <br />
         {/* Draw breadcrumb trail, showing where the user is up to */}
