@@ -30,8 +30,47 @@ const PasswordPage: React.FC<loginDetailsProps> = ({
   return (
     <div>
       <label className="help-label" htmlFor="password" id="pwd-label">
-        Please enter a password which follows these rules:
+        Please enter a password:
+        <span className="required" aria-hidden="true">
+          Required
+        </span>
       </label>
+      {/* Toggle between password visibility */}
+      <div className="checkbox-combo" id="password-combo">
+        <input
+          id="pwdCheckbox"
+          name="pwdCheckbox"
+          type="checkbox"
+          checked={pwdIsVisible}
+          // aria-labelledby="pwdCheckboxLabel"
+          // aria-checked={pwdIsVisible}
+          onChange={() => {
+            setPwdIsVisible((pwdIsVisible) => !pwdIsVisible);
+          }}
+        />
+        <label
+          className="checkbox-label"
+          htmlFor="pwdCheckbox"
+          id="pwdCheckboxLabel"
+        >
+          Show password?
+        </label>
+      </div>
+      <input
+        className="block-input"
+        autoFocus
+        name="password"
+        id="password"
+        autoComplete="new-password"
+        type={pwdIsVisible ? "text" : "password"}
+        // placeholder="your password here"
+        // aria-placeholder="your password here"
+        aria-labelledby="pwd-label"
+        aria-required="true"
+        value={userData.password}
+        // onBlur={blurHandler}
+        onChange={changeHandler}
+      />
       <PasswordChecklist
         rules={[
           "minLength",
@@ -48,43 +87,6 @@ const PasswordPage: React.FC<loginDetailsProps> = ({
         // TODO: Enable/disable next button depending on isValid
         onChange={(isValid) => setIsPwdValid(isValid)}
       />
-      <input
-        className="block-input"
-        autoFocus
-        name="password"
-        id="password"
-        autoComplete="new-password"
-        type={pwdIsVisible ? "text" : "password"}
-        placeholder="your password here"
-        aria-placeholder="your password here"
-        aria-labelledby="pwd-label"
-        aria-required="true"
-        value={userData.password}
-        // onBlur={blurHandler}
-        onChange={changeHandler}
-      />
-
-      {/* Toggle between password visibility */}
-      <div className="checkbox-combo">
-        <input
-          id="pwdCheckbox"
-          name="pwdCheckbox"
-          type="checkbox"
-          checked={pwdIsVisible}
-          aria-labelledby="pwdCheckboxLabel"
-          aria-checked={pwdIsVisible}
-          onChange={() => {
-            setPwdIsVisible((pwdIsVisible) => !pwdIsVisible);
-          }}
-        />
-        <label
-          className="checkbox-label"
-          htmlFor="pwdCheckbox"
-          id="pwdCheckboxLabel"
-        >
-          Show password?
-        </label>
-      </div>
       <label
         className="help-label"
         htmlFor="password-confirm"
