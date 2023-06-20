@@ -34,7 +34,7 @@ const Nav = () => {
               <Link className="items" to="/about">
                 About
               </Link>
-              <Link className="items" to="/map">
+              <Link className="items" to="/formMap">
                 Calorie Map
               </Link>
               <Link className="items" to="/geoMap">

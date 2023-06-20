@@ -12,6 +12,7 @@ const LandingPage = React.lazy(() => import("./components/LandingPage"));
 const About = React.lazy(() => import("./components/About"));
 const Form = React.lazy(() => import("./components/Form"));
 const Map = React.lazy(() => import("./components/Map"));
+const FormMap = React.lazy(() => import("./components/FormMap"));
 const GeoLocationMap = React.lazy(
   () => import("./components/GeoLocation-map/GeoLocationMap")
 );
@@ -23,6 +24,7 @@ export const enum PageRoutes {
   LandingPage = "/",
   About = "/about",
   Form = "/form",
+  FormMap = "/formMap",
   GeoLocationMap = "/geoMap",
   WaypointMap = "/waypointMap",
 
@@ -33,8 +35,15 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path={PageRoutes.LandingPage} element={<App />}>
       <Route index element={<PageWrapper page={<LandingPage />} />} />
-      <Route path="/about" element={<About />} />
       <Route
+        path={PageRoutes.About}
+        element={<PageWrapper page={<About />} />}
+      />
+      <Route
+        path={PageRoutes.FormMap}
+        element={<PageWrapper page={<FormMap />} />}
+      />
+      {/* <Route
         path="/map"
         element={
           <>
@@ -42,9 +51,15 @@ const router = createBrowserRouter(
             <Map />
           </>
         }
+      /> */}
+      <Route
+        path={PageRoutes.GeoLocationMap}
+        element={<PageWrapper page={<GeoLocationMap />} />}
       />
-      <Route path="/geoMap" element={<GeoLocationMap />} />
-      <Route path="/waypointMap" element={<WaypointMap />} />
+      <Route
+        path={PageRoutes.WaypointMap}
+        element={<PageWrapper page={<WaypointMap />} />}
+      />
     </Route>
   )
 );
