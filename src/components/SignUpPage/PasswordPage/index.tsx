@@ -65,25 +65,26 @@ const PasswordPage: React.FC<loginDetailsProps> = ({
       />
 
       {/* Toggle between password visibility */}
-
-      <input
-        id="pwdCheckbox"
-        name="pwdCheckbox"
-        type="checkbox"
-        checked={pwdIsVisible}
-        aria-labelledby="pwdCheckboxLabel"
-        aria-checked={pwdIsVisible}
-        onChange={() => {
-          setPwdIsVisible((pwdIsVisible) => !pwdIsVisible);
-        }}
-      />
-      <label
-        className="checkbox-label"
-        htmlFor="pwdCheckbox"
-        id="pwdCheckboxLabel"
-      >
-        Show password?
-      </label>
+      <div className="checkbox-combo">
+        <input
+          id="pwdCheckbox"
+          name="pwdCheckbox"
+          type="checkbox"
+          checked={pwdIsVisible}
+          aria-labelledby="pwdCheckboxLabel"
+          aria-checked={pwdIsVisible}
+          onChange={() => {
+            setPwdIsVisible((pwdIsVisible) => !pwdIsVisible);
+          }}
+        />
+        <label
+          className="checkbox-label"
+          htmlFor="pwdCheckbox"
+          id="pwdCheckboxLabel"
+        >
+          Show password?
+        </label>
+      </div>
       <label
         className="help-label"
         htmlFor="password-confirm"
