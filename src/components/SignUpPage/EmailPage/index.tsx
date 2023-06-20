@@ -80,7 +80,6 @@ const EmailPage: React.FC<loginDetailsProps> = ({
     <div>
       {/* Row of helper text, input or similar 
             control and then the error/success message */}
-      <div className="separator"></div>
       <div className="row">
         {/* TODO - check out aria-placeholder, would descriptive label be preferable? */}
         <label className="help-label" htmlFor="email" id="email-label">
