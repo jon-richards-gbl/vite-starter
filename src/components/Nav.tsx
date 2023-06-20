@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -27,10 +28,21 @@ const Nav = () => {
         <nav>
           {(toggleMenu || screenWidth > 500) && (
             <ul className="list">
-              <li className="items">Home</li>
-              <li className="items">About</li>
-              <li className="items">Calories</li>
-              <li className="items">Map</li>
+              <Link className="items" to="/">
+                Home
+              </Link>
+              <Link className="items" to="/about">
+                About
+              </Link>
+              <Link className="items" to="/map">
+                Calorie Map
+              </Link>
+              <Link className="items" to="/">
+                Geo-Map
+              </Link>
+              <Link className="items" to="/">
+                Waypoint Map
+              </Link>
             </ul>
           )}
 
