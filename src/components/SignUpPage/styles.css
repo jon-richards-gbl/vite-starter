@@ -83,6 +83,11 @@ input[aria-invalid="true"] {
 .error {
   color: #b22222;
 }
+.required {
+  background-color: var(--secondary-colour);
+  color: var(--primary-colour);
+  margin: 1em;
+}
 /* Hide any elements visibly as well as for aria */
 div.feedback-text[aria-hidden="true"] {
   /* display: none; */
