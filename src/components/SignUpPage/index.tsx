@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 import UserData from "../../types/types";
 import EmailPage from "./EmailPage";
@@ -45,10 +45,10 @@ const SignUpPage = (): JSX.Element => {
 
     for (let i = 0; i <= page; i++) {
       content.push(
-        <>
+        <Fragment key={formTitles[i]}>
           <div
             className="crumb"
-            key={i.toString()}
+            // key={i.toString()}
             // if last element - mark as current step for aria,
             // mark all others as false
             aria-current={i === page ? "step" : "false"}
@@ -64,12 +64,12 @@ const SignUpPage = (): JSX.Element => {
               </span>
             )}
           </div>
-        </>
+        </Fragment>
       );
     }
 
     content.push(
-      <div className="crumb" key={page}>
+      <div className="crumb">
         <h5>Steps Remaining</h5>
         <p>{formTitles.length - page}</p>
       </div>
@@ -97,6 +97,7 @@ const SignUpPage = (): JSX.Element => {
             {/* Display the relevant title for the current page */}
             <h3>{formTitles[page]}</h3>
           </div>
+          <div className="separator"></div>
           {PageDisplay()}
         </div>
 
