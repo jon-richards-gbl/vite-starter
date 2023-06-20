@@ -34,13 +34,13 @@ const Nav = () => {
               <Link className="items" to="/about">
                 About
               </Link>
-              <Link className="items" to="/map">
+              <Link className="items" to="/formMap">
                 Calorie Map
               </Link>
-              <Link className="items" to="/">
+              <Link className="items" to="/geoMap">
                 Geo-Map
               </Link>
-              <Link className="items" to="/">
+              <Link className="items" to="/waypointMap">
                 Waypoint Map
               </Link>
             </ul>

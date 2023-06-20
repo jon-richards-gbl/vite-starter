@@ -15,13 +15,17 @@ type DirectionsResult = google.maps.DirectionsResult;
 type MapOptions = google.maps.MapOptions;
 
 const Map = () => {
+  //State
   const [office, setOffice] = useState<LatLngLiteral>();
+  const [origin, setOrigin] = useState("");
+  const [destination, setDestination] = useState("");
   const [directions, setDirections] = useState<DirectionsResult>();
   const mapRef = useRef<google.maps.Map | null>(null);
   const center = useMemo<LatLngLiteral>(
     () => ({ lat: 53.483959, lng: -2.244644 }),
     []
   );
+  //Map options
   const options = useMemo<MapOptions>(
     () => ({
       mapId: "55ec9d32771d5e8c",
@@ -38,6 +42,8 @@ const Map = () => {
 
   const fetchDirections = (house: LatLngLiteral) => {
     if (!office) return;
+    // const fetchDirections = (house: LatLngLiteral) => {
+    // if (origin) return;
 
     const service = new google.maps.DirectionsService();
     service.route(
