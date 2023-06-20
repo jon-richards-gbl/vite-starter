@@ -33,6 +33,8 @@ const EmailPage: React.FC<loginDetailsProps> = ({
     // if (emailErrorDiv && emailErrorDiv.current) {
     //     emailErrorDiv.current.style.visibility = 'visible';
     // }
+
+    // TODO: Disable next button if email is invalid.
   };
 
   // If email is not valid, determine what is wrong
@@ -82,7 +84,8 @@ const EmailPage: React.FC<loginDetailsProps> = ({
       <div className="row">
         {/* TODO - check out aria-placeholder, would descriptive label be preferable? */}
         <label className="help-label" htmlFor="email" id="email-label">
-          Please enter an email address in the format 'name@domain.com'
+          Please enter a valid email address, e.g <i>name@domain.com</i> or{" "}
+          <i>name@domain.co.uk</i>
         </label>
         <input
           className="block-input"
