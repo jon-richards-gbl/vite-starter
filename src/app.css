@@ -28,6 +28,12 @@
 header {
   margin-bottom: max(3vh, 2rem);
 }
+main {
+  /* Background */
+  background-image: url("./assets/circult_board_busy.jpeg");
+  background-size: "cover";
+  background-repeat: no-repeat;
+}
 /* Div container for page content */
 div.main-container {
   border-radius: 5px;
@@ -38,7 +44,7 @@ div.main-container {
   /* Right and left margin */
   margin-inline: auto;
   /* 1st value = top and bottom, 2nd = right and left */
-  padding: 1.5rem max(3vh, 0.5rem);
+  padding: 0px max(3vh, 0.5rem) 2rem;
   /* display: flex; */
   justify-content: center;
 }
