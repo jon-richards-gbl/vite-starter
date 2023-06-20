@@ -30,9 +30,11 @@ header {
 }
 main {
   /* Background */
+  /* background-color: var(--secondary-colour); */
   background-image: url("./assets/circult_board_busy.jpeg");
-  background-size: "cover";
-  background-repeat: no-repeat;
+  background-repeat: repeat;
+  /* opacity: 0.1; */
+  width: 100%;
 }
 /* Div container for page content */
 div.main-container {
