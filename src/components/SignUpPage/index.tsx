@@ -81,7 +81,7 @@ const SignUpPage = (): JSX.Element => {
   return (
     <>
       <main>
-        <hr />
+        <hr aria-hidden="true" />
         <div className="title">
           <h1>Let's get you signed up!</h1>
         </div>
