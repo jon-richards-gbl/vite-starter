@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Route, BrowserRouter as Router } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 import Footer from "./components/Footer";
 import Form from "./components/Form";
@@ -12,6 +14,7 @@ import "./css/Footer.css";
 import "./css/Form.css";
 import "./css/LandingPage.css";
 import "./css/Nav.css";
+// import Router from "./router";
 import { useAppSelector } from "./store";
 import { selectUserWeight } from "./store/form/formSelectors";
 import { selectUserName } from "./store/user/selectors";
@@ -29,13 +32,13 @@ function App() {
   return (
     <>
       <Nav />
-      <Form />
+      {/* <Form />
 
-      <Map />
-
+      <Map /> */}
+      <Outlet />
       {/* <LandingPage /> */}
-      <UserForm />
-      <TestRed />
+      {/* <UserForm />
+      <TestRed /> */}
       <Footer />
     </>
   );
