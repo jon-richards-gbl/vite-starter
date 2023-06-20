@@ -62,13 +62,14 @@ div.separator {
   padding: 0.5em;
   border-radius: 2px;
   width: 40%;
-  margin: 0 0.5em;
+  margin: 0.4em 0.5em;
 }
 
 .button-row {
   width: 100%;
   display: flex;
   justify-content: center;
+  padding: 0.3em;
 }
 
 input[aria-invalid="true"] {
@@ -92,4 +93,12 @@ div.feedback-text[aria-hidden="true"] {
 div.feedback-text[aria-hidden="false"] {
   /* display: block; */
   visibility: visible;
+}
+
+.checkbox-combo label {
+  padding-left: 0.5em;
+}
+
+div.checkbox-combo {
+  padding-left: 0.5em;
 }
