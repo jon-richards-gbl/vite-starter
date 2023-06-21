@@ -37,7 +37,7 @@ const BreadcrumbTrail: React.FC<breadcrumbProps> = ({
 
   content.push(
     <div className="crumb">
-      <h5>Steps Remaining</h5>
+      <strong>Steps Remaining</strong>
       <p>{formTitles.length - currentStep}</p>
     </div>
   );
