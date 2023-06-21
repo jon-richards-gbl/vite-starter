@@ -7,15 +7,15 @@ import GuidancePage from "./GuidancePage";
 import PasswordPage from "./PasswordPage";
 import "./styles.css";
 
-const SignUpPage = (): JSX.Element => {
-  // List of form pages
-  const formTitles: Array<string> = [
-    "Sign Up - Guidance",
-    "Email Address",
-    "Password",
-    "Address",
-  ];
+export const formTitles: Array<string> = [
+  "Sign Up - Guidance",
+  "Email Address",
+  "Secure your account",
+  "Address",
+];
 
+const SignUpPage = (): JSX.Element => {
+  // TODO: should this be in types.ts?
   // TS type for formData
   const [userData, setUserData] = useState<UserData>({
     email: "",
@@ -49,7 +49,7 @@ const SignUpPage = (): JSX.Element => {
       {/* TODO: Add CSS padding to make the <br> tags unneccesary? */}
       <br />
       {/* Draw breadcrumb trail, showing where the user is up to */}
-      <BreadcrumbTrail formTitles={formTitles} currentStep={page} />
+      <BreadcrumbTrail currentStep={page} />
       <br />
 
       {/* Output the header and page content for the step the user is currently at */}

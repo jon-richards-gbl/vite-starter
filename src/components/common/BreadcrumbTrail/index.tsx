@@ -1,16 +1,19 @@
 import React, { Fragment } from "react";
 
+import { formTitles } from "../../SignUpPage";
 import "./styles.css";
 
-interface breadcrumbProps {
-  formTitles: Array<string>;
-  currentStep: number;
-}
+// interface breadcrumbProps {
+//   formTitles: Array<string>;
+//   currentStep: number;
+// }
 
-const BreadcrumbTrail: React.FC<breadcrumbProps> = ({
-  formTitles,
+const BreadcrumbTrail = ({
   currentStep,
-}): JSX.Element => {
+}: {
+  currentStep: number;
+}): React.JSX.Element => {
+  //  Create an array of Fragments
   const content: Array<JSX.Element> = [];
 
   for (let i = 0; i <= currentStep; i++) {
