@@ -81,7 +81,6 @@ const EmailPage: React.FC<loginDetailsProps> = ({
       {/* Row of helper text, input or similar 
             control and then the error/success message */}
       <div className="row">
-        {/* TODO - check out aria-placeholder, would descriptive label be preferable? */}
         <label className="help-label" htmlFor="email" id="email-label">
           Please enter a valid email address, e.g <i>name@domain.com</i> or{" "}
           <i>name@domain.co.uk</i>
@@ -92,8 +91,6 @@ const EmailPage: React.FC<loginDetailsProps> = ({
           name="email"
           id="email"
           type="text"
-          placeholder="your email here"
-          aria-placeholder="your email here"
           aria-labelledby="emailLabel"
           aria-required="true"
           aria-invalid={isBlur && !emailValid}
