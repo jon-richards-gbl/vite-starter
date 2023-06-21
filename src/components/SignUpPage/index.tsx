@@ -1,19 +1,38 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
+import UserData from "../../types/types";
+import EmailPage from "./EmailPage";
 import GuidancePage from "./GuidancePage";
+import PasswordPage from "./PasswordPage";
 import "./styles.css";
 
 const SignUpPage = (): JSX.Element => {
+  // List of form pages
   const formTitles: Array<string> = [
     "Sign Up - Guidance",
-    "Login Details",
-    "Personal Information",
+    "Email Address",
+    "Password",
     "Address",
   ];
+
+  // TS type for formData
+  const [userData, setUserData] = useState<UserData>({
+    email: "",
+    password: "",
+    passwordConfirm: "",
+    firstName: "",
+    surname: "",
+    birthDate: null,
+    address: "",
+  });
 
   const PageDisplay = () => {
     if (page === 0) {
       return <GuidancePage />;
+    } else if (page === 1) {
+      return <EmailPage userData={userData} setUserData={setUserData} />;
+    } else if (page === 2) {
+      return <PasswordPage userData={userData} setUserData={setUserData} />;
     }
   };
 
@@ -26,10 +45,10 @@ const SignUpPage = (): JSX.Element => {
 
     for (let i = 0; i <= page; i++) {
       content.push(
-        <>
+        <Fragment key={formTitles[i]}>
           <div
             className="crumb"
-            key={`crumb-${i}`}
+            // key={i.toString()}
             // if last element - mark as current step for aria,
             // mark all others as false
             aria-current={i === page ? "step" : "false"}
@@ -39,18 +58,18 @@ const SignUpPage = (): JSX.Element => {
           </div>
           <div className="divider">
             {/* Add chevrons but only BETWEEN steps */}
-            {i === page - 1 ? null : (
+            {i >= page ? null : (
               <span aria-hidden="true">
                 <i className="fa-solid fa-chevron-right"></i>
               </span>
             )}
           </div>
-        </>
+        </Fragment>
       );
     }
 
     content.push(
-      <div className="crumb" key={page}>
+      <div className="crumb">
         <h5>Steps Remaining</h5>
         <p>{formTitles.length - page}</p>
       </div>
@@ -61,10 +80,11 @@ const SignUpPage = (): JSX.Element => {
 
   return (
     <>
-      <div className="title">
-        <h1>Let's get you signed up!</h1>
-      </div>
       <main>
+        <hr aria-hidden="true" />
+        <div className="title">
+          <h1>Let's get you signed up!</h1>
+        </div>
         {/* TODO: Add CSS padding to make the <br> tags unneccesary? */}
         <br />
         {/* Draw breadcrumb trail, showing where the user is up to */}
@@ -77,6 +97,7 @@ const SignUpPage = (): JSX.Element => {
             {/* Display the relevant title for the current page */}
             <h3>{formTitles[page]}</h3>
           </div>
+          <div className="separator"></div>
           {PageDisplay()}
         </div>
 
@@ -97,6 +118,7 @@ const SignUpPage = (): JSX.Element => {
           <button
             className="form-button h4-style"
             type="button"
+            // TODO: Enable child page components to disable the next button
             disabled={page === formTitles.length - 1}
             onClick={() => {
               setPage((currentPg: number) => currentPg + 1);

@@ -8,13 +8,15 @@ div.divider {
 }
 
 div.breadcrumb-trail {
+  margin: 0 0.5em;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(3em, 7em));
+  background-color: var(--primary-colour);
 }
 
 div.crumb {
   min-width: 4em;
-  padding: 0.2em;
+  padding: 0.2em 0.1em;
 }
 
 [aria-current="step"] {
@@ -27,20 +29,81 @@ div.crumb {
   padding: 0.01rem;
 }
 
+button {
+  background-color: var(--primary-colour);
+  border-radius: 3px;
+  box-shadow: 0 4px 10px 2px var(--gray-shadow-rgba);
+}
+
+h1 {
+  background-color: var(--primary-colour);
+  padding: 0.8em;
+}
+
 h4 {
   /* Add a top margin to h4s for the inner pages*/
   margin-top: 0.5em;
 }
-.block-label {
+.help-label {
   display: block;
+  width: fit-content;
+  color: var(--secondary-colour);
+  padding: 0.2em;
+  margin: 0.2em 0;
+}
+
+div.separator {
+  border-top: 0.1rem solid var(--secondary-colour);
+  margin: 1rem 0.3rem;
 }
 
 .block-input {
   display: block;
+  padding: 0.5em;
+  border-radius: 2px;
+  width: 40%;
+  margin: 0.4em 0.5em;
 }
 
 .button-row {
   width: 100%;
   display: flex;
   justify-content: center;
+  padding: 0.3em;
+}
+
+input[aria-invalid="true"] {
+  border-color: red;
+}
+
+.success {
+  color: #436e43;
+}
+
+.error {
+  color: #b22222;
+}
+.required {
+  background-color: var(--secondary-colour);
+  color: var(--primary-colour);
+  margin: 1em;
+}
+/* Hide any elements visibly as well as for aria */
+div.feedback-text[aria-hidden="true"] {
+  /* display: none; */
+  visibility: hidden;
+}
+
+/* Visibly show any elements shown for aria */
+div.feedback-text[aria-hidden="false"] {
+  /* display: block; */
+  visibility: visible;
+}
+
+.checkbox-combo label {
+  padding-left: 0.5em;
+}
+
+div.checkbox-combo {
+  padding-left: 0.5em;
 }
