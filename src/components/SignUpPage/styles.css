@@ -5,11 +5,16 @@ button {
   box-shadow: 0 4px 10px 2px var(--gray-shadow-rgba);
 }
 
+form {
+  background-color: var(--primary-colour);
+  padding: 0.2em;
+}
 h1 {
   background-color: var(--primary-colour);
   padding: 0.8em;
 }
 
+h2,
 h4 {
   /* Add a top margin to h4s for the inner pages*/
   margin-top: 0.5em;
