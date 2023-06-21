@@ -25,12 +25,10 @@ const BreadcrumbTrail: React.FC<breadcrumbProps> = ({
           <h5>Step {i + 1}</h5>
           <p>{formTitles[i]}</p>
         </div>
-        <div className="divider">
+        <div className="divider" aria-hidden="true">
           {/* Add chevrons but only BETWEEN steps */}
           {i >= currentStep ? null : (
-            <span aria-hidden="true">
-              <i className="fa-solid fa-chevron-right"></i>
-            </span>
+            <i className="fa-solid fa-chevron-right"></i>
           )}
         </div>
       </Fragment>
@@ -45,7 +43,6 @@ const BreadcrumbTrail: React.FC<breadcrumbProps> = ({
   );
 
   return <div className="breadcrumb-trail">{content}</div>;
-  return <div></div>;
 };
 
 export default BreadcrumbTrail;
