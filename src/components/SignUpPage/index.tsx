@@ -48,7 +48,6 @@ const SignUpPage = (): JSX.Element => {
         <Fragment key={formTitles[i]}>
           <div
             className="crumb"
-            // key={i.toString()}
             // if last element - mark as current step for aria,
             // mark all others as false
             aria-current={i === page ? "step" : "false"}
