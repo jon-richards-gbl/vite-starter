@@ -9,6 +9,9 @@ form {
   background-color: var(--primary-colour);
   padding: 0.2em;
 }
+fieldset {
+  padding: 2em;
+}
 h1 {
   background-color: var(--primary-colour);
   padding: 0.8em;
