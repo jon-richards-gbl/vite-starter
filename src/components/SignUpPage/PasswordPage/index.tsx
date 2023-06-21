@@ -14,7 +14,7 @@ const PasswordPage: React.FC<loginDetailsProps> = ({
   setUserData,
 }): JSX.Element => {
   const [pwdIsVisible, setPwdIsVisible] = useState(false);
-  const [isPwdValid, setIsPwdValid] = useState(false);
+  const [, setIsPwdValid] = useState(false);
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setUserData({ ...userData, password: e.target.value });

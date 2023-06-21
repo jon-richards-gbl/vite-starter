@@ -1,6 +1,7 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 
 import UserData from "../../types/types";
+import BreadcrumbTrail from "../common/BreadcrumbTrail";
 import EmailPage from "./EmailPage";
 import GuidancePage from "./GuidancePage";
 import PasswordPage from "./PasswordPage";
@@ -39,45 +40,6 @@ const SignUpPage = (): JSX.Element => {
   // Store the current page the user is viewing
   const [page, setPage] = useState<number>(0);
 
-  // TODO: Make this a separate component
-  const BreadcrumbDisplay = () => {
-    const content: Array<JSX.Element> = [];
-
-    for (let i = 0; i <= page; i++) {
-      content.push(
-        <Fragment key={formTitles[i]}>
-          <div
-            className="crumb"
-            // key={i.toString()}
-            // if last element - mark as current step for aria,
-            // mark all others as false
-            aria-current={i === page ? "step" : "false"}
-          >
-            <h5>Step {i + 1}</h5>
-            <p>{formTitles[i]}</p>
-          </div>
-          <div className="divider">
-            {/* Add chevrons but only BETWEEN steps */}
-            {i >= page ? null : (
-              <span aria-hidden="true">
-                <i className="fa-solid fa-chevron-right"></i>
-              </span>
-            )}
-          </div>
-        </Fragment>
-      );
-    }
-
-    content.push(
-      <div className="crumb">
-        <h5>Steps Remaining</h5>
-        <p>{formTitles.length - page}</p>
-      </div>
-    );
-
-    return <div className="breadcrumb-trail">{content}</div>;
-  };
-
   return (
     <>
       <main>
@@ -88,7 +50,7 @@ const SignUpPage = (): JSX.Element => {
         {/* TODO: Add CSS padding to make the <br> tags unneccesary? */}
         <br />
         {/* Draw breadcrumb trail, showing where the user is up to */}
-        {BreadcrumbDisplay()}
+        <BreadcrumbTrail formTitles={formTitles} currentStep={page} />
         <br />
 
         {/* Output the header and page content for the step the user is currently at */}

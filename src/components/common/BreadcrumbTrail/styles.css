@@ -1,0 +1,29 @@
+/* Styles for BreadcrumbTrail component and children */
+
+div.breadcrumb-trail {
+  margin: 0 0.5em;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(3em, 7em));
+  background-color: var(--primary-colour);
+}
+
+div.crumb {
+  min-width: 4em;
+  padding: 0.2em 0.1em;
+}
+
+div.divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+[aria-current="step"] {
+  box-shadow: 0 0 20px 0 var(--orange-shadow-rgba);
+  border: 1px solid var(--gl-orange);
+  border-radius: 3px;
+}
+
+.breadcrumb p {
+  padding: 0.01rem;
+}
