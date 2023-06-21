@@ -22,7 +22,7 @@ const BreadcrumbTrail: React.FC<breadcrumbProps> = ({
           // mark all others as false
           aria-current={i === currentStep ? "step" : "false"}
         >
-          <h5>Step {i + 1}</h5>
+          <strong>Step {i + 1}</strong>
           <p>{formTitles[i]}</p>
         </div>
         <div className="divider" aria-hidden="true">

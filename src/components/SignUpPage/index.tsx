@@ -41,56 +41,54 @@ const SignUpPage = (): JSX.Element => {
   const [page, setPage] = useState<number>(0);
 
   return (
-    <>
-      <main>
-        <hr aria-hidden="true" />
-        <div className="title">
-          <h1>Let's get you signed up!</h1>
-        </div>
-        {/* TODO: Add CSS padding to make the <br> tags unneccesary? */}
-        <br />
-        {/* Draw breadcrumb trail, showing where the user is up to */}
-        <BreadcrumbTrail formTitles={formTitles} currentStep={page} />
-        <br />
+    <main>
+      <hr aria-hidden="true" />
+      <div className="title">
+        <h1>Sign up for our services</h1>
+      </div>
+      {/* TODO: Add CSS padding to make the <br> tags unneccesary? */}
+      <br />
+      {/* Draw breadcrumb trail, showing where the user is up to */}
+      <BreadcrumbTrail formTitles={formTitles} currentStep={page} />
+      <br />
 
-        {/* Output the header and page content for the step the user is currently at */}
-        <div className="main-container">
-          <div className="header">
-            {/* Display the relevant title for the current page */}
-            <h3>{formTitles[page]}</h3>
-          </div>
-          <div className="separator"></div>
-          {PageDisplay()}
+      {/* Output the header and page content for the step the user is currently at */}
+      <div className="main-container">
+        <div className="header">
+          {/* Display the relevant title for the current page */}
+          <h2>{formTitles[page]}</h2>
         </div>
+        <div className="separator"></div>
+        {PageDisplay()}
+      </div>
 
-        {/* Buttons will be controlled here, not via the individual pages */}
-        <div className="button-row">
-          <button
-            className="form-button h4-style"
-            // Aria-disabled attibute not needed if disabled attribute included
-            disabled={page === 0}
-            // No need to add Aria role of 'button' if button has type='button'
-            type="button"
-            onClick={() => {
-              setPage((currentPg: number) => currentPg - 1);
-            }}
-          >
-            Previous
-          </button>
-          <button
-            className="form-button h4-style"
-            type="button"
-            // TODO: Enable child page components to disable the next button
-            disabled={page === formTitles.length - 1}
-            onClick={() => {
-              setPage((currentPg: number) => currentPg + 1);
-            }}
-          >
-            Next
-          </button>
-        </div>
-      </main>
-    </>
+      {/* Buttons will be controlled here, not via the individual pages */}
+      <div className="button-row">
+        <button
+          className="form-button h4-style"
+          // Aria-disabled attibute not needed if disabled attribute included
+          disabled={page === 0}
+          // No need to add Aria role of 'button' if button has type='button'
+          type="button"
+          onClick={() => {
+            setPage((currentPg: number) => currentPg - 1);
+          }}
+        >
+          Previous
+        </button>
+        <button
+          className="form-button h4-style"
+          type="button"
+          // TODO: Enable child page components to disable the next button
+          disabled={page === formTitles.length - 1}
+          onClick={() => {
+            setPage((currentPg: number) => currentPg + 1);
+          }}
+        >
+          Next
+        </button>
+      </div>
+    </main>
   );
 };
 
