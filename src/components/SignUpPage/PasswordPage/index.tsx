@@ -29,9 +29,9 @@ const PasswordPage: React.FC<loginDetailsProps> = ({
 
   return (
     <main>
-      <form aria-labelledby="new-password">
+      <form aria-labelledby="enter-password">
         <fieldset>
-          <legend id="new-password">Create new password</legend>
+          <legend id="enter-password">Create new password</legend>
           <label className="help-label" htmlFor="password" id="pwd-label">
             Please enter a password:
             <span className="required" aria-hidden="true">
