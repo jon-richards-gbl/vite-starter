@@ -38,11 +38,16 @@ div.separator {
 .block-input {
   display: block;
   padding: 0.5em;
-  border-radius: 2px;
-  width: 40%;
   margin: 0.4em 0.5em;
+  border-radius: 2px;
+  width: 60%;
+  transition: width 0.35s ease-in-out;
 }
 
+.block-input:focus {
+  /* border: 1px solid var(--gl-orange); */
+  width: 80%;
+}
 .button-row {
   width: 100%;
   display: flex;
