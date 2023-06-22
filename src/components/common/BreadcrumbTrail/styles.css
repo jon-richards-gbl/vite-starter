@@ -10,6 +10,10 @@ div.breadcrumb-trail {
   box-shadow: 0 0.25em 0.625em 0.125em var(--gray-shadow-rgba);
 }
 
+/* Give the first breadcrumb div more space on the left hand side */
+.breadcrumb-trail div:first-child {
+  padding-left: 0.3em;
+}
 div.crumb {
   min-width: 4em;
   padding: 0.2em 0.1em;
