@@ -7,6 +7,16 @@
   display: inline-flex;
 }
 
+.a11y-btns {
+  display: flex;
+  justify-content: flex-end;
+}
+
+button {
+  padding: 0.5em;
+  margin: 0.5em;
+  font-size: var(--step--2);
+}
 img {
   /* Necessary hack for IE? */
   width: 100%;
@@ -19,8 +29,8 @@ img {
 /* TODO: extract theme colours to a base styles css file
             and create as custom properties */
 ul.nav-list {
-  padding: 0.5rem;
-  margin: 0.5rem;
+  padding: 0.5em;
+  margin: 0.5em;
   background-color: var(--secondary-colour);
   min-width: 99%;
   border-radius: 20px;
@@ -32,6 +42,11 @@ ul.nav-list {
   box-shadow: 0 4px 10px 2px var(--gray-shadow-rgba);
 }
 
+/* Flex container child - move the free space to the left rather 
+than default of right to move the item to the right hand side */
+.align-right {
+  margin-left: auto;
+}
 .nav-link {
   text-align: center;
   padding: 0.3rem;
@@ -51,15 +66,11 @@ a:visited {
   color: var(--gl-orange);
   padding-right: 0.3rem;
 }
+
 /* For tablet sizes */
 @media screen and (min-width: 768px) {
   ul.nav-list {
     min-width: 97%;
-  }
-  /* Flex container child - move the free space to 
-the left rather than default of right to move the item to the right hand side */
-  .align-right {
-    margin-left: auto;
   }
 }
 
