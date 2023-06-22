@@ -60,9 +60,8 @@ const Map = () => {
   return (
     <div className="map-container">
       <div className="controls-container">
-        <h1>Where you wanna beee</h1>
         <div>
-          <label htmlFor="origin">Origin: </label>
+          <label htmlFor="origin">Where you at: </label>
           <Autocomplete
             onLoad={(autocomplete) =>
               autocomplete.addListener("place_changed", () => {
@@ -82,7 +81,7 @@ const Map = () => {
           </Autocomplete>
         </div>
         <div>
-          <label htmlFor="destination">Destination: </label>
+          <label htmlFor="destination">Where you wanna be: </label>
           <Autocomplete
             onLoad={(autocomplete) =>
               autocomplete.addListener("place_changed", () => {
@@ -101,7 +100,9 @@ const Map = () => {
             />
           </Autocomplete>
         </div>
-        <button onClick={fetchDirections}>Get Directions</button>
+        <button className="calMap-btn" onClick={fetchDirections}>
+          Get Directions
+        </button>
         {directions && <Distance leg={directions.routes[0].legs[0]} />}
       </div>
       <div className="map">
