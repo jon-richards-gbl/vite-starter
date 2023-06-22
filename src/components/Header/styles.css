@@ -39,7 +39,7 @@ ul.nav-list {
   flex-wrap: wrap;
   /* center items vertically */
   align-items: center;
-  box-shadow: 0 4px 10px 2px var(--gray-shadow-rgba);
+  box-shadow: 0 0.25em 0.625em 0.125em var(--gray-shadow-rgba);
 }
 
 /* Flex container child - move the free space to the left rather 
