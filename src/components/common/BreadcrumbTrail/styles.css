@@ -19,9 +19,9 @@ div.divider {
 }
 
 [aria-current="step"] {
-  box-shadow: 0 0 20px 0 var(--orange-shadow-rgba);
-  border: 1px solid var(--gl-orange);
-  border-radius: 3px;
+  box-shadow: 0 0 1.25em 0 var(--orange-shadow-rgba);
+  border: 0.0625em solid var(--gl-orange);
+  border-radius: 0.1875em;
 }
 
 .breadcrumb p {
