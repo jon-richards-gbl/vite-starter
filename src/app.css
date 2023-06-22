@@ -93,3 +93,8 @@ body {
 label {
   padding: 0.2em;
 }
+
+button:focus {
+  box-shadow: 0 0 20px 0 var(--orange-shadow-rgba);
+  border: 1px solid var(--gl-orange);
+}
