@@ -77,40 +77,43 @@ const EmailPage: React.FC<loginDetailsProps> = ({
   };
 
   return (
-    <div>
+    <main>
       {/* Row of helper text, input or similar 
             control and then the error/success message */}
-      <div className="row">
-        <label className="help-label" htmlFor="email" id="email-label">
-          Please enter a valid email address, e.g <i>name@domain.com</i> or{" "}
-          <i>name@domain.co.uk</i>
-        </label>
-        <input
-          className="block-input"
-          autoFocus // For Screen Readers - this helps the focus start at the first input, rather than the buttons.
-          name="email"
-          id="email"
-          type="text"
-          aria-labelledby="emailLabel"
-          aria-required="true"
-          aria-invalid={isBlur && !emailValid}
-          value={userData.email}
-          autoComplete="email"
-          onBlur={blurHandler}
-          onChange={changeHandler}
-        />
-        <div
-          className="feedback-text"
-          id="emailErrorDiv"
-          ref={emailErrorDiv}
-          // Once user has tried to input - show
-          aria-hidden={!isBlur}
-          role="alert"
-        >
-          {emailErrorHTML()}
-        </div>
-      </div>
-    </div>
+      <form aria-labelledby="enter-email">
+        <fieldset>
+          <legend id="Your email address">Your email address</legend>
+          <label className="help-label" htmlFor="email" id="email-label">
+            Please enter a valid email address, e.g <i>name@domain.com</i> or{" "}
+            <i>name@domain.co.uk</i>
+          </label>
+          <input
+            className="block-input"
+            autoFocus // For Screen Readers - this helps the focus start at the first input, rather than the buttons.
+            name="email"
+            id="email"
+            type="text"
+            aria-labelledby="emailLabel"
+            aria-required="true"
+            aria-invalid={isBlur && !emailValid}
+            value={userData.email}
+            autoComplete="email"
+            onBlur={blurHandler}
+            onChange={changeHandler}
+          />
+          <div
+            className="feedback-text"
+            id="emailErrorDiv"
+            ref={emailErrorDiv}
+            // Once user has tried to input - show
+            aria-hidden={!isBlur}
+            role="alert"
+          >
+            {emailErrorHTML()}
+          </div>
+        </fieldset>
+      </form>
+    </main>
   );
 };
 
