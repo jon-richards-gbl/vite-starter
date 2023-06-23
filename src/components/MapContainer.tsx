@@ -1,7 +1,6 @@
 import { useLoadScript } from "@react-google-maps/api";
 
 import Map from "./Map";
-import WaypointMap from "./WaypointMap";
 
 const MapContainer: React.FC = () => {
   const { isLoaded } = useLoadScript({
@@ -15,7 +14,6 @@ const MapContainer: React.FC = () => {
     <>
       {" "}
       <Map />
-      <WaypointMap />
     </>
   );
 };
