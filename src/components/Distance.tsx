@@ -4,7 +4,7 @@
 // const litreCostKM = litresPerKM * gasLitreCost;
 // const secondsPerDay = 60 * 60 * 24;
 import { Autocomplete } from "@react-google-maps/api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useAppSelector } from "../store";
 import {
@@ -22,29 +22,37 @@ const Distance: React.FC<DistanceProps> = ({ leg }) => {
   const userWeight = useAppSelector(selectUserWeight);
   const userDropdown = useAppSelector(selectUserDropdown);
   const [isOpen, setIsOpen] = useState(false);
+  const [formattedInstructions, setFormattedInstructions] = useState<string[]>(
+    []
+  );
 
   function toggle() {
     setIsOpen((isOpen) => !isOpen);
   }
+  //Will change when [leg] is changed
+  useEffect(() => {
+    //Will  only execute if leg and leg.steps exist
+    if (leg && leg.steps) {
+      //Maps over each instruction in the leg
+      const instructions = leg.steps.map((step) => step.instructions);
+      //Instructions array is mapped over and uses regEx to replpace the html tags
+      // with empty strings
+      const formatted = instructions.map((instruction) =>
+        instruction.replace(/<[^>]+>/g, "")
+      );
+      setFormattedInstructions(formatted);
+    }
+  }, [leg]);
 
   if (!leg) {
     return <div>No distance information available</div>;
   }
-  // console.log(leg.steps);
 
-  const directionSteps = leg.steps || [];
+  // const directionSteps = leg.steps || [];
 
-  const instructions = directionSteps.map((step, index) => (
-    <p key={index}>{step.instructions}</p>
-  ));
-
-  let i = 0;
-
-  for (i = 0; i < directionSteps.length; i++) {
-    console.log(directionSteps[i]);
-  }
-
-  // console.log(directionSteps);
+  // const instructions = directionSteps.map((step, index) => (
+  //   <p key={index}>{step.instructions}</p>
+  // ));
 
   const parsedDropdown = parseFloat(userDropdown);
   const parsedWeight = parseFloat(userWeight);
@@ -70,6 +78,7 @@ const Distance: React.FC<DistanceProps> = ({ leg }) => {
   return (
     <div className="distance-container">
       <h2>Distance Information</h2>
+      <hr />
 
       <div>
         <strong>Start Address:</strong> {leg.start_address}
@@ -80,6 +89,8 @@ const Distance: React.FC<DistanceProps> = ({ leg }) => {
       <div>
         <hr />
         <div className="info">
+          <h2>Journey Information</h2>
+          <hr />
           <p>
             {userName === undefined
               ? ""
@@ -104,14 +115,33 @@ const Distance: React.FC<DistanceProps> = ({ leg }) => {
         <strong>Duration:</strong> {leg.duration?.text}
       </div>
       <div>
+        <hr />
+        <h2>Time</h2>
+        <hr />
         <strong>Duration in Seconds:</strong> {leg.duration?.value}
       </div>
       <div>
         <div>
           <strong>Duration in minutes:</strong> {parsedMins}
         </div>
-        {isOpen && <div>{instructions}</div>}
-        <button onClick={toggle}>Directions</button>
+        <div>
+          <strong>Duration in days:</strong> {leg.duration?.text}
+        </div>
+        <hr />
+        <h2>Directions</h2>
+        <hr />
+        <button className="calMap-btn" onClick={toggle}>
+          Directions
+        </button>
+        {isOpen && (
+          <div className="instruction">
+            {" "}
+            {formattedInstructions.map((instruction, index) => (
+              <p key={index}>{instruction}</p>
+            ))}
+          </div>
+        )}
+
         <div className="instructions-container"> </div>
       </div>
     </div>
