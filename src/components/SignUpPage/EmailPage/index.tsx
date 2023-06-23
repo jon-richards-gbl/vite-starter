@@ -1,5 +1,10 @@
 import { ChangeEvent, FocusEvent, useRef, useState } from "react";
 
+import { useAppDispatch } from "../../../store";
+// TODO: Remove this once Redux state tested
+import { useAppSelector } from "../../../store";
+import { setEmail } from "../../../store/newUser/newUserSlice";
+import { selectEmail } from "../../../store/newUser/selectors";
 import UserData from "../../../types/types";
 
 interface loginDetailsProps {
@@ -11,6 +16,8 @@ const EmailPage: React.FC<loginDetailsProps> = ({
   userData,
   setUserData,
 }): JSX.Element => {
+  const email = useAppSelector(selectEmail);
+  const dispatch = useAppDispatch();
   const [emailValid, setEmailValid] = useState(false);
   const [isBlur, setIsBlur] = useState(false);
 
@@ -74,6 +81,7 @@ const EmailPage: React.FC<loginDetailsProps> = ({
   // When the text is changed inside the input field, update state
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setUserData({ ...userData, email: e.target.value });
+    dispatch(setEmail(e.target.value));
   };
 
   return (
@@ -113,6 +121,7 @@ const EmailPage: React.FC<loginDetailsProps> = ({
           </div>
         </fieldset>
       </form>
+      <p>{email}</p>
     </main>
   );
 };
