@@ -15,6 +15,10 @@ const Header = () => {
           src={globalLogicIcon}
         ></img>
       </div>
+      <div className="a11y-btns">
+        <button className="align-right">Skip to main content</button>
+        <button>Change font colours</button>
+      </div>
       <nav className="nav-bar">
         <ul className="nav-list">
           <li className="nav-link">

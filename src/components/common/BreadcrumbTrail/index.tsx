@@ -1,16 +1,19 @@
 import React, { Fragment } from "react";
 
+import { formTitles } from "../../SignUpPage";
 import "./styles.css";
 
-interface breadcrumbProps {
-  formTitles: Array<string>;
-  currentStep: number;
-}
+// interface breadcrumbProps {
+//   formTitles: Array<string>;
+//   currentStep: number;
+// }
 
-const BreadcrumbTrail: React.FC<breadcrumbProps> = ({
-  formTitles,
+const BreadcrumbTrail = ({
   currentStep,
-}): JSX.Element => {
+}: {
+  currentStep: number;
+}): React.JSX.Element => {
+  //  Create an array of Fragments
   const content: Array<JSX.Element> = [];
 
   for (let i = 0; i <= currentStep; i++) {
@@ -22,7 +25,7 @@ const BreadcrumbTrail: React.FC<breadcrumbProps> = ({
           // mark all others as false
           aria-current={i === currentStep ? "step" : "false"}
         >
-          <h5>Step {i + 1}</h5>
+          <strong>Step {i + 1}</strong>
           <p>{formTitles[i]}</p>
         </div>
         <div className="divider" aria-hidden="true">
@@ -37,7 +40,7 @@ const BreadcrumbTrail: React.FC<breadcrumbProps> = ({
 
   content.push(
     <div className="crumb">
-      <h5>Steps Remaining</h5>
+      <strong>Steps Remaining</strong>
       <p>{formTitles.length - currentStep}</p>
     </div>
   );
