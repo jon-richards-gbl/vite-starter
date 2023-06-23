@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-// this is the only place these imports are allowed. everywhere else should use the app dispatch + app selector from this file
+// this is the only place these imports are allowed. everywhere else should
+// use the app dispatch + app selector from this file
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
