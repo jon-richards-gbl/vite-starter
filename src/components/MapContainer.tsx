@@ -1,15 +1,7 @@
 import { useLoadScript } from "@react-google-maps/api";
 
 import Map from "./Map";
-
-// type MapContainerProps = {
-//   weight: string;
-
-//   dropdown: string;
-//   name: string;
-// };
-// const apiKey =
-// const apiKey = "test";
+import WaypointMap from "./WaypointMap";
 
 const MapContainer: React.FC = () => {
   const { isLoaded } = useLoadScript({
@@ -18,7 +10,14 @@ const MapContainer: React.FC = () => {
   });
 
   if (!isLoaded) return <div>Loading....</div>;
-  return <Map />;
+
+  return (
+    <>
+      {" "}
+      <Map />
+      <WaypointMap />
+    </>
+  );
 };
 
 export default MapContainer;

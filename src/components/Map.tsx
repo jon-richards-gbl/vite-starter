@@ -3,7 +3,7 @@ import {
   DirectionsRenderer,
   GoogleMap,
 } from "@react-google-maps/api";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import Distance from "./Distance";
 import Places from "./Places";
@@ -16,7 +16,9 @@ const Map = () => {
   // State
   const [origin, setOrigin] = useState<string>("");
   const [destination, setDestination] = useState<string>("");
-  const [directions, setDirections] = useState<DirectionsResult>();
+  const [directions, setDirections] = useState<DirectionsResult | undefined>(
+    undefined
+  );
   const mapRef = useRef<google.maps.Map | null>(null);
   const center = useMemo<LatLngLiteral>(
     () => ({ lat: 53.483959, lng: -2.244644 }),

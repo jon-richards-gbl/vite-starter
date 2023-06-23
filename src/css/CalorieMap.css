@@ -50,12 +50,17 @@ a {
   }
 }
 
+.distance-container {
+  overflow: scroll;
+}
+
 .controls-container {
   padding: 1rem;
   background: #14161a;
   color: #fff;
   height: 80vh;
   padding-bottom: 20px;
+  overflow: scroll;
 
   /* display: flex; */
 }

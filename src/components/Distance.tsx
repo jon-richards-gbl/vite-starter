@@ -3,6 +3,9 @@
 // const gasLitreCost = 1.5;
 // const litreCostKM = litresPerKM * gasLitreCost;
 // const secondsPerDay = 60 * 60 * 24;
+import { Autocomplete } from "@react-google-maps/api";
+import { useState } from "react";
+
 import { useAppSelector } from "../store";
 import {
   selectUserDropdown,
@@ -18,9 +21,30 @@ const Distance: React.FC<DistanceProps> = ({ leg }) => {
   const userName = useAppSelector(selectUserName);
   const userWeight = useAppSelector(selectUserWeight);
   const userDropdown = useAppSelector(selectUserDropdown);
+  const [isOpen, setIsOpen] = useState(false);
+
+  function toggle() {
+    setIsOpen((isOpen) => !isOpen);
+  }
+
   if (!leg) {
     return <div>No distance information available</div>;
   }
+  // console.log(leg.steps);
+
+  const directionSteps = leg.steps || [];
+
+  const instructions = directionSteps.map((step, index) => (
+    <p key={index}>{step.instructions}</p>
+  ));
+
+  let i = 0;
+
+  for (i = 0; i < directionSteps.length; i++) {
+    console.log(directionSteps[i]);
+  }
+
+  // console.log(directionSteps);
 
   const parsedDropdown = parseFloat(userDropdown);
   const parsedWeight = parseFloat(userWeight);
@@ -42,8 +66,6 @@ const Distance: React.FC<DistanceProps> = ({ leg }) => {
 
   // If calsLost returns NaN it will return an empty string
   const formattedCalsLost = Number.isNaN(calsLost) ? "" : calsLost;
-
-  console.log(calsLost);
 
   return (
     <div className="distance-container">
@@ -88,6 +110,9 @@ const Distance: React.FC<DistanceProps> = ({ leg }) => {
         <div>
           <strong>Duration in minutes:</strong> {parsedMins}
         </div>
+        {isOpen && <div>{instructions}</div>}
+        <button onClick={toggle}>Directions</button>
+        <div className="instructions-container"> </div>
       </div>
     </div>
   );

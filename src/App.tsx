@@ -9,6 +9,7 @@ import "./css/Footer.css";
 import "./css/Form.css";
 import "./css/LandingPage.css";
 import "./css/Nav.css";
+import "./css/Waypoint.css";
 import { useAppSelector } from "./store";
 //Redux
 import { selectUserName, selectUserWeight } from "./store/form/formSelectors";
