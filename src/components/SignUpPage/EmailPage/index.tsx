@@ -1,21 +1,10 @@
-import { ChangeEvent, FocusEvent, useRef, useState } from "react";
+import React, { ChangeEvent, FocusEvent, useRef, useState } from "react";
 
-import { useAppDispatch } from "../../../store";
-// TODO: Remove this once Redux state tested
-import { useAppSelector } from "../../../store";
+import { useAppDispatch, useAppSelector } from "../../../store";
 import { setEmail } from "../../../store/newUser/newUserSlice";
 import { selectEmail } from "../../../store/newUser/selectors";
-import UserData from "../../../types/types";
 
-interface loginDetailsProps {
-  userData: UserData;
-  setUserData: (data: UserData) => void;
-}
-
-const EmailPage: React.FC<loginDetailsProps> = ({
-  userData,
-  setUserData,
-}): JSX.Element => {
+const EmailPage = (): JSX.Element => {
   // selector hook for Redux store (getter)
   const email = useAppSelector(selectEmail);
   const dispatch = useAppDispatch();
@@ -29,12 +18,13 @@ const EmailPage: React.FC<loginDetailsProps> = ({
   // When the email input has and then loses focus -
   // validate the user's entry and update accordingly.
   const blurHandler = (e: FocusEvent<HTMLInputElement>) => {
-    setUserData({ ...userData, email: e.target.value });
+    // setUserData({ ...userData, email: e.target.value });
+    dispatch(setEmail(e.target.value));
     setIsBlur(true);
     const emailRegex = new RegExp(
       /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
     );
-    setEmailValid(emailRegex.test(userData.email));
+    setEmailValid(emailRegex.test(email));
 
     // Make it null safe and display the block now that
     // the input has gained and lost focus since rendering.
@@ -50,12 +40,12 @@ const EmailPage: React.FC<loginDetailsProps> = ({
   const emailErrorHTML = () => {
     if (isBlur && !emailValid) {
       // For now - consider input valid if it contains '@'
-      if (userData.email === "") {
+      if (email === "") {
         emailErrorMessage = "An email address is required";
-      } else if (!userData.email.includes("@")) {
+      } else if (!email.includes("@")) {
         emailErrorMessage =
           "The email address you entered is missing the at '@' symbol";
-      } else if (!userData.email.includes(".")) {
+      } else if (!email.includes(".")) {
         emailErrorMessage =
           "The email address you entered is missing a full stop";
       } else {
@@ -81,7 +71,7 @@ const EmailPage: React.FC<loginDetailsProps> = ({
 
   // When the text is changed inside the input field, update state
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setUserData({ ...userData, email: e.target.value });
+    // setUserData({ ...userData, email: e.target.value });
     dispatch(setEmail(e.target.value));
   };
 
@@ -105,7 +95,8 @@ const EmailPage: React.FC<loginDetailsProps> = ({
             aria-labelledby="emailLabel"
             aria-required="true"
             aria-invalid={isBlur && !emailValid}
-            value={userData.email}
+            // value={userData.email}
+            value={email}
             autoComplete="email"
             onBlur={blurHandler}
             onChange={changeHandler}
@@ -122,7 +113,6 @@ const EmailPage: React.FC<loginDetailsProps> = ({
           </div>
         </fieldset>
       </form>
-      <p>{email}</p>
     </main>
   );
 };

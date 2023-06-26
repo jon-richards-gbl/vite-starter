@@ -31,7 +31,7 @@ const SignUpPage = (): JSX.Element => {
     if (page === 0) {
       return <GuidancePage />;
     } else if (page === 1) {
-      return <EmailPage userData={userData} setUserData={setUserData} />;
+      return <EmailPage />;
     } else if (page === 2) {
       return <PasswordPage userData={userData} setUserData={setUserData} />;
     }
