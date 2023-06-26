@@ -23,10 +23,13 @@ export const createStore = (preloadedState = {}) =>
 export const store = createStore();
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
+// https://redux-toolkit.js.org/usage/usage-with-typescript#configurestore
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
 export type AppStore = ReturnType<typeof createStore>;
 
+// Export hooks by extracting the (TS) type from the store
+// these are renamed useApp... to prevent confusion
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
