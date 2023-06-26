@@ -16,9 +16,7 @@ const FormMap = React.lazy(() => import("./components/FormMap"));
 const GeoLocationMap = React.lazy(
   () => import("./components/GeoLocation-map/GeoLocationMap")
 );
-const WaypointMap = React.lazy(
-  () => import("./components/waypointMap/WaypointMap")
-);
+const WaypointMap = React.lazy(() => import("./components/WaypointMap"));
 
 export const enum PageRoutes {
   LandingPage = "/",
@@ -27,6 +25,7 @@ export const enum PageRoutes {
   FormMap = "/formMap",
   GeoLocationMap = "/geoMap",
   WaypointMap = "/waypointMap",
+  MapWithDirections = "/mapwithdirections",
 
   // Map = "/form/map",
 }

@@ -1,10 +1,10 @@
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxList,
-  ComboboxOption,
-  ComboboxPopover,
-} from "@reach/combobox";
+// import {
+//   Combobox,
+//   ComboboxInput,
+//   ComboboxList,
+//   ComboboxOption,
+//   ComboboxPopover,
+// } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 import usePlacesAutocomplete, {
   getGeocode,
@@ -52,7 +52,7 @@ const Places = ({ setOffice }: PlacesProps) => {
           </ComboboxList>
         </ComboboxPopover>
       </Combobox> */}
-      <Combobox onSelect={handleSelect}>
+      {/* <Combobox onSelect={handleSelect}>
         <ComboboxInput
           value={value}
           onChange={(e) => setValue(e.target.value)}
@@ -68,7 +68,7 @@ const Places = ({ setOffice }: PlacesProps) => {
               ))}
           </ComboboxList>
         </ComboboxPopover>
-      </Combobox>
+      </Combobox> */}
     </>
   );
 };

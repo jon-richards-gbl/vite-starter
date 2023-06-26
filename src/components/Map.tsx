@@ -1,11 +1,9 @@
 import {
-  Circle,
+  Autocomplete,
   DirectionsRenderer,
   GoogleMap,
-  Marker,
-  MarkerClusterer,
 } from "@react-google-maps/api";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import Distance from "./Distance";
 import Places from "./Places";
@@ -15,17 +13,19 @@ type DirectionsResult = google.maps.DirectionsResult;
 type MapOptions = google.maps.MapOptions;
 
 const Map = () => {
-  //State
-  const [office, setOffice] = useState<LatLngLiteral>();
-  const [origin, setOrigin] = useState("");
-  const [destination, setDestination] = useState("");
-  const [directions, setDirections] = useState<DirectionsResult>();
+  // State
+  const [origin, setOrigin] = useState<string>("");
+  const [destination, setDestination] = useState<string>("");
+  const [directions, setDirections] = useState<DirectionsResult | undefined>(
+    undefined
+  );
   const mapRef = useRef<google.maps.Map | null>(null);
   const center = useMemo<LatLngLiteral>(
     () => ({ lat: 53.483959, lng: -2.244644 }),
     []
   );
-  //Map options
+
+  // Map options // Use memo so options do not render unless changed
   const options = useMemo<MapOptions>(
     () => ({
       mapId: "55ec9d32771d5e8c",
@@ -38,18 +38,17 @@ const Map = () => {
   const onLoad = useCallback((map: google.maps.Map) => {
     mapRef.current = map;
   }, []);
-  const houses = useMemo(() => generateHouses(center), [center]);
 
-  const fetchDirections = (house: LatLngLiteral) => {
-    if (!office) return;
-    // const fetchDirections = (house: LatLngLiteral) => {
-    // if (origin) return;
+  // const houses = useMemo(() => generateHouses(center), [center]);
+
+  const fetchDirections = () => {
+    if (!origin || !destination) return;
 
     const service = new google.maps.DirectionsService();
     service.route(
       {
-        origin: house,
-        destination: office,
+        origin,
+        destination,
         travelMode: google.maps.TravelMode.WALKING,
       },
       (result, status) => {
@@ -63,14 +62,49 @@ const Map = () => {
   return (
     <div className="map-container">
       <div className="controls-container">
-        <h1>Where you wanna beee</h1>
-        <Places
-          setOffice={(position) => {
-            setOffice(position);
-            mapRef.current?.panTo(position);
-          }}
-        />
-        {!office && <p>Enter the address of your office.</p>}
+        <div>
+          <label htmlFor="origin">Where you at: </label>
+          <Autocomplete
+            onLoad={(autocomplete) =>
+              autocomplete.addListener("place_changed", () => {
+                const place = autocomplete.getPlace();
+                if (place && place.geometry) {
+                  setOrigin(place.formatted_address || "");
+                }
+              })
+            }
+          >
+            <input
+              type="text"
+              id="origin"
+              value={origin}
+              onChange={(e) => setOrigin(e.target.value)}
+            />
+          </Autocomplete>
+        </div>
+        <div>
+          <label htmlFor="destination">Where you wanna be: </label>
+          <Autocomplete
+            onLoad={(autocomplete) =>
+              autocomplete.addListener("place_changed", () => {
+                const place = autocomplete.getPlace();
+                if (place && place.geometry) {
+                  setDestination(place.formatted_address || "");
+                }
+              })
+            }
+          >
+            <input
+              type="text"
+              id="destination"
+              value={destination}
+              onChange={(e) => setDestination(e.target.value)}
+            />
+          </Autocomplete>
+        </div>
+        <button className="calMap-btn" onClick={fetchDirections}>
+          Get Directions
+        </button>
         {directions && <Distance leg={directions.routes[0].legs[0]} />}
       </div>
       <div className="map">
@@ -93,80 +127,10 @@ const Map = () => {
               }}
             />
           )}
-          {office && (
-            <>
-              <Marker
-                position={office}
-                icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-              />
-              <MarkerClusterer>
-                {(clusterer) => (
-                  <div>
-                    {houses.map((house) => (
-                      <Marker
-                        key={house.lat}
-                        position={house}
-                        clusterer={clusterer}
-                        onClick={() => {
-                          fetchDirections(house);
-                        }}
-                      />
-                    ))}
-                  </div>
-                )}
-              </MarkerClusterer>
-
-              <Circle center={office} radius={15000} options={closeOptions} />
-              <Circle center={office} radius={30000} options={middleOptions} />
-              <Circle center={office} radius={45000} options={farOptions} />
-            </>
-          )}
         </GoogleMap>
       </div>
     </div>
   );
-};
-
-const defaultOptions = {
-  strokeOpacity: 0.5,
-  strokeWeight: 2,
-  clickable: false,
-  draggable: false,
-  editable: false,
-  visible: true,
-};
-const closeOptions = {
-  ...defaultOptions,
-  zIndex: 3,
-  fillOpacity: 0.05,
-  strokeColor: "#8BC34A",
-  fillColor: "#8BC34A",
-};
-const middleOptions = {
-  ...defaultOptions,
-  zIndex: 2,
-  fillOpacity: 0.05,
-  strokeColor: "#FBC02D",
-  fillColor: "#FBC02D",
-};
-const farOptions = {
-  ...defaultOptions,
-  zIndex: 1,
-  fillOpacity: 0.05,
-  strokeColor: "#FF5252",
-  fillColor: "#FF5252",
-};
-
-const generateHouses = (position: LatLngLiteral) => {
-  const _houses: Array<LatLngLiteral> = [];
-  for (let i = 0; i < 100; i++) {
-    const direction = Math.random() < 0.5 ? -2 : 2;
-    _houses.push({
-      lat: position.lat + Math.random() / direction,
-      lng: position.lng + Math.random() / direction,
-    });
-  }
-  return _houses;
 };
 
 export default Map;

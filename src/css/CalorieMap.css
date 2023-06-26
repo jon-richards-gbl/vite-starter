@@ -31,8 +31,8 @@ a {
   .controls-container {
     display: grid;
     grid-template-columns: 100%;
-    height: auto; /* Change to auto to let it adjust dynamically */
-    max-height: 60vh; /* Set a maximum height if needed */
+    height: auto;
+    /* max-height: 60vh;  */
   }
   .map-container1 {
     display: grid;
@@ -44,10 +44,14 @@ a {
     height: 80vh;
   }
   .distance-container {
-    /* height: 50vh; */
+    margin-top: 10px;
+    padding-top: 5px;
     overflow: scroll;
-    /* color: #14161a; */
   }
+}
+
+.distance-container {
+  overflow: scroll;
 }
 
 .controls-container {
@@ -56,7 +60,7 @@ a {
   color: #fff;
   height: 80vh;
   padding-bottom: 20px;
-  /* display: flex; */
+  overflow: scroll;
 }
 
 .controls input {
@@ -64,9 +68,8 @@ a {
 }
 
 .map-container1 {
-  /* width: 100%; */
   height: 80vh;
-  border: #14161a 3px solid;
+  border: pink 3px solid;
   padding-bottom: 20px;
 }
 
@@ -83,4 +86,31 @@ a {
 .combobox-input {
   width: 100%;
   padding: 0.5rem;
+}
+
+.calMap-btn {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  color: black;
+  background-color: pink;
+  border-radius: 5px;
+  color: black;
+  height: 40px;
+  width: 100%;
+}
+
+.calMap-btn:hover {
+  color: pink;
+  background-color: black;
+  border-radius: 5px;
+  border: pink 1px solid;
+  box-shadow: 0 4px 8px 0 white(0, 0, 0, 0.2);
+}
+
+.instruction {
+  margin: 0;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.4;
 }
