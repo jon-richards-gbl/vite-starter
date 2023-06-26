@@ -16,6 +16,7 @@ const EmailPage: React.FC<loginDetailsProps> = ({
   userData,
   setUserData,
 }): JSX.Element => {
+  // selector hook for Redux store (getter)
   const email = useAppSelector(selectEmail);
   const dispatch = useAppDispatch();
   const [emailValid, setEmailValid] = useState(false);
