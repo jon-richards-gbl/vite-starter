@@ -23,7 +23,7 @@ const newUserSlice = createSlice({
     setPassword(state, action: PayloadAction<string>) {
       state.password = action.payload;
     },
-    resetUserPassword(state) {
+    resetPassword(state) {
       state.password = "";
     },
   },
@@ -32,7 +32,7 @@ const newUserSlice = createSlice({
 // Action creators are generated for each case reducer function
 // Export all the actions so that they can be used in ALL
 // components in the application
-export const { setEmail, resetEmail, setPassword, resetUserPassword } =
+export const { setEmail, resetEmail, setPassword, resetPassword } =
   newUserSlice.actions;
 
 export default newUserSlice.reducer;
