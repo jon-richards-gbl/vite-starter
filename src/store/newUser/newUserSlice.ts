@@ -3,7 +3,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { createInitialNewUserState } from "./state";
 
 // Redux store slice created to store the new user data input
-// during registration process by the SignUpPage and child components
+// during registration process by the SignUpPage and it's child components
 
 const newUserSlice = createSlice({
   // name of the slice to identify it and differentiate from other slices
@@ -32,7 +32,7 @@ const newUserSlice = createSlice({
 // Action creators are generated for each case reducer function
 // Export all the actions so that they can be used in ALL
 // components in the application
-export const { setEmail } = newUserSlice.actions;
-export const { resetEmail } = newUserSlice.actions;
+export const { setEmail, resetEmail, setPassword, resetUserPassword } =
+  newUserSlice.actions;
 
 export default newUserSlice.reducer;
