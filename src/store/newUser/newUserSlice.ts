@@ -10,11 +10,15 @@ const newUserSlice = createSlice({
   name: "newUser",
   initialState: createInitialNewUserState,
   reducers: {
-    setEmail(state, action: PayloadAction<string>) {
+    // Boolean to indicate if all user input thus far has been valid or not
+    setIsValid(state, action: PayloadAction<boolean>) {
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
+      state.isValid = action.payload;
+    },
+    setEmail(state, action: PayloadAction<string>) {
       state.email = action.payload;
     },
     resetEmail(state) {
@@ -26,8 +30,11 @@ const newUserSlice = createSlice({
     resetPassword(state) {
       state.password = "";
     },
-    setIsPasswordValid(state, action: PayloadAction<boolean>) {
-      state.isPasswordValid = action.payload;
+    setConfirmPassword(state, action: PayloadAction<string>) {
+      state.confirmPassword = action.payload;
+    },
+    resetConfirmPassword(state) {
+      state.confirmPassword = "";
     },
   },
 });
@@ -40,7 +47,9 @@ export const {
   resetEmail,
   setPassword,
   resetPassword,
-  setIsPasswordValid,
+  setIsValid,
+  setConfirmPassword,
+  resetConfirmPassword,
 } = newUserSlice.actions;
 
 export default newUserSlice.reducer;

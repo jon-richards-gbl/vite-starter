@@ -1,15 +1,17 @@
 /* State type and initial empty state definitions */
 export interface newUserState {
+  isValid: boolean;
   email: string;
   password: string;
-  isPasswordValid: boolean;
+  confirmPassword: string;
 }
 
 // initalState object for newUser slice
 export function createInitialNewUserState(): newUserState {
   return {
+    isValid: false,
     email: "",
     password: "",
-    isPasswordValid: false,
+    confirmPassword: "",
   };
 }

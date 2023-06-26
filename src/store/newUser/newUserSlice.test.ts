@@ -1,9 +1,11 @@
 import { createTestStore } from "../../../test/helpers/store";
 import {
+  resetConfirmPassword,
   resetEmail,
   resetPassword,
+  setConfirmPassword,
   setEmail,
-  setIsPasswordValid,
+  setIsValid,
   setPassword,
 } from "./newUserSlice";
 
@@ -18,7 +20,8 @@ describe("newUserSlice test", () => {
       expect(initialState).toEqual({
         email: "",
         password: "",
-        isPasswordValid: false,
+        confirmPassword: "",
+        isValid: false,
       });
     });
   });
@@ -55,6 +58,8 @@ describe("newUserSlice test", () => {
 
       testStore.dispatch(setEmail("bob@myemail.co.uk"));
       testStore.dispatch(setPassword("T3stP@ssw0rd"));
+      testStore.dispatch(setConfirmPassword("T3stP@ssw0rd"));
+      testStore.dispatch(setIsValid(true));
       testStore.dispatch(resetEmail());
 
       const updatedState = testStore.getState();
@@ -62,7 +67,8 @@ describe("newUserSlice test", () => {
       expect(updatedState.newUser).toEqual({
         email: "",
         password: "T3stP@ssw0rd",
-        isPasswordValid: false,
+        isValid: true,
+        confirmPassword: "T3stP@ssw0rd",
       });
     });
   });
@@ -85,6 +91,8 @@ describe("newUserSlice test", () => {
 
       testStore.dispatch(setEmail("bob@myemail.co.uk"));
       testStore.dispatch(setPassword("T3stP@ssw0rd"));
+      testStore.dispatch(setConfirmPassword("T3stP@ssw0rd"));
+      testStore.dispatch(setIsValid(true));
       testStore.dispatch(resetPassword());
 
       const updatedState = testStore.getState();
@@ -92,20 +100,21 @@ describe("newUserSlice test", () => {
       expect(updatedState.newUser).toEqual({
         email: "bob@myemail.co.uk",
         password: "",
-        isPasswordValid: false,
+        confirmPassword: "T3stP@ssw0rd",
+        isValid: true,
       });
     });
   });
 
-  describe("setIsPasswordValid", () => {
-    it("updates isPasswordValid", () => {
+  describe("setIsValid", () => {
+    it("updates isValid", () => {
       const testStore = createTestStore();
 
-      testStore.dispatch(setIsPasswordValid(true));
+      testStore.dispatch(setIsValid(true));
 
       const updatedState = testStore.getState();
 
-      expect(updatedState.newUser.isPasswordValid).toEqual(true);
+      expect(updatedState.newUser.isValid).toEqual(true);
     });
   });
 });
