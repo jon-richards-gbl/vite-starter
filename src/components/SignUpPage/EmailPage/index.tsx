@@ -7,6 +7,7 @@ import { selectEmail } from "../../../store/newUser/selectors";
 const EmailPage = (): JSX.Element => {
   // selector hook for Redux store (getter)
   const email = useAppSelector(selectEmail);
+  // get the dispatch hook to call actions
   const dispatch = useAppDispatch();
   const [emailValid, setEmailValid] = useState(false);
   const [isBlur, setIsBlur] = useState(false);
@@ -18,7 +19,6 @@ const EmailPage = (): JSX.Element => {
   // When the email input has and then loses focus -
   // validate the user's entry and update accordingly.
   const blurHandler = (e: FocusEvent<HTMLInputElement>) => {
-    // setUserData({ ...userData, email: e.target.value });
     dispatch(setEmail(e.target.value));
     setIsBlur(true);
     const emailRegex = new RegExp(
@@ -71,7 +71,6 @@ const EmailPage = (): JSX.Element => {
 
   // When the text is changed inside the input field, update state
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    // setUserData({ ...userData, email: e.target.value });
     dispatch(setEmail(e.target.value));
   };
 
@@ -95,7 +94,6 @@ const EmailPage = (): JSX.Element => {
             aria-labelledby="emailLabel"
             aria-required="true"
             aria-invalid={isBlur && !emailValid}
-            // value={userData.email}
             value={email}
             autoComplete="email"
             onBlur={blurHandler}
