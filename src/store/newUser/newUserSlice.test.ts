@@ -3,6 +3,7 @@ import {
   resetEmail,
   resetPassword,
   setEmail,
+  setIsPasswordValid,
   setPassword,
 } from "./newUserSlice";
 
@@ -14,7 +15,11 @@ describe("newUserSlice test", () => {
     it("Should initially set properties of newUser to empty", () => {
       const testStore = createTestStore();
       const initialState = testStore.getState().newUser;
-      expect(initialState).toEqual({ email: "", password: "" });
+      expect(initialState).toEqual({
+        email: "",
+        password: "",
+        isPasswordValid: false,
+      });
     });
   });
 
@@ -40,10 +45,7 @@ describe("newUserSlice test", () => {
 
       const updatedState = testStore.getState();
 
-      expect(updatedState.newUser).toEqual({
-        email: "bob@myemail.co.uk",
-        password: "",
-      });
+      expect(updatedState.newUser.email).toEqual("bob@myemail.co.uk");
     });
   });
 
@@ -60,6 +62,7 @@ describe("newUserSlice test", () => {
       expect(updatedState.newUser).toEqual({
         email: "",
         password: "T3stP@ssw0rd",
+        isPasswordValid: false,
       });
     });
   });
@@ -72,10 +75,7 @@ describe("newUserSlice test", () => {
 
       const updatedState = testStore.getState();
 
-      expect(updatedState.newUser).toEqual({
-        email: "",
-        password: "T3stP@ssw0rd",
-      });
+      expect(updatedState.newUser.password).toEqual("T3stP@ssw0rd");
     });
   });
 
@@ -92,7 +92,20 @@ describe("newUserSlice test", () => {
       expect(updatedState.newUser).toEqual({
         email: "bob@myemail.co.uk",
         password: "",
+        isPasswordValid: false,
       });
+    });
+  });
+
+  describe("setIsPasswordValid", () => {
+    it("updates isPasswordValid", () => {
+      const testStore = createTestStore();
+
+      testStore.dispatch(setIsPasswordValid(true));
+
+      const updatedState = testStore.getState();
+
+      expect(updatedState.newUser.isPasswordValid).toEqual(true);
     });
   });
 });
