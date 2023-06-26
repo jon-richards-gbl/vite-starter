@@ -2,8 +2,11 @@ import React, { ChangeEvent, useState } from "react";
 import PasswordChecklist from "react-password-checklist";
 
 import { useAppDispatch, useAppSelector } from "../../../store";
-import { setPassword } from "../../../store/newUser/newUserSlice";
-import { selectPassword } from "../../../store/newUser/selectors";
+import { setIsValid, setPassword } from "../../../store/newUser/newUserSlice";
+import {
+  selectIsValid,
+  selectPassword,
+} from "../../../store/newUser/selectors";
 import UserData from "../../../types/types";
 
 // TODO: Should this be in types.tsx?
@@ -18,10 +21,11 @@ const PasswordPage: React.FC<loginDetailsProps> = ({
 }): JSX.Element => {
   // selector hook for Redux store (getter)
   const password = useAppSelector(selectPassword);
-  // get the dispatch hook to call actions
+  const isValid = useAppSelector(selectIsValid);
+  // get the Redux  dispatch hook to call actions
   const dispatch = useAppDispatch();
   const [pwdIsVisible, setPwdIsVisible] = useState(false);
-  const [, setIsPwdValid] = useState(false);
+  // const [, setIsPwdValid] = useState(false);
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     // setUserData({ ...userData, password: e.target.value });
@@ -122,7 +126,8 @@ const PasswordPage: React.FC<loginDetailsProps> = ({
           value={password}
           valueAgain={userData.passwordConfirm}
           // TODO: Enable/disable next button depending on isValid
-          onChange={(isValid) => setIsPwdValid(isValid)}
+          // onChange={(isValid) => setIsPwdValid(isValid)}
+          onChange={(isValid) => dispatch(setIsValid(isValid))}
         />
       </form>
     </main>
