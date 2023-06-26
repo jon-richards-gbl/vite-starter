@@ -12,3 +12,8 @@ export const selectEmail = createSelector(
   selectNewUserState,
   (newUserState) => newUserState.email
 );
+
+export const selectPassword = createSelector(
+  selectNewUserState,
+  (newUserState) => newUserState.password
+);
