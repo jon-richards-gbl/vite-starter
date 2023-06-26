@@ -1,6 +1,9 @@
-import { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import PasswordChecklist from "react-password-checklist";
 
+import { useAppDispatch, useAppSelector } from "../../../store";
+import { setPassword } from "../../../store/newUser/newUserSlice";
+import { selectPassword } from "../../../store/newUser/selectors";
 import UserData from "../../../types/types";
 
 // TODO: Should this be in types.tsx?
@@ -13,11 +16,16 @@ const PasswordPage: React.FC<loginDetailsProps> = ({
   userData,
   setUserData,
 }): JSX.Element => {
+  // selector hook for Redux store (getter)
+  const password = useAppSelector(selectPassword);
+  // get the dispatch hook to call actions
+  const dispatch = useAppDispatch();
   const [pwdIsVisible, setPwdIsVisible] = useState(false);
   const [, setIsPwdValid] = useState(false);
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setUserData({ ...userData, password: e.target.value });
+    // setUserData({ ...userData, password: e.target.value });
+    dispatch(setPassword(e.target.value));
     // TODO: Disable next button if passwords are invalid / don't match
   };
 
@@ -69,7 +77,8 @@ const PasswordPage: React.FC<loginDetailsProps> = ({
             aria-labelledby="pwd-label"
             aria-describedby="pwd-desc"
             aria-required="true"
-            value={userData.password}
+            // value={userData.password}
+            value={password}
             // onBlur={blurHandler}
             onChange={changeHandler}
           />
@@ -110,7 +119,7 @@ const PasswordPage: React.FC<loginDetailsProps> = ({
           ]}
           minLength={8}
           maxLength={15}
-          value={userData.password}
+          value={password}
           valueAgain={userData.passwordConfirm}
           // TODO: Enable/disable next button depending on isValid
           onChange={(isValid) => setIsPwdValid(isValid)}
