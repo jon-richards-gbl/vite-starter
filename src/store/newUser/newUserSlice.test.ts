@@ -5,7 +5,6 @@ import {
   resetPassword,
   setConfirmPassword,
   setEmail,
-  setIsValid,
   setPassword,
 } from "./newUserSlice";
 
@@ -21,7 +20,6 @@ describe("newUserSlice test", () => {
         email: "",
         password: "",
         confirmPassword: "",
-        isValid: false,
       });
     });
   });
@@ -59,7 +57,6 @@ describe("newUserSlice test", () => {
       testStore.dispatch(setEmail("bob@myemail.co.uk"));
       testStore.dispatch(setPassword("T3stP@ssw0rd"));
       testStore.dispatch(setConfirmPassword("T3stP@ssw0rd"));
-      testStore.dispatch(setIsValid(true));
       testStore.dispatch(resetEmail());
 
       const updatedState = testStore.getState();
@@ -67,7 +64,6 @@ describe("newUserSlice test", () => {
       expect(updatedState.newUser).toEqual({
         email: "",
         password: "T3stP@ssw0rd",
-        isValid: true,
         confirmPassword: "T3stP@ssw0rd",
       });
     });
@@ -92,7 +88,6 @@ describe("newUserSlice test", () => {
       testStore.dispatch(setEmail("bob@myemail.co.uk"));
       testStore.dispatch(setPassword("T3stP@ssw0rd"));
       testStore.dispatch(setConfirmPassword("T3stP@ssw0rd"));
-      testStore.dispatch(setIsValid(true));
       testStore.dispatch(resetPassword());
 
       const updatedState = testStore.getState();
@@ -101,20 +96,7 @@ describe("newUserSlice test", () => {
         email: "bob@myemail.co.uk",
         password: "",
         confirmPassword: "T3stP@ssw0rd",
-        isValid: true,
       });
-    });
-  });
-
-  describe("setIsValid", () => {
-    it("updates isValid", () => {
-      const testStore = createTestStore();
-
-      testStore.dispatch(setIsValid(true));
-
-      const updatedState = testStore.getState();
-
-      expect(updatedState.newUser.isValid).toEqual(true);
     });
   });
 });

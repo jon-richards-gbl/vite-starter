@@ -17,8 +17,3 @@ export const selectPassword = createSelector(
   selectNewUserState,
   (newUserState) => newUserState.password
 );
-
-export const selectIsValid = createSelector(
-  selectNewUserState,
-  (newUserState) => newUserState.isValid
-);
