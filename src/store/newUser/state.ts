@@ -1,4 +1,4 @@
-/* State type and initial empty state definitions */
+/* newUser - state type and initial empty state definitions */
 export interface newUserState {
   email: string;
   password: string;
