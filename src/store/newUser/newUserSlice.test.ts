@@ -99,4 +99,23 @@ describe("newUserSlice test", () => {
       });
     });
   });
+
+  describe("resetConfirmPassword", () => {
+    it("resets just the confirm password in the store back to empty", () => {
+      const testStore = createTestStore();
+
+      testStore.dispatch(setEmail("bob@myemail.co.uk"));
+      testStore.dispatch(setPassword("T3stP@ssw0rd"));
+      testStore.dispatch(setConfirmPassword("T3stP@ssw0rd"));
+      testStore.dispatch(resetConfirmPassword());
+
+      const updatedState = testStore.getState();
+
+      expect(updatedState.newUser).toEqual({
+        email: "bob@myemail.co.uk",
+        password: "T3stP@ssw0rd",
+        confirmPassword: "",
+      });
+    });
+  });
 });
