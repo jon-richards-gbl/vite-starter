@@ -7,6 +7,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import newUserReducer from "./newUser/newUserSlice";
+import signUpPagesReducer from "./signUpPages/signUpPagesSlice";
 import userReducer from "./user/userSlice";
 
 // Add the reducer for each slice here so that they
@@ -17,6 +18,7 @@ export const createStore = (preloadedState = {}) =>
     reducer: {
       user: userReducer,
       newUser: newUserReducer,
+      signUpPages: signUpPagesReducer,
     },
   });
 
