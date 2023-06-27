@@ -1,16 +1,18 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { createInitialNewUserState } from "./state";
+import { createInitialNewUserState, newUserState } from "./state";
 
 // Redux store slice created to store the new user data input
 // during registration process by the SignUpPage and it's child components
 
+// createSlice() uses createAction() and createReducer() under the hood and
+// so thanks to immer we can write 'mutating' immutable updates
 const newUserSlice = createSlice({
   // name of the slice to identify it and differentiate from other slices
   name: "newUser",
   initialState: createInitialNewUserState,
   reducers: {
-    setEmail(state, action: PayloadAction<string>) {
+    setEmail(state: newUserState, action: PayloadAction<string>) {
       state.email = action.payload;
     },
     resetEmail(state) {
