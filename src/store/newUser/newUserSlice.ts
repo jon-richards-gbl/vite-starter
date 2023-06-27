@@ -1,6 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { createInitialUserState } from "../user/state";
 import { createInitialNewUserState } from "./state";
 
 // Redux store slice created to store the new user data input
