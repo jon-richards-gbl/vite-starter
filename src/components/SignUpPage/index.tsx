@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useDeferredValue, useState } from "react";
 
+import { useAppSelector } from "../../store";
+import { selectIsValid } from "../../store/signUpPages/selectors";
 import BreadcrumbTrail from "../common/BreadcrumbTrail";
 import PageDisplay from "./PageDisplay";
 import "./styles.css";
@@ -14,6 +16,9 @@ export const formTitles: Array<string> = [
 const SignUpPage = (): React.JSX.Element => {
   // Store the current page the user is viewing
   const [page, setPage] = useState<number>(0);
+  let pageIsValid = false;
+  pageIsValid = useAppSelector(selectIsValid(page));
+  const deferredPageIsValid = useDeferredValue(pageIsValid);
 
   return (
     <main>
@@ -55,7 +60,8 @@ const SignUpPage = (): React.JSX.Element => {
           className="form-button h4-style"
           type="button"
           // TODO: Enable child page components to disable the next button
-          disabled={page === formTitles.length - 1}
+          // disabled={page === formTitles.length - 1}
+          disabled={!deferredPageIsValid}
           onClick={() => {
             setPage((currentPg: number) => currentPg + 1);
           }}
