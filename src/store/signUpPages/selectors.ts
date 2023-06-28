@@ -20,10 +20,12 @@ export const findPageByIndex = (indexIn: number) =>
   createSelector([signUpPageState], (pageState) => {
     return pageState.pages.find(({ index }) => index === indexIn);
   });
-export const selectLastPage = () =>
-  createSelector([signUpPageState], (pageState) => {
-    const lastIndex = pageState.pages.length - 1;
-    return pageState.pages[lastIndex];
-  });
-export const selectNumPages = () =>
-  createSelector([signUpPageState], (pageState) => pageState.pages.length);
+export const selectLastPage = createSelector([signUpPageState], (pageState) => {
+  const lastIndex = pageState.pages.length - 1;
+  return pageState.pages[lastIndex];
+});
+
+export const selectNumPages = createSelector(
+  [signUpPageState],
+  (pageState) => pageState.pages.length
+);
