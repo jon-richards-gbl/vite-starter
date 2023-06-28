@@ -1,8 +1,15 @@
 import React from "react";
 
+import { useAppSelector } from "../../../store";
+import { selectPageByIndex } from "../../../store/signUpPages/selectors";
+import { SignUpPageInformation } from "../../../store/signUpPages/state";
 import "./styles.css";
 
-const GuidancePage = (): JSX.Element => {
+const GuidancePage = ({ index }: { index: number }): React.JSX.Element => {
+  const thisPageInfo: SignUpPageInformation = useAppSelector((state) =>
+    selectPageByIndex(state, index)
+  );
+
   return (
     <div>
       {/* TODO: Include instructions for completing sign up - inc save option */}
@@ -16,6 +23,7 @@ const GuidancePage = (): JSX.Element => {
       </p>
       <h4>Terms and Conditions</h4>
       <p id="terms_conditions">Terms and conditions to agree to here?</p>
+      <span>{thisPageInfo.errorMessages}</span>
     </div>
   );
 };

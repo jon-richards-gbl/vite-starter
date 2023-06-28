@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+import { useAppDispatch } from "../../store";
+import { addPage } from "../../store/signUpPages/signUpPagesSlice";
+import { SignUpPageInformation } from "../../store/signUpPages/state";
 import UserData from "../../types/types";
 import BreadcrumbTrail from "../common/BreadcrumbTrail";
 import EmailPage from "./EmailPage";
@@ -27,9 +30,19 @@ const SignUpPage = (): JSX.Element => {
     address: "",
   });
 
+  // get the Redux  dispatch hook to call actions
+  const dispatch = useAppDispatch();
+
   const PageDisplay = () => {
+    // TODO: Convert to switch
     if (page === 0) {
-      return <GuidancePage />;
+      const newPage: SignUpPageInformation = {
+        index: 0,
+        isValid: false,
+        errorMessages: ["Test error message", "This is another error"],
+      };
+      dispatch(addPage(newPage));
+      return <GuidancePage index={newPage.index} />;
     } else if (page === 1) {
       return <EmailPage />;
     } else if (page === 2) {
