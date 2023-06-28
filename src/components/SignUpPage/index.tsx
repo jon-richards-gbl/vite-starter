@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-import { useAppDispatch } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { selectNumPages } from "../../store/signUpPages/selectors";
 import { addPage } from "../../store/signUpPages/signUpPagesSlice";
 import { SignUpPageInformation } from "../../store/signUpPages/state";
 import UserData from "../../types/types";
@@ -34,19 +35,31 @@ const SignUpPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const PageDisplay = () => {
-    // TODO: Convert to switch
-    if (page === 0) {
+    const numPages: number = useAppSelector(selectNumPages);
+
+    /* 
+    If this is the first time we have loaded this page, 
+    we need to add a new SignUpPageInformation object 
+    to the state. Passing the index to the child component.
+    Ensure that there is always a state object for each page.
+    */
+    if (numPages < page) {
       const newPage: SignUpPageInformation = {
-        index: 0,
+        index: page,
         isValid: false,
-        errorMessages: ["Test error message", "This is another error"],
+        errorMessages: [],
       };
       dispatch(addPage(newPage));
-      return <GuidancePage index={newPage.index} />;
-    } else if (page === 1) {
-      return <EmailPage />;
-    } else if (page === 2) {
-      return <PasswordPage userData={userData} setUserData={setUserData} />;
+    }
+    switch (page) {
+      case 0:
+        return <GuidancePage index={page} />;
+      case 1:
+        return <EmailPage />;
+      case 2:
+        return <PasswordPage userData={userData} setUserData={setUserData} />;
+      default:
+        alert("SignUpPage - switch. No such page");
     }
   };
 
