@@ -3,15 +3,15 @@
 export interface SignUpPageInformation {
   index: number;
   isValid: boolean;
-  errorMessages: Array<string>;
+  errorMessages: string[];
 }
 
 export interface SignUpPagesState {
-  pages: Array<SignUpPageInformation>;
+  pages: SignUpPageInformation[];
 }
 
 export function createInitialSignUpPagesState(): SignUpPagesState {
   return {
-    pages: new Array<SignUpPageInformation>(),
+    pages: [],
   };
 }
