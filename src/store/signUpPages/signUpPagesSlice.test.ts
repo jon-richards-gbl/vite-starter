@@ -1,17 +1,17 @@
-// import { useAppSelector } from "..";
-// import { selectPageWithIndex } from "../signUpPages/selectors";
+import { useAppSelector } from "..";
 import { createTestStore } from "../../../test/helpers/store";
+import { selectLastPage, selectPageByIndex } from "../signUpPages/selectors";
 import { addPage } from "./signUpPagesSlice";
-import { SignUpPage } from "./state";
+import { SignUpPageInformation } from "./state";
 
 describe("signUpPagesSlice", () => {
   describe("addPage", () => {
     it("adds the page to the store", () => {
       const testStore = createTestStore();
-      const newPage: SignUpPage = {
+      const newPage: SignUpPageInformation = {
         index: 0,
-        isValid: false,
-        errorMessages: [],
+        isValid: true,
+        errorMessages: ["Example error message"],
       };
 
       testStore.dispatch(addPage(newPage));
@@ -21,21 +21,4 @@ describe("signUpPagesSlice", () => {
       expect(updatedState.signUpPages.pages[0]).toEqual(newPage);
     });
   });
-
-  //   describe("selectPageWithIndex", () => {
-  //     it("returns the page with the selected index", () => {
-  //       const testStore = createTestStore();
-  //       const newPage: SignUpPage = {
-  //         index: 0,
-  //         isValid: false,
-  //         errorMessages: [],
-  //         }
-
-  //         testStore.dispatch(addPage(newPage));
-
-  //         const retrievedPage: SignUpPage = useAppSelector((state) => selectPageWithIndex(state, 0));
-
-  //         expect(retrievedPage).toEqual(newPage);
-  //     });
-  //   });
 });
