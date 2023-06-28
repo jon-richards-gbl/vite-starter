@@ -1,14 +1,20 @@
 import React from "react";
 
 import { useAppSelector } from "../../../store";
-import { selectPageByIndex } from "../../../store/signUpPages/selectors";
+import {
+  findPageByIndex,
+  selectPageByIndex,
+} from "../../../store/signUpPages/selectors";
 import { SignUpPageInformation } from "../../../store/signUpPages/state";
 import "./styles.css";
 
 const GuidancePage = ({ index }: { index: number }): React.JSX.Element => {
-  const thisPageInfo: SignUpPageInformation = useAppSelector((state) =>
-    selectPageByIndex(state, index)
+  const thisPageInfo: SignUpPageInformation = useAppSelector(
+    selectPageByIndex(index)
   );
+  // const thisPageInfo: SignUpPageInformation = useAppSelector((state) =>
+  //   findPageByIndex(state, index)
+  // );
 
   return (
     <div>
@@ -23,7 +29,7 @@ const GuidancePage = ({ index }: { index: number }): React.JSX.Element => {
       </p>
       <h4>Terms and Conditions</h4>
       <p id="terms_conditions">Terms and conditions to agree to here?</p>
-      <span>{thisPageInfo.errorMessages}</span>
+      <span>For Testing: {thisPageInfo?.errorMessages}</span>
     </div>
   );
 };
