@@ -9,11 +9,6 @@ export const selectPageByIndex = createSelector(
   (signUpPageState, index) => {
     return signUpPageState.pages[index];
   }
-  // [
-  //   signUpPageState => signUpPageState.pages,
-  //   (signUpPageState, index: number) => index
-  // ],
-  // (pages, index) => pages.filter(index)
 );
 
 export const selectLastPage = createSelector(
