@@ -1,14 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../store";
-import { selectNumPages } from "../../store/signUpPages/selectors";
-import { addPage } from "../../store/signUpPages/signUpPagesSlice";
-import { SignUpPageInformation } from "../../store/signUpPages/state";
-import UserData from "../../types/types";
 import BreadcrumbTrail from "../common/BreadcrumbTrail";
-import EmailPage from "./EmailPage";
-import GuidancePage from "./GuidancePage";
-import PasswordPage from "./PasswordPage";
+import PageDisplay from "./PageDisplay";
 import "./styles.css";
 
 export const formTitles: Array<string> = [
@@ -18,51 +11,7 @@ export const formTitles: Array<string> = [
   "Address",
 ];
 
-const SignUpPage = (): JSX.Element => {
-  // TODO: should this be in types.ts?
-  // TS type for formData
-  const [userData, setUserData] = useState<UserData>({
-    email: "",
-    password: "",
-    passwordConfirm: "",
-    firstName: "",
-    surname: "",
-    birthDate: null,
-    address: "",
-  });
-
-  // get the Redux  dispatch hook to call actions
-  const dispatch = useAppDispatch();
-
-  const PageDisplay = () => {
-    const numPages: number = useAppSelector(selectNumPages);
-
-    /* 
-    If this is the first time we have loaded this page, 
-    we need to add a new SignUpPageInformation object 
-    to the state. Passing the index to the child component.
-    Ensure that there is always a state object for each page.
-    */
-    if (numPages < page) {
-      const newPage: SignUpPageInformation = {
-        index: page,
-        isValid: false,
-        errorMessages: [],
-      };
-      dispatch(addPage(newPage));
-    }
-    switch (page) {
-      case 0:
-        return <GuidancePage index={page} />;
-      case 1:
-        return <EmailPage />;
-      case 2:
-        return <PasswordPage userData={userData} setUserData={setUserData} />;
-      default:
-        alert("SignUpPage - switch. No such page");
-    }
-  };
-
+const SignUpPage = (): React.JSX.Element => {
   // Store the current page the user is viewing
   const [page, setPage] = useState<number>(0);
 
@@ -85,7 +34,7 @@ const SignUpPage = (): JSX.Element => {
           <h2>{formTitles[page]}</h2>
         </div>
         <div className="separator"></div>
-        {PageDisplay()}
+        <PageDisplay page={page} />
       </div>
 
       {/* Buttons will be controlled here, not via the individual pages */}
