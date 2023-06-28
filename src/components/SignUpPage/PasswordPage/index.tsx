@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, FocusEvent, useState } from "react";
 import PasswordChecklist from "react-password-checklist";
 
 import { useAppDispatch, useAppSelector } from "../../../store";
@@ -16,29 +16,29 @@ const PasswordPage: React.FC<loginDetailsProps> = ({
   userData,
   setUserData,
 }): JSX.Element => {
-  // selector hook for Redux store (getter)
-  const password = useAppSelector(selectPassword);
-
-  // const isValid = useAppSelector(selectIsValid);
   // get the Redux  dispatch hook to call actions
   const dispatch = useAppDispatch();
+  // selector hook for Redux store (getter)
+  const password = useAppSelector(selectPassword);
   const [pwdIsVisible, setPwdIsVisible] = useState(false);
+  // TODO: Remove when redux is fixed
   // const [, setIsPwdValid] = useState(false);
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     // setUserData({ ...userData, password: e.target.value });
     dispatch(setPassword(e.target.value));
-    // TODO: Disable next button if passwords are invalid / don't match
   };
 
   // When the email input has and then loses focus -
   // validate the user's entry and update accordingly.
-  // const blurHandler = (e: FocusEvent<HTMLInputElement>) => {
-  //   setUserData({ ...userData, password: e.target.value });
-  // }
+  const blurHandler = (e: FocusEvent<HTMLInputElement>) => {
+    // setUserData({ ...userData, password: e.target.value });
+    dispatch(setPassword(e.target.value));
+  };
 
   return (
     <main>
+      {/* <span>{thisPage.toString()}</span> */}
       <form aria-labelledby="enter-password">
         <fieldset>
           <legend id="enter-password">Create new password</legend>
@@ -104,7 +104,7 @@ const PasswordPage: React.FC<loginDetailsProps> = ({
             aria-labelledby="pwd-confirm-label"
             aria-required="true"
             value={userData.passwordConfirm}
-            // onBlur={blurHandler}
+            onBlur={blurHandler}
             onChange={(e) =>
               setUserData({ ...userData, passwordConfirm: e.target.value })
             }
