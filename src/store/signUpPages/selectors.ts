@@ -4,22 +4,23 @@ import { RootState } from "../index";
 
 const signUpPageState = (state: RootState) => state.signUpPages;
 
-export const selectPageByIndex = createSelector(
-  [signUpPageState, (signUpPageState, index: number) => index],
-  (signUpPageState, index) => {
-    return signUpPageState.pages[index];
-  }
-);
+export const selectPageByIndex = (indexIn: number) =>
+  createSelector([signUpPageState], (pageState) => {
+    return pageState.pages[indexIn];
+  });
 
-export const selectLastPage = createSelector(
-  [signUpPageState],
-  (newPageState) => {
-    const lastIndex = newPageState.pages.length - 1;
-    return newPageState.pages[lastIndex];
-  }
-);
+// Testing alternative
+export const findPageByIndex = (indexIn: number) =>
+  createSelector([signUpPageState], (pageState) => {
+    return pageState.pages.find(({ index }) => index === indexIn);
+  });
+
+export const selectLastPage = createSelector([signUpPageState], (pageState) => {
+  const lastIndex = pageState.pages.length - 1;
+  return pageState.pages[lastIndex];
+});
 
 export const selectNumPages = createSelector(
   [signUpPageState],
-  (newPageState) => newPageState.pages.length
+  (pageState) => pageState.pages.length
 );
