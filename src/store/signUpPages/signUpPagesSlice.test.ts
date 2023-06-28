@@ -1,6 +1,4 @@
-import { useAppSelector } from "..";
 import { createTestStore } from "../../../test/helpers/store";
-import { selectLastPage, selectPageByIndex } from "../signUpPages/selectors";
 import { addPage } from "./signUpPagesSlice";
 import { SignUpPageInformation } from "./state";
 

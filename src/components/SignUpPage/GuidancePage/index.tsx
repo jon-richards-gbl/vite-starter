@@ -1,10 +1,7 @@
 import React from "react";
 
 import { useAppSelector } from "../../../store";
-import {
-  findPageByIndex,
-  selectPageByIndex,
-} from "../../../store/signUpPages/selectors";
+import { selectPageByIndex } from "../../../store/signUpPages/selectors";
 import { SignUpPageInformation } from "../../../store/signUpPages/state";
 import "./styles.css";
 
