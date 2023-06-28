@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { SignUpPage, createInitialSignUpPagesState } from "./state";
+import { SignUpPageInformation, createInitialSignUpPagesState } from "./state";
 
 /* Store the state of each of sign up form pages as an array of 
 objects. */
@@ -9,16 +9,16 @@ const signUpPageSlice = createSlice({
   name: "signUpPages",
   initialState: createInitialSignUpPagesState,
   reducers: {
-    addPage(state, action: PayloadAction<SignUpPage>) {
-      const newPage: SignUpPage = action.payload;
-      newPage.index = state.pages.length;
+    addPage(state, action: PayloadAction<SignUpPageInformation>) {
+      const newPage: SignUpPageInformation = action.payload;
+      // newPage.index = state.pages.length;
       state.pages.push(newPage);
     },
-    updatePage(state, action: PayloadAction<SignUpPage>) {
+    updatePage(state, action: PayloadAction<SignUpPageInformation>) {
       state.pages[action.payload.index] = action.payload;
     },
     resetPages(state) {
-      state.pages = new Array<SignUpPage>();
+      state.pages = new Array<SignUpPageInformation>();
     },
   },
 });
