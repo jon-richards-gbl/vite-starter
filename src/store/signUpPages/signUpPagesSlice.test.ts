@@ -29,13 +29,18 @@ describe("signUpPagesSlice", () => {
         errorMessages: ["Example error message"],
       };
 
-      const updatedPage: SignUpPageInformation = {
-        index: 0,
-        isValid: false,
-        errorMessages: ["This is an updated error message"],
-      };
-
       testStore.dispatch(addPage(newPage));
+
+      // Jest seems to insist the original object is
+      // read only so let's make a copy with some changes.
+      // Inc. adding a new message
+      const updatedPage = {
+        ...newPage,
+        isValid: false,
+        errorMessages: [...newPage.errorMessages, "This is an extra message"],
+      };
+      console.log(updatedPage);
+
       testStore.dispatch(updatePage(updatedPage));
       const updatedState = testStore.getState();
 
