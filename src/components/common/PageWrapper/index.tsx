@@ -32,7 +32,10 @@ export default class PageWrapper extends React.Component<
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (
-        <div className="error-page">
+        <div
+          className="error-page"
+          style={{ display: "flex", margin: "0 auto" }}
+        >
           <h1>Oops!</h1>
           <p>Something went wrong.</p>
           <p>
@@ -41,8 +44,9 @@ export default class PageWrapper extends React.Component<
             <i></i>
           </p>
           <img
-            alt="Global Logic - A Hitachi Group Company"
             src={funnyErrorImg}
+            style={{ maxWidth: "50%" }}
+            alt="Stick man shocked by the word error"
           ></img>
         </div>
       );
