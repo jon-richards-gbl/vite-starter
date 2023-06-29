@@ -1,8 +1,6 @@
 import { GoogleMap } from "@react-google-maps/api";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-// ... Import statements
-
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
 
@@ -60,8 +58,20 @@ const GeoLocationMap = () => {
           });
 
           google.maps.event.addListener(marker, "click", () => {
-            infowindow.setContent(place.name || "");
+            const content = document.createElement("div");
+            const nameElement = document.createElement("h2");
+
+            nameElement.textContent = place.name!;
+            content.appendChild(nameElement);
+
+            const placeAddressElement = document.createElement("p");
+
+            placeAddressElement.textContent = place.formatted_address!;
+            content.appendChild(placeAddressElement);
+
+            infowindow.setContent(content);
             infowindow.open(map, marker);
+            console.log("Place:", place);
           });
         };
 
@@ -69,6 +79,18 @@ const GeoLocationMap = () => {
           location: map.getCenter(),
           radius: 5000,
           query: "brewery",
+          fields: [
+            "name",
+            "geometry",
+            "place_id",
+            "formatted_address",
+            "formatted_phone_number",
+            "website",
+            "rating",
+            "opening_hours",
+            "photos",
+            "vicinity",
+          ],
         };
 
         service.textSearch(
@@ -83,6 +105,8 @@ const GeoLocationMap = () => {
             ) {
               for (let i = 0; i < results.length; i++) {
                 createMarker(results[i]);
+                // console.log("results:", results);
+                // console.log("results:", results[i]);
               }
 
               const firstResult = results[0];
@@ -102,7 +126,7 @@ const GeoLocationMap = () => {
   );
 
   if (loading) {
-    return <div>Loading...</div>; // Display a loading indicator while fetching geolocation
+    return <div>Loading...</div>;
   }
 
   return (
