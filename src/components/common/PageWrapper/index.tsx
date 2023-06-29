@@ -1,5 +1,7 @@
 import React, { Suspense } from "react";
 
+import funnyErrorImg from "../../../assets/funny-error-message.webp";
+
 type PageWrapperProps = {
   page: React.ReactNode;
 };
@@ -38,6 +40,10 @@ export default class PageWrapper extends React.Component<
             Can we use { isRouteErrorResponse } from "react-router-dom";*/}
             <i></i>
           </p>
+          <img
+            alt="Global Logic - A Hitachi Group Company"
+            src={funnyErrorImg}
+          ></img>
         </div>
       );
     }
