@@ -36,6 +36,8 @@ const PageDisplay = ({ page }: { page: number }): React.JSX.Element => {
       return <EmailPage />;
     case 2:
       return <PasswordPage index={page} />;
+    case 3:
+      return <div>Address</div>;
     default:
       alert("SignUpPage - switch. No such page");
       return <></>;
