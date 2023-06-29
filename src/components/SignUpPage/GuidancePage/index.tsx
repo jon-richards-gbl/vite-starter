@@ -1,7 +1,8 @@
 import React from "react";
 
-import { useAppSelector } from "../../../store";
+import { useAppDispatch, useAppSelector } from "../../../store";
 import { selectPageByIndex } from "../../../store/signUpPages/selectors";
+import { updatePage } from "../../../store/signUpPages/signUpPagesSlice";
 import { SignUpPageInformation } from "../../../store/signUpPages/state";
 import "./styles.css";
 
@@ -9,9 +10,12 @@ const GuidancePage = ({ index }: { index: number }): React.JSX.Element => {
   const thisPageInfo: SignUpPageInformation = useAppSelector(
     selectPageByIndex(index)
   );
-  // const thisPageInfo: SignUpPageInformation = useAppSelector((state) =>
-  //   findPageByIndex(state, index)
-  // );
+
+  // TESTING
+  // thisPageInfo.isValid = true;
+  // thisPageInfo.errorMessages = ["This is an error test"]
+  // const dispatch = useAppDispatch();
+  // dispatch(updatePage(thisPageInfo));
 
   return (
     <div>
@@ -26,7 +30,9 @@ const GuidancePage = ({ index }: { index: number }): React.JSX.Element => {
       </p>
       <h4>Terms and Conditions</h4>
       <p id="terms_conditions">Terms and conditions to agree to here?</p>
-      <span>For Testing: {thisPageInfo?.errorMessages}</span>
+      <p>Testing Error msgs: {thisPageInfo?.errorMessages}</p>
+      <p>Testing isValid: {thisPageInfo?.isValid}</p>
+      <p>Testing Index: {thisPageInfo?.index}</p>
     </div>
   );
 };
