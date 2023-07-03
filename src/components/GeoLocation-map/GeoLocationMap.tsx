@@ -1,21 +1,32 @@
-import { DirectionsRenderer, GoogleMap } from "@react-google-maps/api";
+import {
+  DirectionsRenderer,
+  DistanceMatrixService,
+  GoogleMap,
+} from "@react-google-maps/api";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type DirectionsResult = google.maps.DirectionsResult;
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
+type CustomPlaceResult = google.maps.places.PlaceResult & {
+  formatted_address?: string;
+};
 
 const GeoLocationMap = () => {
   const [myVariable, setMyVariable] =
     useState<google.maps.places.PlaceResult | null>(null);
-  const [clickedMarker, setClickedMarker] =
-    useState<google.maps.places.PlaceResult | null>(null);
+  const [clickedMarker, setClickedMarker] = useState<
+    | google.maps.places.PlaceResult
+    | { formatted_address?: string }
+    | null
+    | undefined
+  >(null);
 
   const [directions, setDirections] = useState<DirectionsResult | undefined>(
     undefined
   );
 
-  const [userLocation, setUserLocation] = useState({ lat: null, lng: null });
+  const [userLocation, setUserLocation] = useState({ lat: 0, lng: 0 });
 
   const mapRef = useRef<google.maps.Map | null>(null);
   const [center, setCenter] = useState<LatLngLiteral>({
@@ -54,6 +65,50 @@ const GeoLocationMap = () => {
   }, []);
 
   // console.log("User location:", userLocation);
+
+  const getDistance = (
+    userLocation: unknown,
+    clickedMarker:
+      | google.maps.places.PlaceResult
+      | { formatted_address?: string | undefined }
+      | null
+      | undefined
+  ) => {
+    if (!userLocation || !clickedMarker || !clickedMarker.formatted_address) {
+      return;
+    }
+
+    const origin = userLocation;
+    const destination = clickedMarker.formatted_address;
+
+    const service = new google.maps.DistanceMatrixService();
+
+    const request = {
+      origins: [origin],
+      destinations: [destination],
+      travelMode: google.maps.TravelMode.WALKING,
+      unitSystem: google.maps.UnitSystem.METRIC,
+      avoidHighways: false,
+      avoidTolls: false,
+    };
+
+    service.getDistanceMatrix(request, (response, status) => {
+      if (status === google.maps.DistanceMatrixStatus.OK) {
+        if (
+          response &&
+          response.rows.length > 0 &&
+          response.rows[0].elements.length > 0
+        ) {
+          const distance = response.rows[0].elements[0].distance;
+          console.log("Distance:", distance.text);
+        } else {
+          console.error("No distance information available.");
+        }
+      } else {
+        console.error("Failed to get distance:", status);
+      }
+    });
+  };
 
   const onLoad = useCallback(
     (map: google.maps.Map) => {
@@ -94,6 +149,7 @@ const GeoLocationMap = () => {
             console.log("Place:", place.formatted_address);
             //Set clicked marker to Place so it can be referenced outside of call back
             setClickedMarker(place);
+            getDistance(userLocation, place);
           });
         };
 
@@ -147,6 +203,8 @@ const GeoLocationMap = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  getDistance(userLocation, clickedMarker);
 
   //Function using google.maps.geocoder to get lat and lng from an adress formatted to a string
   function getCoordinatesFromAddress(
