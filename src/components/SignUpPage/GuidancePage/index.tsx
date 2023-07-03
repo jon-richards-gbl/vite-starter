@@ -1,21 +1,27 @@
-import React from "react";
+import React, { FocusEvent } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../../store";
-import { selectPageByIndex } from "../../../store/signUpPages/selectors";
-import { updatePage } from "../../../store/signUpPages/signUpPagesSlice";
-import { SignUpPageInformation } from "../../../store/signUpPages/state";
+import { selectIsValid } from "../../../store/signUpPages/selectors";
+import { setValidTrue } from "../../../store/signUpPages/signUpPagesSlice";
+// import { SignUpPageInformation } from "../../../store/signUpPages/state";
 import "./styles.css";
 
-const GuidancePage = ({ index }: { index: number }): React.JSX.Element => {
-  const thisPageInfo: SignUpPageInformation = useAppSelector(
-    selectPageByIndex(index)
-  );
+const GuidancePage = ({ id }: { id: string }): React.JSX.Element => {
+  // const thisPageInfo: SignUpPageInformation = useAppSelector(
+  //   selectPageByIndex(index)
+  // );
 
   // TESTING
   // thisPageInfo.isValid = true;
   // thisPageInfo.errorMessages = ["This is an error test"]
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+  const isValid: boolean = useAppSelector(selectIsValid(id));
   // dispatch(updatePage(thisPageInfo));
+
+  const blurHandler = (e: FocusEvent<HTMLInputElement>) => {
+    dispatch(setValidTrue(id));
+    // isValid = useAppSelector(selectIsValid(id));
+  };
 
   return (
     <div>
@@ -30,9 +36,11 @@ const GuidancePage = ({ index }: { index: number }): React.JSX.Element => {
       </p>
       <h4>Terms and Conditions</h4>
       <p id="terms_conditions">Terms and conditions to agree to here?</p>
-      <p>Testing Error msgs: {thisPageInfo?.errorMessages}</p>
-      <p>Testing isValid: {thisPageInfo?.isValid}</p>
-      <p>Testing Index: {thisPageInfo?.index}</p>
+      <br />
+      {/* <p>Testing Error msgs: {thisPageInfo?.errorMessages}</p> */}
+      <p>Testing isValid: {isValid.toString()}</p>
+      {/* <p>Testing Index: {thisPageInfo?.index}</p> */}
+      <input type="email" placeholder="Enter email here" onBlur={blurHandler} />
     </div>
   );
 };
