@@ -1,7 +1,7 @@
 /* signUpPages - state and initial empty state definitions */
 
 export interface SignUpPageInformation {
-  index: number;
+  id: string;
   isValid: boolean;
   errorMessages: string[];
 }
