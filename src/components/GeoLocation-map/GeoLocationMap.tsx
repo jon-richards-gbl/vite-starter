@@ -1,10 +1,22 @@
-import { GoogleMap } from "@react-google-maps/api";
+import { DirectionsRenderer, GoogleMap } from "@react-google-maps/api";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+type DirectionsResult = google.maps.DirectionsResult;
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
 
 const GeoLocationMap = () => {
+  const [myVariable, setMyVariable] =
+    useState<google.maps.places.PlaceResult | null>(null);
+  const [clickedMarker, setClickedMarker] =
+    useState<google.maps.places.PlaceResult | null>(null);
+
+  const [directions, setDirections] = useState<DirectionsResult | undefined>(
+    undefined
+  );
+
+  const [userLocation, setUserLocation] = useState({ lat: null, lng: null });
+
   const mapRef = useRef<google.maps.Map | null>(null);
   const [center, setCenter] = useState<LatLngLiteral>({
     lat: 51.5072,
@@ -27,6 +39,7 @@ const GeoLocationMap = () => {
         (position) => {
           const { latitude, longitude } = position.coords;
           setCenter({ lat: latitude, lng: longitude });
+          setUserLocation({ lat: latitude, lng: longitude });
           setLoading(false); // Set loading to false once geolocation is fetched
         },
         (error) => {
@@ -39,6 +52,8 @@ const GeoLocationMap = () => {
       setLoading(false); // Set loading to false if geolocation is not supported
     }
   }, []);
+
+  // console.log("User location:", userLocation);
 
   const onLoad = useCallback(
     (map: google.maps.Map) => {
@@ -56,7 +71,12 @@ const GeoLocationMap = () => {
             map,
             position: place.geometry.location,
           });
-
+          console.log("marker", place.geometry.location.lat);
+          // console.log("vicinity", place);
+          // setMyVariable(place);
+          // setClickedMarker(place);
+          // const myV = setMyVariable;
+          // console.log("this guy", myV);
           google.maps.event.addListener(marker, "click", () => {
             const content = document.createElement("div");
             const nameElement = document.createElement("h2");
@@ -71,7 +91,9 @@ const GeoLocationMap = () => {
 
             infowindow.setContent(content);
             infowindow.open(map, marker);
-            console.log("Place:", place);
+            console.log("Place:", place.formatted_address);
+            //Set clicked marker to Place so it can be referenced outside of call back
+            setClickedMarker(place);
           });
         };
 
@@ -105,17 +127,6 @@ const GeoLocationMap = () => {
             ) {
               for (let i = 0; i < results.length; i++) {
                 createMarker(results[i]);
-                // console.log("results:", results);
-                // console.log("results:", results[i]);
-              }
-
-              const firstResult = results[0];
-              if (
-                firstResult &&
-                firstResult.geometry &&
-                firstResult.geometry.location
-              ) {
-                map.panTo(firstResult.geometry.location);
               }
             }
           }
@@ -124,19 +135,75 @@ const GeoLocationMap = () => {
     },
     [loading]
   );
+  // useEffect(() => {
+  //   if (clickedMarker) {
+  //     console.log("Clicked marker:", clickedMarker);
+  //     // Perform actions with the clicked marker
+  //   }
+  // }, [clickedMarker]);
+  // console.log("variable R", myVariable?.formatted_address);
+  // console.log("user", setUserLocation.toString);
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
+  //Function using google.maps.geocoder to get lat and lng from an adress formatted to a string
+  function getCoordinatesFromAddress(
+    address: string
+  ): Promise<{ lat: number; lng: number }> {
+    return new Promise((resolve, reject) => {
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ address }, (results, status) => {
+        console.log("address", address);
+        if (
+          status === google.maps.GeocoderStatus.OK &&
+          results &&
+          results.length > 0
+        ) {
+          const { lat, lng } = results[0].geometry.location;
+          resolve({ lat: lat(), lng: lng() });
+        } else {
+          reject(new Error("Geocode request failed"));
+        }
+      });
+    });
+  }
+
+  getCoordinatesFromAddress(clickedMarker?.formatted_address || "")
+    .then((coordinates) => {
+      console.log("formatted Address ", clickedMarker?.formatted_address);
+      console.log("Latitude:", coordinates.lat);
+      console.log("Longitude:", coordinates.lng);
+    })
+    .catch((error) => {
+      console.error("Geocode request failed:", error);
+    });
+
   return (
-    <GoogleMap
-      zoom={14}
-      center={center}
-      mapContainerClassName="map-container1"
-      options={options}
-      onLoad={onLoad}
-    />
+    <>
+      <GoogleMap
+        zoom={14}
+        center={center}
+        mapContainerClassName="map-container1"
+        options={options}
+        onLoad={onLoad}
+      >
+        {directions && (
+          <DirectionsRenderer
+            directions={directions}
+            options={{
+              polylineOptions: {
+                zIndex: 50,
+                strokeColor: "#1976D2",
+                strokeWeight: 5,
+              },
+            }}
+          />
+        )}
+      </GoogleMap>
+      {/* <button onClick={fetchDirections}>Get Directions</button> */}
+    </>
   );
 };
 
