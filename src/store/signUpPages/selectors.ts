@@ -1,4 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
+import { isUndefined } from "lodash";
 
 import { RootState } from "../index";
 
@@ -9,23 +10,34 @@ export const selectPageByIndex = (indexIn: number) =>
     return pageState.pages[indexIn];
   });
 
-export const selectIsValid = (indexIn: number) =>
+export const selectIsValid = (indexIn: string) =>
   createSelector([signUpPageState], (pageState) => {
-    return pageState.pages[indexIn].isValid;
+    // return pageState.pages[indexIn].isValid;
+    const page = pageState.pages.find((page) => page.id === indexIn);
+    if (page) {
+      return page.isValid;
+    }
+    return false;
   });
 
-// TODO: Test all following
-// Testing alternative - working?
-export const findPageByIndex = (indexIn: number) =>
+export const pageExists = (indexIn: string) =>
   createSelector([signUpPageState], (pageState) => {
-    return pageState.pages.find(({ index }) => index === indexIn);
+    const page = pageState.pages.find((page) => page.id === indexIn);
+    return !(page === null || page === undefined);
   });
-export const selectLastPage = createSelector([signUpPageState], (pageState) => {
-  const lastIndex = pageState.pages.length - 1;
-  return pageState.pages[lastIndex];
-});
 
 export const selectNumPages = createSelector(
   [signUpPageState],
   (pageState) => pageState.pages.length
 );
+
+// TODO: Test all following
+// Testing alternative - working?
+// export const findPageByIndex = (indexIn: string) =>
+//   createSelector([signUpPageState], (pageState) => {
+//     return pageState.pages.find(({ id }) => id === indexIn);
+//   });
+// export const selectLastPage = createSelector([signUpPageState], (pageState) => {
+//   const lastIndex = pageState.pages.length - 1;
+//   return pageState.pages[lastIndex];
+// });
