@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import { useAppSelector } from "../../store";
-import { selectIsValid } from "../../store/signUpPages/selectors";
+// import { useAppSelector } from "../../store";
+// import { selectIsValid } from "../../store/signUpPages/selectors";
 import BreadcrumbTrail from "../common/BreadcrumbTrail";
 import PageDisplay from "./PageDisplay";
 import "./styles.css";
