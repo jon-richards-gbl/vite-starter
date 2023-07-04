@@ -3,13 +3,19 @@ import React, { ChangeEvent, FocusEvent, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../store";
 import { setEmail } from "../../../store/newUser/newUserSlice";
 import { selectEmail } from "../../../store/newUser/selectors";
+import { selectIsValid } from "../../../store/signUpPages/selectors";
+import {
+  setValidFalse,
+  setValidTrue,
+} from "../../../store/signUpPages/signUpPagesSlice";
 
-const EmailPage = (): JSX.Element => {
+const EmailPage = ({ id }: { id: string }): React.JSX.Element => {
   // selector hook for Redux store (getter)
   const email = useAppSelector(selectEmail);
+  const pageIsValid = useAppSelector(selectIsValid(id));
   // get the dispatch hook to call actions
   const dispatch = useAppDispatch();
-  const [emailValid, setEmailValid] = useState(false);
+  // const [emailValid, setEmailValid] = useState(false);
   const [isBlur, setIsBlur] = useState(false);
 
   // Specify the correct type for useRef to give type safe access
@@ -21,25 +27,25 @@ const EmailPage = (): JSX.Element => {
   const blurHandler = (e: FocusEvent<HTMLInputElement>) => {
     dispatch(setEmail(e.target.value));
     setIsBlur(true);
+
+    /* TODO: ** Validate using sections of the RegEx and add the corresponding
+    messages to redux state for this page */
     const emailRegex = new RegExp(
       /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
     );
-    setEmailValid(emailRegex.test(email));
-
-    // Make it null safe and display the block now that
-    // the input has gained and lost focus since rendering.
-    // if (emailErrorDiv && emailErrorDiv.current) {
-    //     emailErrorDiv.current.style.visibility = 'visible';
-    // }
-
-    // TODO: Disable next button if email is invalid.
+    // setEmailValid(emailRegex.test(email));
+    emailRegex.test(email)
+      ? dispatch(setValidTrue(id))
+      : dispatch(setValidFalse(id));
   };
+
+  const validateEmail = () => {};
 
   // If email is not valid, determine what is wrong
   // and give a specific error message
+  // TODO: see ** todo above
   const emailErrorHTML = () => {
-    if (isBlur && !emailValid) {
-      // For now - consider input valid if it contains '@'
+    if (isBlur) {
       if (email === "") {
         emailErrorMessage = "An email address is required";
       } else if (!email.includes("@")) {
@@ -93,7 +99,7 @@ const EmailPage = (): JSX.Element => {
             type="text"
             aria-labelledby="emailLabel"
             aria-required="true"
-            aria-invalid={isBlur && !emailValid}
+            aria-invalid={isBlur && !pageIsValid}
             value={email}
             autoComplete="email"
             onBlur={blurHandler}
