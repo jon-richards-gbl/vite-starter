@@ -1,6 +1,9 @@
 import { DirectionsRenderer, GoogleMap } from "@react-google-maps/api";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+import GeoForm from "./GeoForm";
+import GeoInformation from "./GeoInformation";
+
 type DirectionsResult = google.maps.DirectionsResult;
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
@@ -225,6 +228,10 @@ const GeoLocationMap = () => {
 
   return (
     <>
+      <GeoForm />
+      <div className="controls-container">
+        {directions && <GeoInformation leg={directions.routes[0].legs[0]} />}
+      </div>
       <GoogleMap
         zoom={14}
         center={center}
