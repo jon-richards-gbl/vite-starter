@@ -1,8 +1,4 @@
-import {
-  DirectionsRenderer,
-  DirectionsService,
-  GoogleMap,
-} from "@react-google-maps/api";
+import { DirectionsRenderer, GoogleMap } from "@react-google-maps/api";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type DirectionsResult = google.maps.DirectionsResult;
@@ -95,11 +91,12 @@ const GeoLocationMap = () => {
         (result, status) => {
           if (status === "OK" && result) {
             setDirections(result);
-            console.log("result ", result);
+            console.log("result legs ", result.routes[0].legs);
           }
         }
       );
 
+      // Request for distance matrix
       const service = new google.maps.DistanceMatrixService();
       const distanceRequest = {
         origins: [origin],
@@ -119,6 +116,7 @@ const GeoLocationMap = () => {
           ) {
             const distance = response.rows[0].elements[0].distance;
             console.log("Distance:", distance.text);
+            console.log("Distance metres:", distance.value);
           } else {
             console.error("No distance information available.");
           }
@@ -128,10 +126,8 @@ const GeoLocationMap = () => {
       });
     };
 
-    fetchDirections(); // Call the fetchDirections function to execute the logic
+    fetchDirections();
   };
-
-  // Rest of the code...
 
   const onLoad = useCallback(
     (map: google.maps.Map) => {
@@ -226,138 +222,6 @@ const GeoLocationMap = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
-  const getCoordinatesFromAddress = (
-    address: string
-  ): Promise<{ lat: number; lng: number }> => {
-    return new Promise((resolve, reject) => {
-      const geocoder = new google.maps.Geocoder();
-      geocoder.geocode({ address }, (results, status) => {
-        if (
-          status === google.maps.GeocoderStatus.OK &&
-          results &&
-          results.length > 0
-        ) {
-          const { lat, lng } = results[0].geometry.location;
-          resolve({ lat: lat(), lng: lng() });
-        } else {
-          reject(new Error("Geocode request failed"));
-        }
-      });
-    });
-  };
-
-  // const calculateAndDisplayRoute = async (
-  //   directionsRenderer: google.maps.DirectionsRenderer,
-  //   directionsService: google.maps.DirectionsService,
-  //   markerArray: google.maps.Marker[],
-  //   stepDisplay: google.maps.InfoWindow,
-  //   map: google.maps.Map
-  // ) => {
-  //   const origin = userLocation;
-  //   const destination = clickedMarker?.formatted_address;
-
-  //   if (destination) {
-  //     try {
-  //       const coordinates = await getCoordinatesFromAddress(destination);
-  //       const directionsRequest: google.maps.DirectionsRequest = {
-  //         origin: origin,
-  //         destination: coordinates,
-  //         travelMode: google.maps.TravelMode.WALKING,
-  //       };
-
-  //       directionsService.route(directionsRequest, (response, status) => {
-  //         if (status === google.maps.DirectionsStatus.OK && response !== null) {
-  //           directionsRenderer.setDirections(response);
-  //           const myRoute = response.routes[0].legs[0];
-  //           console.log("myRoute:", myRoute);
-  //           showSteps(myRoute, markerArray, stepDisplay, map);
-  //         } else {
-  //           window.alert("Failed to get directions. Status: " + status);
-  //         }
-  //       });
-  //     } catch (error) {
-  //       window.alert("Failed to get coordinates: " + error);
-  //     }
-  //   }
-  // };
-
-  // const showSteps = (
-  //   myRoute: google.maps.DirectionsLeg,
-  //   markerArray: google.maps.Marker[],
-  //   stepDisplay: google.maps.InfoWindow,
-  //   map: google.maps.Map
-  // ) => {
-  //   for (let i = 0; i < myRoute.steps.length; i++) {
-  //     const marker = markerArray[i] || new google.maps.Marker();
-
-  //     marker.setMap(map);
-  //     marker.setPosition(myRoute.steps[i].start_location);
-  //     attachInstructionText(
-  //       stepDisplay,
-  //       marker,
-  //       myRoute.steps[i].instructions,
-  //       map
-  //     );
-  //   }
-  // };
-
-  // const attachInstructionText = (
-  //   stepDisplay: google.maps.InfoWindow,
-  //   marker: google.maps.Marker,
-  //   text: string,
-  //   map: google.maps.Map
-  // ) => {
-  //   google.maps.event.addListener(marker, "click", () => {
-  //     stepDisplay.setContent(text);
-  //     stepDisplay.open(map, marker);
-  //   });
-  // };
-
-  // const fetchDirections = () => {
-  //   if (!origin || !destination) return;
-
-  //   const service = new google.maps.DirectionsService();
-  //   service.route(
-  //     {
-  //       origin,
-  //       destination,
-  //       travelMode: google.maps.TravelMode.WALKING,
-  //     },
-  //     (result, status) => {
-  //       if (status === "OK" && result) {
-  //         setDirections(result);
-  //       }
-  //     }
-  //   );
-
-  //   const service = new google.maps.DistanceMatrixService();
-  //   const distanceRequest = {
-  //     origins: [origin],
-  //     destinations: [destination],
-  //     travelMode: google.maps.TravelMode.WALKING,
-  //     unitSystem: google.maps.UnitSystem.METRIC,
-  //     avoidHighways: false,
-  //     avoidTolls: false,
-  //   };
-
-  //   service.getDistanceMatrix(distanceRequest, (response, status) => {
-  //     if (status === google.maps.DistanceMatrixStatus.OK) {
-  //       if (
-  //         response &&
-  //         response.rows.length > 0 &&
-  //         response.rows[0].elements.length > 0
-  //       ) {
-  //         const distance = response.rows[0].elements[0].distance;
-  //         console.log("Distance:", distance.text);
-  //       } else {
-  //         console.error("No distance information available.");
-  //       }
-  //     } else {
-  //       console.error("Failed to get distance:", status);
-  //     }
-  //   });
-  // };
 
   return (
     <>
