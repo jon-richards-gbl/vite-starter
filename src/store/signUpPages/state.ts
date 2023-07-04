@@ -3,11 +3,16 @@
 export interface SignUpPageInformation {
   id: string;
   isValid: boolean;
-  errorMessages: string[];
+  messages: string[];
 }
 
 export interface SignUpPagesState {
   pages: SignUpPageInformation[];
+}
+
+export interface SignUpPageMessage {
+  id: string;
+  message: string;
 }
 
 export function createInitialSignUpPagesState(): SignUpPagesState {
