@@ -79,7 +79,7 @@ const LandingPage = () => {
                 <FontAwesomeIcon className="fa-icon  fa-beer" icon={faBeer} />
               </div>
               <div className="landing-card-header">
-                <a href="/geoMap">
+                <a href="/GeoLocationFormMap">
                   <h3>Geo-location map</h3>
                 </a>
                 <hr></hr>

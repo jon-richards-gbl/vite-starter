@@ -37,8 +37,8 @@ const Nav = () => {
               <Link className="items" to="/formMap">
                 Calorie Map
               </Link>
-              <Link className="items" to="/geoMap">
-                Geo-Map
+              <Link className="items" to="/GeoLocationFormMap">
+                Geo Map
               </Link>
               <Link className="items" to="/waypointMap">
                 Waypoint Map

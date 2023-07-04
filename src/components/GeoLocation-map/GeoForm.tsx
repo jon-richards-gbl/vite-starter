@@ -22,7 +22,7 @@ const GeoForm = () => {
   const userDropdown = useAppSelector(selectUserDropdown);
   const userTime = useAppSelector(selectUserTime);
   const [calsBun, setCalsBun] = useState<number | string>("");
-  const [name, setName] = useState<string>("");
+
   return (
     <>
       <form>

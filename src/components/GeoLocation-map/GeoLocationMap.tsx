@@ -1,7 +1,6 @@
 import { DirectionsRenderer, GoogleMap } from "@react-google-maps/api";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import GeoForm from "./GeoForm";
 import GeoInformation from "./GeoInformation";
 
 type DirectionsResult = google.maps.DirectionsResult;
@@ -228,30 +227,31 @@ const GeoLocationMap = () => {
 
   return (
     <>
-      <GeoForm />
-      <div className="controls-container">
-        {directions && <GeoInformation leg={directions.routes[0].legs[0]} />}
+      <div className="map-container">
+        <div className="controls-container">
+          {directions && <GeoInformation leg={directions.routes[0].legs[0]} />}
+        </div>
+        <GoogleMap
+          zoom={14}
+          center={center}
+          mapContainerClassName="map-container1"
+          options={options}
+          onLoad={onLoad}
+        >
+          {directions && (
+            <DirectionsRenderer
+              directions={directions}
+              options={{
+                polylineOptions: {
+                  zIndex: 50,
+                  strokeColor: "#1976D2",
+                  strokeWeight: 5,
+                },
+              }}
+            />
+          )}
+        </GoogleMap>
       </div>
-      <GoogleMap
-        zoom={14}
-        center={center}
-        mapContainerClassName="map-container1"
-        options={options}
-        onLoad={onLoad}
-      >
-        {directions && (
-          <DirectionsRenderer
-            directions={directions}
-            options={{
-              polylineOptions: {
-                zIndex: 50,
-                strokeColor: "#1976D2",
-                strokeWeight: 5,
-              },
-            }}
-          />
-        )}
-      </GoogleMap>
     </>
   );
 };
