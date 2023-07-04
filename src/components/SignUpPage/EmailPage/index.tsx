@@ -9,8 +9,13 @@ import React, {
 import { useAppDispatch, useAppSelector } from "../../../store";
 import { setEmail } from "../../../store/newUser/newUserSlice";
 import { selectEmail } from "../../../store/newUser/selectors";
-import { selectIsValid } from "../../../store/signUpPages/selectors";
 import {
+  selectIsValid,
+  selectMessages,
+} from "../../../store/signUpPages/selectors";
+import {
+  addMessage,
+  resetMessages,
   setValidFalse,
   setValidTrue,
 } from "../../../store/signUpPages/signUpPagesSlice";
@@ -23,39 +28,51 @@ const EmailPage = ({ id }: { id: string }): React.JSX.Element => {
   const dispatch = useAppDispatch();
   // const [emailValid, setEmailValid] = useState(false);
   const [isBlur, setIsBlur] = useState(false);
-  let messages: string[] = [];
+  const messages = useAppSelector(selectMessages(id));
   // Specify the correct type for useRef to give type safe access
   const emailErrorDiv = useRef<HTMLDivElement>(null);
 
   /* Validate using sections of the RegEx and add the corresponding
     messages to redux state for this page */
-  const validateEmail = (): string[] => {
-    messages = [];
+  const validateEmail = () => {
+    // TODO: remove test code
+    //console.log("Enter validateEmail()");
+    dispatch(resetMessages(id));
     dispatch(setValidFalse(id));
     const emailRegex = new RegExp(
       /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
     );
 
     if (emailRegex.test(email)) {
+      // TODO: remove test code
+      //console.log("adding success message");
       dispatch(setValidTrue(id));
-      messages.push("The email you entered looks good");
-      return messages;
+      dispatch(
+        addMessage({ id: id, message: "The email you entered looks good" })
+      );
     }
 
     if (email === "") {
-      messages.push("An email address is required");
+      dispatch(addMessage({ id: id, message: "An email address is required" }));
     } else {
       if (/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]/.test(email)) {
-        messages.push(
-          "The email address you entered is missing the at '@' symbol"
+        dispatch(
+          addMessage({
+            id: id,
+            message:
+              "The email address you entered is missing the at '@' symbol",
+          })
         );
       }
       if (/[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)) {
-        messages.push("The email address you entered is missing a full stop");
+        dispatch(
+          addMessage({
+            id: id,
+            message: "The email address you entered is missing a full stop",
+          })
+        );
       }
     }
-
-    return messages;
   };
 
   // If email is not valid, determine what is wrong
@@ -65,6 +82,10 @@ const EmailPage = ({ id }: { id: string }): React.JSX.Element => {
 
     //  Create an array of Fragments
     const content: Array<JSX.Element> = [];
+    if (!messages) {
+      return <></>;
+    }
+
     for (const message of messages) {
       content.push(
         <p
@@ -79,12 +100,7 @@ const EmailPage = ({ id }: { id: string }): React.JSX.Element => {
       );
     }
 
-    return (
-      <Fragment>
-        <p>TEST</p>
-        {content}
-      </Fragment>
-    );
+    return <Fragment>{content}</Fragment>;
   };
 
   // When the email input has and then loses focus -
@@ -98,7 +114,6 @@ const EmailPage = ({ id }: { id: string }): React.JSX.Element => {
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setEmail(e.target.value));
     validateEmail();
-    console.log(email, messages);
   };
 
   return (
