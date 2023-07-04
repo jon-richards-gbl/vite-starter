@@ -16,7 +16,10 @@ const LandingPage = () => {
       </header>
       <main>
         <div className="logo-container">
-          <FontAwesomeIcon className="fa-icon fa-hippo" icon={faHippo} />{" "}
+          <FontAwesomeIcon
+            className="fa-icon fa-hippo landing-hippo"
+            icon={faHippo}
+          />{" "}
         </div>
         <div className="landing-text">
           <h2>What we do </h2>
@@ -79,7 +82,7 @@ const LandingPage = () => {
                 <FontAwesomeIcon className="fa-icon  fa-beer" icon={faBeer} />
               </div>
               <div className="landing-card-header">
-                <a href="/geoMap">
+                <a href="/GeoLocationFormMap">
                   <h3>Geo-location map</h3>
                 </a>
                 <hr></hr>

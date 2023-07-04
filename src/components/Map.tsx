@@ -1,6 +1,7 @@
 import {
   Autocomplete,
   DirectionsRenderer,
+  DirectionsService,
   GoogleMap,
 } from "@react-google-maps/api";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -19,6 +20,7 @@ const Map = () => {
   const [directions, setDirections] = useState<DirectionsResult | undefined>(
     undefined
   );
+
   const mapRef = useRef<google.maps.Map | null>(null);
   const center = useMemo<LatLngLiteral>(
     () => ({ lat: 53.483959, lng: -2.244644 }),
