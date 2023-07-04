@@ -1,26 +1,13 @@
 import { createTestStore } from "../../../test/helpers/store";
-// import { addPage, updatePage,
-import { createPage, resetPages, setValidTrue } from "./signUpPagesSlice";
+import {
+  addMessage,
+  createPage,
+  resetMessages,
+  setValidTrue,
+} from "./signUpPagesSlice";
 import { SignUpPageInformation } from "./state";
 
 describe("signUpPagesSlice", () => {
-  // describe("addPage", () => {
-  //   it("adds the page to the store", () => {
-  //     const testStore = createTestStore();
-  //     const newPage: SignUpPageInformation = {
-  //       id: 'New Test Page',
-  //       isValid: true,
-  //       errorMessages: ["Example error message"],
-  //     };
-
-  //     testStore.dispatch(addPage(newPage));
-
-  //     const updatedState = testStore.getState();
-
-  //     expect(updatedState.signUpPages.pages[0]).toEqual(newPage);
-  //   });
-  // });
-
   describe("createPage", () => {
     it("creates a new page in the store", () => {
       const testStore = createTestStore();
@@ -31,7 +18,7 @@ describe("signUpPagesSlice", () => {
       const newPage: SignUpPageInformation = {
         id: "New Test Page",
         isValid: false,
-        errorMessages: [],
+        messages: [],
       };
 
       const updatedState = testStore.getState();
@@ -50,7 +37,7 @@ describe("signUpPagesSlice", () => {
       const newPage: SignUpPageInformation = {
         id: "New Test Page",
         isValid: false,
-        errorMessages: [],
+        messages: [],
       };
 
       testStore.dispatch(setValidTrue(id));
@@ -61,57 +48,53 @@ describe("signUpPagesSlice", () => {
       expect(updatedState.signUpPages.pages[0]).toEqual(newPage);
     });
   });
-  // describe("updatePage", () => {
-  //   it("updates the page in the store", () => {
-  //     const testStore = createTestStore();
-  //     const newPage: SignUpPageInformation = {
-  //       index: 0,
-  //       isValid: true,
-  //       errorMessages: ["Example error message"],
-  //     };
 
-  //     testStore.dispatch(addPage(newPage));
+  describe("addMessage", () => {
+    it("adds status message to the page's state", () => {
+      const testStore = createTestStore();
+      const id = "New Test Page";
+      const message = "This is a test status";
 
-  //     // Jest seems to insist the original object is
-  //     // read only so let's make a copy with some changes.
-  //     // Inc. adding a new message
-  //     const updatedPage = {
-  //       ...newPage,
-  //       isValid: false,
-  //       errorMessages: [...newPage.errorMessages, "This is an extra message"],
-  //     };
-  //     console.log(updatedPage);
+      testStore.dispatch(createPage(id));
 
-  //     testStore.dispatch(updatePage(updatedPage));
-  //     const updatedState = testStore.getState();
+      const newPage: SignUpPageInformation = {
+        id: "New Test Page",
+        isValid: false,
+        messages: [message],
+      };
 
-  //     expect(updatedState.signUpPages.pages[0]).toEqual(updatedPage);
-  //   });
-  // });
+      testStore.dispatch(addMessage({ id: id, message: message }));
 
-  // describe("resetPages", () => {
-  //   it("resets all pages in the store", () => {
-  //     const testStore = createTestStore();
-  //     const page1: SignUpPageInformation = {
-  //       id: 'Test Page to reset',
-  //       isValid: true,
-  //       errorMessages: ["Example error message"],
-  //     };
+      const updatedState = testStore.getState();
 
-  //     const page2: SignUpPageInformation = {
-  //       id: '',
-  //       isValid: false,
-  //       errorMessages: ["This is an updated error message"],
-  //     };
+      expect(updatedState.signUpPages.pages[0]).toEqual(newPage);
+    });
+  });
 
-  //     testStore.dispatch(addPage(page1));
-  //     testStore.dispatch(addPage(page2));
-  //     testStore.dispatch(resetPages());
-  //     const updatedState = testStore.getState();
+  describe("resetMessages", () => {
+    it("deletes all status messages", () => {
+      const testStore = createTestStore();
+      const id = "New Test Page";
 
-  //     const emptyArray = new Array<SignUpPageInformation>();
+      testStore.dispatch(createPage(id));
 
-  //     expect(updatedState.signUpPages.pages).toEqual(emptyArray);
-  //   });
-  // });
+      const newPage: SignUpPageInformation = {
+        id: "New Test Page",
+        isValid: false,
+        messages: [],
+      };
+
+      testStore.dispatch(
+        addMessage({ id: id, message: "This is a test status" })
+      );
+      testStore.dispatch(
+        addMessage({ id: id, message: "Another test status" })
+      );
+      testStore.dispatch(resetMessages(id));
+
+      const updatedState = testStore.getState();
+
+      expect(updatedState.signUpPages.pages[0]).toEqual(newPage);
+    });
+  });
 });

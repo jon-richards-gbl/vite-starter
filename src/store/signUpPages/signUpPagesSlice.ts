@@ -1,6 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { SignUpPageInformation, createInitialSignUpPagesState } from "./state";
+import {
+  SignUpPageInformation,
+  SignUpPageMessage,
+  createInitialSignUpPagesState,
+} from "./state";
 
 /* Store the state of each of sign up form pages as an array of 
 objects. */
@@ -21,7 +25,7 @@ const signUpPageSlice = createSlice({
         const newPage: SignUpPageInformation = {
           id: action.payload,
           isValid: false,
-          errorMessages: [],
+          messages: [],
         };
 
         state.pages.push(newPage);
@@ -39,17 +43,31 @@ const signUpPageSlice = createSlice({
         page.isValid = false;
       }
     },
-
-    // updatePage(state, action: PayloadAction<SignUpPageInformation>): void {
-    //   state.pages[action.payload.index] = action.payload;
-    // },
+    resetMessages(state, action: PayloadAction<string>) {
+      const page = state.pages.find((page) => page.id === action.payload);
+      if (page) {
+        page.messages = [];
+      }
+    },
+    addMessage(state, action: PayloadAction<SignUpPageMessage>): void {
+      const page = state.pages.find((page) => page.id === action.payload.id);
+      if (page) {
+        page.messages.push(action.payload.message);
+      }
+    },
     resetPages(state) {
       state.pages = new Array<SignUpPageInformation>();
     },
   },
 });
 
-export const { createPage, setValidTrue, setValidFalse, resetPages } =
-  signUpPageSlice.actions;
+export const {
+  createPage,
+  setValidTrue,
+  setValidFalse,
+  resetPages,
+  resetMessages,
+  addMessage,
+} = signUpPageSlice.actions;
 
 export default signUpPageSlice.reducer;
