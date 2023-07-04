@@ -22,7 +22,7 @@ const PageDisplay = ({ page }: { page: number }): React.JSX.Element => {
     case 0:
       return <GuidancePage id={formTitles[page]} />;
     case 1:
-      return <EmailPage />;
+      return <EmailPage id={formTitles[page]} />;
     case 2:
       return <PasswordPage index={page} />;
     case 3:
