@@ -1,5 +1,4 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { isUndefined } from "lodash";
 
 import { RootState } from "../index";
 
@@ -30,6 +29,12 @@ export const selectNumPages = createSelector(
   [signUpPageState],
   (pageState) => pageState.pages.length
 );
+
+export const selectMessages = (indexIn: string) =>
+  createSelector([signUpPageState], (pageState) => {
+    const page = pageState.pages.find((page) => page.id === indexIn);
+    return page?.messages;
+  });
 
 // TODO: Test all following
 // Testing alternative - working?
