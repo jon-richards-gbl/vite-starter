@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-// import { useAppSelector } from "../../store";
-// import { selectIsValid } from "../../store/signUpPages/selectors";
+import { useAppSelector } from "../../store";
+import { selectIsValid } from "../../store/signUpPages/selectors";
 import BreadcrumbTrail from "../common/BreadcrumbTrail";
 import PageDisplay from "./PageDisplay";
 import "./styles.css";
@@ -17,8 +17,7 @@ const SignUpPage = (): React.JSX.Element => {
   // Store the current page the user is viewing
   const [page, setPage] = useState<number>(0);
   const lastPage = formTitles.length - 1;
-  // if not yet defined, then form cannot be complete
-  //const pageIsValid = (useAppSelector(selectIsValid(page)) ?? false);
+  const pageIsValid = useAppSelector(selectIsValid(formTitles[page]));
 
   return (
     <main>
@@ -60,7 +59,7 @@ const SignUpPage = (): React.JSX.Element => {
           className="form-button h4-style"
           type="button"
           // TODO: Enable child page components to disable the next button
-          disabled={page === lastPage}
+          disabled={!pageIsValid}
           onClick={() => {
             setPage((currentPg: number) => currentPg + 1);
           }}

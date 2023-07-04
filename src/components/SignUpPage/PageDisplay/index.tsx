@@ -1,13 +1,8 @@
 import React, { useEffect } from "react";
 
 import { formTitles } from "..";
-import { useAppDispatch, useAppSelector } from "../../../store";
-import { selectNumPages } from "../../../store/signUpPages/selectors";
-import {
-  /* addPage */
-  createPage,
-} from "../../../store/signUpPages/signUpPagesSlice";
-// import { SignUpPageInformation } from "../../../store/signUpPages/state";
+import { useAppDispatch } from "../../../store";
+import { createPage } from "../../../store/signUpPages/signUpPagesSlice";
 import EmailPage from "../EmailPage";
 import GuidancePage from "../GuidancePage";
 import PasswordPage from "../PasswordPage";
@@ -15,24 +10,13 @@ import PasswordPage from "../PasswordPage";
 const PageDisplay = ({ page }: { page: number }): React.JSX.Element => {
   // get the Redux  dispatch hook to call actions
   const dispatch = useAppDispatch();
-  const numPages: number = useAppSelector(selectNumPages);
 
   useEffect(() => {
-    // If this is the first time we have loaded this page,
-    // we need to add a new SignUpPageInformation object
-    // to the state. Passing the index to the child component.
     // Ensure that there is always a state object for each page.
-
-    if (numPages < page || numPages === 0) {
-      // const newPage: SignUpPageInformation = {
-      //   index: page,
-      //   isValid: false,
-      //   errorMessages: [],
-      // };
-      // dispatch(addPage(newPage));
-      dispatch(createPage(formTitles[page]));
-    }
-  }, [dispatch, numPages, page]);
+    // This reducer method will create one only if one doesn't
+    // already exist.
+    dispatch(createPage(formTitles[page]));
+  }, [dispatch, page]);
 
   switch (page) {
     case 0:

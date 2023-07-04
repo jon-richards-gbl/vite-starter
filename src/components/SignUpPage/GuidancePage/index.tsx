@@ -3,24 +3,15 @@ import React, { FocusEvent } from "react";
 import { useAppDispatch, useAppSelector } from "../../../store";
 import { selectIsValid } from "../../../store/signUpPages/selectors";
 import { setValidTrue } from "../../../store/signUpPages/signUpPagesSlice";
-// import { SignUpPageInformation } from "../../../store/signUpPages/state";
 import "./styles.css";
 
 const GuidancePage = ({ id }: { id: string }): React.JSX.Element => {
-  // const thisPageInfo: SignUpPageInformation = useAppSelector(
-  //   selectPageByIndex(index)
-  // );
-
-  // TESTING
-  // thisPageInfo.isValid = true;
-  // thisPageInfo.errorMessages = ["This is an error test"]
+  // TODO: remove testing code
   const dispatch = useAppDispatch();
   const isValid: boolean = useAppSelector(selectIsValid(id));
-  // dispatch(updatePage(thisPageInfo));
 
   const blurHandler = (e: FocusEvent<HTMLInputElement>) => {
     dispatch(setValidTrue(id));
-    // isValid = useAppSelector(selectIsValid(id));
   };
 
   return (
@@ -37,9 +28,8 @@ const GuidancePage = ({ id }: { id: string }): React.JSX.Element => {
       <h4>Terms and Conditions</h4>
       <p id="terms_conditions">Terms and conditions to agree to here?</p>
       <br />
-      {/* <p>Testing Error msgs: {thisPageInfo?.errorMessages}</p> */}
+      {/* TODO: remove testing code */}
       <p>Testing isValid: {isValid.toString()}</p>
-      {/* <p>Testing Index: {thisPageInfo?.index}</p> */}
       <input type="email" placeholder="Enter email here" onBlur={blurHandler} />
     </div>
   );
