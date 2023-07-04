@@ -95,7 +95,10 @@ const Form = () => {
               <FontAwesomeIcon className="fa-icon" icon={faClock} />
               <input
                 value={time}
-                onChange={(e) => setTime(e.target.value)}
+                onChange={(e) => {
+                  setTime(e.target.value);
+                  dispatch(setUserTime(e.target.value));
+                }}
                 placeholder="Time"
                 type="text"
                 name="time"
