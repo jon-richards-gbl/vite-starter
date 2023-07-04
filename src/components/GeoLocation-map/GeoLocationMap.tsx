@@ -2,6 +2,7 @@ import { DirectionsRenderer, GoogleMap } from "@react-google-maps/api";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import GeoInformation from "./GeoInformation";
+import Loading from "./Loading";
 
 type DirectionsResult = google.maps.DirectionsResult;
 type LatLngLiteral = google.maps.LatLngLiteral;
@@ -184,7 +185,7 @@ const GeoLocationMap = () => {
         setStepDisplay(new google.maps.InfoWindow());
         const request = {
           location: map.getCenter(),
-          radius: 5000,
+          radius: 1000,
           query: "brewery",
           fields: [
             "name",
@@ -218,17 +219,25 @@ const GeoLocationMap = () => {
         );
       }
     },
-    [clickedMarker, loading, userLocation]
+    [loading, stepDisplay, userLocation]
   );
 
+  // Loading page to be shown whilst map is loading
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
     <>
       <div className="map-container">
         <div className="controls-container">
+          <div>
+            <h2>Geo-Location </h2>
+            <hr />
+            <p>
+              Click on a brewey marker to get directions and travel dirctions
+            </p>
+          </div>
           {directions && <GeoInformation leg={directions.routes[0].legs[0]} />}
         </div>
         <GoogleMap
