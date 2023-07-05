@@ -1,10 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-import UserData from "../../types/types";
+import { useAppSelector } from "../../store";
+import { selectIsValid } from "../../store/signUpPages/selectors";
 import BreadcrumbTrail from "../common/BreadcrumbTrail";
-import EmailPage from "./EmailPage";
-import GuidancePage from "./GuidancePage";
-import PasswordPage from "./PasswordPage";
+import PageDisplay from "./PageDisplay";
 import "./styles.css";
 
 export const formTitles: Array<string> = [
@@ -14,31 +13,11 @@ export const formTitles: Array<string> = [
   "Address",
 ];
 
-const SignUpPage = (): JSX.Element => {
-  // TODO: should this be in types.ts?
-  // TS type for formData
-  const [userData, setUserData] = useState<UserData>({
-    email: "",
-    password: "",
-    passwordConfirm: "",
-    firstName: "",
-    surname: "",
-    birthDate: null,
-    address: "",
-  });
-
-  const PageDisplay = () => {
-    if (page === 0) {
-      return <GuidancePage />;
-    } else if (page === 1) {
-      return <EmailPage userData={userData} setUserData={setUserData} />;
-    } else if (page === 2) {
-      return <PasswordPage userData={userData} setUserData={setUserData} />;
-    }
-  };
-
+const SignUpPage = (): React.JSX.Element => {
   // Store the current page the user is viewing
   const [page, setPage] = useState<number>(0);
+  const lastPage = formTitles.length - 1;
+  const pageIsValid = useAppSelector(selectIsValid(formTitles[page]));
 
   return (
     <main>
@@ -59,7 +38,7 @@ const SignUpPage = (): JSX.Element => {
           <h2>{formTitles[page]}</h2>
         </div>
         <div className="separator"></div>
-        {PageDisplay()}
+        <PageDisplay page={page} />
       </div>
 
       {/* Buttons will be controlled here, not via the individual pages */}
@@ -80,12 +59,12 @@ const SignUpPage = (): JSX.Element => {
           className="form-button h4-style"
           type="button"
           // TODO: Enable child page components to disable the next button
-          disabled={page === formTitles.length - 1}
+          disabled={!pageIsValid}
           onClick={() => {
             setPage((currentPg: number) => currentPg + 1);
           }}
         >
-          Next
+          {page === lastPage ? "Submit" : "Next"}
         </button>
       </div>
     </main>

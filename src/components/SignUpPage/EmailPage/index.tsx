@@ -1,79 +1,119 @@
-import { ChangeEvent, FocusEvent, useRef, useState } from "react";
+import React, {
+  ChangeEvent,
+  FocusEvent,
+  Fragment,
+  useRef,
+  useState,
+} from "react";
 
-import UserData from "../../../types/types";
+import { useAppDispatch, useAppSelector } from "../../../store";
+import { setEmail } from "../../../store/newUser/newUserSlice";
+import { selectEmail } from "../../../store/newUser/selectors";
+import {
+  selectIsValid,
+  selectMessages,
+} from "../../../store/signUpPages/selectors";
+import {
+  addMessage,
+  resetMessages,
+  setValidFalse,
+  setValidTrue,
+} from "../../../store/signUpPages/signUpPagesSlice";
 
-interface loginDetailsProps {
-  userData: UserData;
-  setUserData: (data: UserData) => void;
-}
-
-const EmailPage: React.FC<loginDetailsProps> = ({
-  userData,
-  setUserData,
-}): JSX.Element => {
-  const [emailValid, setEmailValid] = useState(false);
+const EmailPage = ({ id }: { id: string }): React.JSX.Element => {
+  // selector hook for Redux store (getter)
+  const email = useAppSelector(selectEmail);
+  const isValid: boolean = useAppSelector(selectIsValid(id));
+  // get the dispatch hook to call actions
+  const dispatch = useAppDispatch();
+  // const [emailValid, setEmailValid] = useState(false);
   const [isBlur, setIsBlur] = useState(false);
-
+  const messages = useAppSelector(selectMessages(id));
   // Specify the correct type for useRef to give type safe access
   const emailErrorDiv = useRef<HTMLDivElement>(null);
-  let emailErrorMessage = "";
 
-  // When the email input has and then loses focus -
-  // validate the user's entry and update accordingly.
-  const blurHandler = (e: FocusEvent<HTMLInputElement>) => {
-    setUserData({ ...userData, email: e.target.value });
-    setIsBlur(true);
+  /* Validate using sections of the RegEx and add the corresponding
+    messages to redux state for this page */
+  const validateEmail = () => {
+    // TODO: remove test code
+    //console.log("Enter validateEmail()");
+    dispatch(resetMessages(id));
+    dispatch(setValidFalse(id));
     const emailRegex = new RegExp(
       /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
     );
-    setEmailValid(emailRegex.test(userData.email));
 
-    // Make it null safe and display the block now that
-    // the input has gained and lost focus since rendering.
-    // if (emailErrorDiv && emailErrorDiv.current) {
-    //     emailErrorDiv.current.style.visibility = 'visible';
-    // }
+    if (emailRegex.test(email)) {
+      // TODO: remove test code
+      //console.log("adding success message");
+      dispatch(setValidTrue(id));
+      dispatch(
+        addMessage({ id: id, message: "The email you entered looks good" })
+      );
+    }
 
-    // TODO: Disable next button if email is invalid.
+    if (email === "") {
+      dispatch(addMessage({ id: id, message: "An email address is required" }));
+    } else {
+      if (/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]/.test(email)) {
+        dispatch(
+          addMessage({
+            id: id,
+            message:
+              "The email address you entered is missing the at '@' symbol",
+          })
+        );
+      }
+      if (/[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)) {
+        dispatch(
+          addMessage({
+            id: id,
+            message: "The email address you entered is missing a full stop",
+          })
+        );
+      }
+    }
   };
 
   // If email is not valid, determine what is wrong
   // and give a specific error message
-  const emailErrorHTML = () => {
-    if (isBlur && !emailValid) {
-      // For now - consider input valid if it contains '@'
-      if (userData.email === "") {
-        emailErrorMessage = "An email address is required";
-      } else if (!userData.email.includes("@")) {
-        emailErrorMessage =
-          "The email address you entered is missing the at '@' symbol";
-      } else if (!userData.email.includes(".")) {
-        emailErrorMessage =
-          "The email address you entered is missing a full stop";
-      } else {
-        emailErrorMessage = "The email address is not quite right";
-      }
-      return (
-        <p className="error">
-          <span>&#10007;</span>
-          {emailErrorMessage}
-        </p>
-      );
-    } else if (!isBlur) {
-      emailErrorMessage = "";
+  const emailErrorHTML = (): React.JSX.Element => {
+    // validateEmail();
+
+    //  Create an array of Fragments
+    const content: Array<JSX.Element> = [];
+    if (!messages) {
       return <></>;
     }
 
-    return (
-      <p className="success">
-        <span>&#10003;</span>The email you entered looks good
-      </p>
-    );
+    for (const message of messages) {
+      content.push(
+        <p
+          className={isValid ? "success" : "error"}
+          key={globalThis.crypto.randomUUID()}
+        >
+          {/* Output the relevant tick or cross depending on 
+          if it is an error or success message */}
+          {isValid ? <span>&#10007;</span> : <span>&#10003;</span>}
+          {` - ${message}`}
+        </p>
+      );
+    }
+
+    return <Fragment>{content}</Fragment>;
+  };
+
+  // When the email input has and then loses focus -
+  // validate the user's entry and update accordingly.
+  const blurHandler = (e: FocusEvent<HTMLInputElement>) => {
+    dispatch(setEmail(e.target.value));
+    setIsBlur(true);
   };
 
   // When the text is changed inside the input field, update state
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setUserData({ ...userData, email: e.target.value });
+    dispatch(setEmail(e.target.value));
+    validateEmail();
   };
 
   return (
@@ -95,8 +135,8 @@ const EmailPage: React.FC<loginDetailsProps> = ({
             type="text"
             aria-labelledby="emailLabel"
             aria-required="true"
-            aria-invalid={isBlur && !emailValid}
-            value={userData.email}
+            aria-invalid={isBlur && !isValid}
+            value={email}
             autoComplete="email"
             onBlur={blurHandler}
             onChange={changeHandler}

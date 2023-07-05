@@ -1,5 +1,7 @@
 import React, { Suspense } from "react";
 
+import funnyErrorImg from "../../../assets/funny-error-message.webp";
+
 type PageWrapperProps = {
   page: React.ReactNode;
 };
@@ -30,7 +32,10 @@ export default class PageWrapper extends React.Component<
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (
-        <div className="error-page">
+        <div
+          className="error-page"
+          style={{ display: "flex", margin: "0 auto" }}
+        >
           <h1>Oops!</h1>
           <p>Something went wrong.</p>
           <p>
@@ -38,6 +43,11 @@ export default class PageWrapper extends React.Component<
             Can we use { isRouteErrorResponse } from "react-router-dom";*/}
             <i></i>
           </p>
+          <img
+            src={funnyErrorImg}
+            style={{ maxWidth: "50%" }}
+            alt="Stick man shocked by the word error"
+          ></img>
         </div>
       );
     }

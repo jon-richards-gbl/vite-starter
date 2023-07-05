@@ -1,34 +1,47 @@
-import { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, FocusEvent, useState } from "react";
 import PasswordChecklist from "react-password-checklist";
 
-import UserData from "../../../types/types";
+import { useAppDispatch, useAppSelector } from "../../../store";
+import {
+  setConfirmPassword,
+  setPassword,
+} from "../../../store/newUser/newUserSlice";
+import {
+  selectConfirmPassword,
+  selectPassword,
+} from "../../../store/newUser/selectors";
 
-// TODO: Should this be in types.tsx?
-interface loginDetailsProps {
-  userData: UserData;
-  setUserData: (data: UserData) => void;
-}
-
-const PasswordPage: React.FC<loginDetailsProps> = ({
-  userData,
-  setUserData,
-}): JSX.Element => {
+const PasswordPage = ({ index }: { index: number }): React.JSX.Element => {
+  // get the Redux  dispatch hook to call actions
+  const dispatch = useAppDispatch();
+  // selector hook for Redux store (getter)
+  const password = useAppSelector(selectPassword);
+  const passwordConfirm = useAppSelector(selectConfirmPassword);
   const [pwdIsVisible, setPwdIsVisible] = useState(false);
-  const [, setIsPwdValid] = useState(false);
+  // TODO: Remove when redux is fixed - store in SignUpPageInformation
+  // const [, setIsPwdValid] = useState(false);
 
-  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setUserData({ ...userData, password: e.target.value });
-    // TODO: Disable next button if passwords are invalid / don't match
+  // TODO: Can these change handers be combined?
+  //  - choose response based on triggering element?
+  const changeHandlerPwd = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setPassword(e.target.value));
+  };
+
+  const changeHandlerConfirmPwd = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setConfirmPassword(e.target.value));
   };
 
   // When the email input has and then loses focus -
   // validate the user's entry and update accordingly.
-  // const blurHandler = (e: FocusEvent<HTMLInputElement>) => {
-  //   setUserData({ ...userData, password: e.target.value });
-  // }
+  const blurHandler = (e: FocusEvent<HTMLInputElement>) => {
+    dispatch(setPassword(e.target.value));
+    // TODO: Validation - or have a separate component to replace
+    // password checklist??
+  };
 
   return (
     <main>
+      {/* <span>{thisPage.toString()}</span> */}
       <form aria-labelledby="enter-password">
         <fieldset>
           <legend id="enter-password">Create new password</legend>
@@ -69,9 +82,9 @@ const PasswordPage: React.FC<loginDetailsProps> = ({
             aria-labelledby="pwd-label"
             aria-describedby="pwd-desc"
             aria-required="true"
-            value={userData.password}
-            // onBlur={blurHandler}
-            onChange={changeHandler}
+            value={password}
+            onBlur={blurHandler}
+            onChange={changeHandlerPwd}
           />
           <span className="help-label" id="pwd-desc">
             Passwords must be between 8 and 15 characters and include uppercase
@@ -92,11 +105,9 @@ const PasswordPage: React.FC<loginDetailsProps> = ({
             autoComplete="new-password"
             aria-labelledby="pwd-confirm-label"
             aria-required="true"
-            value={userData.passwordConfirm}
+            value={passwordConfirm}
             // onBlur={blurHandler}
-            onChange={(e) =>
-              setUserData({ ...userData, passwordConfirm: e.target.value })
-            }
+            onChange={changeHandlerConfirmPwd}
           />
         </fieldset>
         <PasswordChecklist
@@ -110,10 +121,10 @@ const PasswordPage: React.FC<loginDetailsProps> = ({
           ]}
           minLength={8}
           maxLength={15}
-          value={userData.password}
-          valueAgain={userData.passwordConfirm}
-          // TODO: Enable/disable next button depending on isValid
-          onChange={(isValid) => setIsPwdValid(isValid)}
+          value={password}
+          valueAgain={passwordConfirm}
+          // TODO: Get this page's info from state and update isValid there.
+          // onChange={(isValid) => dispatch(setIsValid(isValid))}
         />
       </form>
     </main>
