@@ -41,7 +41,6 @@ const PasswordPage = ({ index }: { index: number }): React.JSX.Element => {
 
   return (
     <main>
-      {/* <span>{thisPage.toString()}</span> */}
       <form aria-labelledby="enter-password">
         <fieldset>
           <legend id="enter-password">Create new password</legend>
