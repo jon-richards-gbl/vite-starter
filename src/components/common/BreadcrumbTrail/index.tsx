@@ -3,6 +3,7 @@ import React, { Fragment } from "react";
 import { formTitles } from "../../SignUpPage";
 import "./styles.css";
 
+// TODO: Clear this? Should titles be passed in rather than imported?
 // interface breadcrumbProps {
 //   formTitles: Array<string>;
 //   currentStep: number;
