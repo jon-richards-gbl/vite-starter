@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { formTitles } from "..";
 import { useAppDispatch } from "../../../store";
 import { createPage } from "../../../store/signUpPages/signUpPagesSlice";
-import EmailPage from "../EmailPage";
+import UsernamePage from "../EmailPage";
 import GuidancePage from "../GuidancePage";
 import PasswordPage from "../PasswordPage";
 
@@ -22,7 +22,7 @@ const PageDisplay = ({ page }: { page: number }): React.JSX.Element => {
     case 0:
       return <GuidancePage id={formTitles[page]} />;
     case 1:
-      return <EmailPage id={formTitles[page]} />;
+      return <UsernamePage id={formTitles[page]} />;
     case 2:
       return <PasswordPage index={page} />;
     case 3:
