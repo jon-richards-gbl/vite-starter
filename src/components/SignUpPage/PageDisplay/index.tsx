@@ -3,9 +3,9 @@ import React, { useEffect } from "react";
 import { formTitles } from "..";
 import { useAppDispatch } from "../../../store";
 import { createPage } from "../../../store/signUpPages/signUpPagesSlice";
-import UsernamePage from "../EmailPage";
 import GuidancePage from "../GuidancePage";
 import PasswordPage from "../PasswordPage";
+import UsernamePage from "../UsernamePage";
 
 const PageDisplay = ({ page }: { page: number }): React.JSX.Element => {
   // get the Redux  dispatch hook to call actions
