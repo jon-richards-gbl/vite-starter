@@ -89,7 +89,7 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
     for (const message of messages) {
       content.push(
         <p
-          className={isValid ? "success-message" : "error-message"}
+          className={isValid ? "success" : "error"}
           key={globalThis.crypto.randomUUID()}
         >
           {/* Output the relevant tick or cross depending on 
