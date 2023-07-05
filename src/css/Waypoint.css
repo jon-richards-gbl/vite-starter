@@ -86,9 +86,9 @@ body {
   height: auto;
 }
 
-/* #map {
+#map {
   flex: auto;
-} */
+}
 
 #sidebar {
   flex: 0 1 auto;
