@@ -19,18 +19,18 @@ const ValidationChecklist = ({
           // As this will be a list, each item will need a unique key
           key={uuidv4()}
         >
-          {/* TODO: get Font Awesome cross and tick and add alt text */}
+          {/* Font Awesome cross and tick - alt text added as titles */}
           {message.isError ? (
             <i
-              className="fa-solid fa-check"
-              style={{ color: "#436e43;" }}
-              title="error message"
+              className="fa-solid fa-xmark"
+              style={{ color: "#b22222" }}
+              title="success message"
             />
           ) : (
             <i
-              className="fa-solid fa-xmark"
-              style={{ color: "#b22222;" }}
-              title="success message"
+              className="fa-solid fa-check"
+              style={{ color: "#436e43" }}
+              title="error message"
             />
           )}
           {message.text}
