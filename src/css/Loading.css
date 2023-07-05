@@ -1,0 +1,73 @@
+.loading-container {
+  background-color: #a3b18a;
+  height: 100vh;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  animation-name: beat;
+}
+
+.loading-row {
+  display: grid;
+  height: 70vh;
+}
+
+.loading-hippo {
+  animation-name: beat;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  background-color: #a3b18a;
+  font-size: 300px;
+  display: flex;
+  margin: auto;
+  color: pink;
+  margin-top: 20px;
+}
+
+.loading-header {
+  text-transform: uppercase;
+  color: #ffc0cb;
+  font-size: 60px;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes main {
+  from {
+    transform: rotate(90deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+@keyframes beat {
+  0% {
+    transform: scale(1.2);
+  }
+
+  50% {
+    transform: scale(0.8);
+  }
+
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+.header-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.beer {
+  display: grid;
+  animation-name: main;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.loading-header {
+  display: grid;
+}

@@ -1,0 +1,39 @@
+.inner-footer {
+  height: 100px;
+  width: auto;
+  background-color: #344e41;
+  color: white;
+  border: 2px solid pink;
+}
+
+.outer-footer {
+  height: 125px;
+  background-color: black;
+  color: white;
+  /* border: 2px solid pink; */
+}
+
+ul {
+  text-align: center;
+  /* display: inline-block; */
+}
+
+li {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-top: 1rem;
+}
+
+.socialIcon {
+  font-size: 20px;
+  transition-property: font-size;
+  transition-duration: 4s;
+}
+
+.socialIcon:hover {
+  color: pink;
+  font-size: 40px;
+  transition-property: font-size;
+  transition-duration: 4s;
+}

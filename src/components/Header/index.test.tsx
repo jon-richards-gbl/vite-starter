@@ -9,7 +9,7 @@ describe("Header", () => {
       renderComponent(<Header />);
 
       expect(screen.getByText("Home")).toBeInTheDocument();
-      expect(screen.getByText("User")).toBeInTheDocument();
+      // expect(screen.getByText("User")).toBeInTheDocument();
 
       expect(screen.getByAltText("React Icon")).toBeInTheDocument();
       expect(screen.getByAltText("GlobalLogic Icon")).toBeInTheDocument();
