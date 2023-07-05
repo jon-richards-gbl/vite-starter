@@ -80,8 +80,6 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
   // If email is not valid, determine what is wrong
   // and give a specific error message
   const emailErrorHTML = (): React.JSX.Element => {
-    // validateEmail();
-
     //  Create an array of Fragments
     const content: Array<JSX.Element> = [];
     if (!messages) {
@@ -91,7 +89,7 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
     for (const message of messages) {
       content.push(
         <p
-          className={isValid ? "success" : "error"}
+          className={isValid ? "success-message" : "error-message"}
           key={globalThis.crypto.randomUUID()}
         >
           {/* Output the relevant tick or cross depending on 
