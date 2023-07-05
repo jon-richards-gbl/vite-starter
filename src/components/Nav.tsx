@@ -40,7 +40,7 @@ const Nav = () => {
               <Link className="items" to="/GeoLocationFormMap">
                 Geo Map
               </Link>
-              <Link className="items" to="/waypointMap">
+              <Link className="items" to="/waypointFormMap">
                 Waypoint Map
               </Link>
             </ul>

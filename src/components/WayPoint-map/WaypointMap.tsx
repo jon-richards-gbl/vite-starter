@@ -1,14 +1,24 @@
 import { GoogleMap } from "@react-google-maps/api";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 
+type MapOptions = google.maps.MapOptions;
+
 const WaypointMap = () => {
+  const options = useMemo<MapOptions>(
+    () => ({
+      mapId: "55ec9d32771d5e8c",
+      disableDefaultUI: true,
+      clickableIcons: false,
+    }),
+    []
+  );
   function initMap(): void {
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
     const map = new google.maps.Map(
       document.getElementById("map") as HTMLElement,
       {
-        zoom: 6,
+        zoom: 14,
         center: { lat: 53.483959, lng: -2.244644 },
       }
     );
@@ -174,7 +184,15 @@ const WaypointMap = () => {
             <label htmlFor="origin">Where you at: </label>
           </div>
         </div>
-        <div id="map"></div>
+        <GoogleMap
+          id="map"
+          mapContainerStyle={{ height: "400px", width: "100%" }}
+          zoom={12}
+          center={{ lat: 41.85, lng: -87.65 }}
+          options={options}
+        >
+          {/* Map components */}
+        </GoogleMap>
       </div>
     </>
   );

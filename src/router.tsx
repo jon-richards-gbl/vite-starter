@@ -15,7 +15,9 @@ const GeoLocationFormMap = React.lazy(
   () => import("./components/GeoLocation-map/GeoLocationFormMap")
 );
 
-const WaypointMap = React.lazy(() => import("./components/WaypointMap"));
+const WaypointFormMap = React.lazy(
+  () => import("./components/WayPoint-map/WaypointFormMap")
+);
 
 export const enum PageRoutes {
   LandingPage = "/",
@@ -26,6 +28,7 @@ export const enum PageRoutes {
   GeoLocationFormMap = "/GeoLocationFormMap",
   WaypointMap = "/waypointMap",
   MapWithDirections = "/mapwithdirections",
+  WaypointFormMap = "WaypointFormMap",
 }
 
 const router = createBrowserRouter(
@@ -46,8 +49,8 @@ const router = createBrowserRouter(
       />
 
       <Route
-        path={PageRoutes.WaypointMap}
-        element={<PageWrapper page={<WaypointMap />} />}
+        path={PageRoutes.WaypointFormMap}
+        element={<PageWrapper page={<WaypointFormMap />} />}
       />
     </Route>
   )

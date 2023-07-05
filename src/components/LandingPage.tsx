@@ -63,7 +63,7 @@ const LandingPage = () => {
                 />
               </div>
               <div className="landing-card-header">
-                <a href="/waypointMap">
+                <a href="/waypointFormMap">
                   <h3>Way-point map</h3>
                 </a>
                 <hr></hr>
