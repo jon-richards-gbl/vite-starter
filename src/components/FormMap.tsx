@@ -1,10 +1,11 @@
-import Form from "./Form";
+// import Form from "./Form";
+import GeoForm from "./GeoLocation-map/GeoForm";
 import Map from "./Map";
 
 const FormMap = () => {
   return (
     <>
-      <Form />
+      <GeoForm />
       <Map />
     </>
   );

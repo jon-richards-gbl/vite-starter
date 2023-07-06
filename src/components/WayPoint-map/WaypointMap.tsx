@@ -186,7 +186,7 @@ const WaypointMap = () => {
         </div>
         <GoogleMap
           id="map"
-          mapContainerStyle={{ height: "400px", width: "100%" }}
+          mapContainerClassName="map-container1"
           zoom={12}
           center={{ lat: 41.85, lng: -87.65 }}
           options={options}

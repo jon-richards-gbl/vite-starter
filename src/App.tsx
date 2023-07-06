@@ -2,9 +2,10 @@ import { Outlet } from "react-router-dom";
 
 //Components
 import Footer from "./components/Footer";
-import Loading from "./components/GeoLocation-map/Loading";
+// import Loading from "./components/GeoLocation-map/Loading";
 import Nav from "./components/Nav";
 //CSS
+import "./css/About.css";
 import "./css/CalorieMap.css";
 import "./css/Footer.css";
 import "./css/Form.css";

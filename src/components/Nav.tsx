@@ -22,27 +22,31 @@ const Nav = () => {
     setToggleMenu(!toggleMenu);
   };
 
+  const closeNav = () => {
+    setToggleMenu(false);
+  };
+
   return (
     <>
       <div className="containerN">
         <nav>
           {(toggleMenu || screenWidth > 500) && (
             <ul className="list">
-              <Link className="items" to="/">
-                Home
-              </Link>
-              <Link className="items" to="/about">
-                About
-              </Link>
-              <Link className="items" to="/formMap">
-                Calorie Map
-              </Link>
-              <Link className="items" to="/GeoLocationFormMap">
-                Geo Map
-              </Link>
-              <Link className="items" to="/waypointFormMap">
-                Waypoint Map
-              </Link>
+              <li className="items" onClick={closeNav}>
+                <Link to="/">Home</Link>
+              </li>
+              <li className="items" onClick={closeNav}>
+                <Link to="/about">About</Link>
+              </li>
+              <li className="items" onClick={closeNav}>
+                <Link to="/formMap">Calorie Map</Link>
+              </li>
+              <li className="items" onClick={closeNav}>
+                <Link to="/GeoLocationFormMap">Geo Map</Link>
+              </li>
+              <li className="items" onClick={closeNav}>
+                <Link to="/waypointFormMap">Waypoint Map</Link>
+              </li>
             </ul>
           )}
 
