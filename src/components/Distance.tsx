@@ -125,7 +125,7 @@ const Distance: React.FC<DistanceProps> = ({ leg }) => {
           <strong>Duration in minutes:</strong> {parsedMins}
         </div>
         <div>
-          <strong>Duration in days:</strong> {leg.duration?.text}
+          {/* <strong>Duration in days:</strong> {leg.duration?.text} */}
         </div>
         <hr />
         <h2>Directions</h2>

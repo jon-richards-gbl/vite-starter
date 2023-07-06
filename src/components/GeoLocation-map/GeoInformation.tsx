@@ -49,12 +49,18 @@ const GeoInformation: React.FC<GeoInformationProps> = ({ leg }) => {
     if (leg.duration?.value === undefined) return "no duration";
     else return (leg.duration?.value / 60).toString();
   };
+  const hours = () => {
+    if (leg.duration?.value === undefined) return "no duration";
+    else return (leg.duration?.value / 60 / 60).toString();
+  };
   const miles = () => {
     if (leg.distance?.value === undefined) return "no distance";
     else return Math.floor((leg.distance?.value / 1000) * 0.621371);
   };
 
   const parsedMins = Math.floor(parseFloat(mins() || "0"));
+
+  // const parsedHours = Math.floor(parseFloat(hours() || "0"));
 
   const calsLost = Math.floor(
     ((parsedDropdown * 3.5 * parsedWeight) / 200) * parsedMins
@@ -87,8 +93,8 @@ const GeoInformation: React.FC<GeoInformationProps> = ({ leg }) => {
             <p>
               <strong>{leg.duration?.text} </strong>
             </p>
-            you will cover <strong>{leg.distance?.text} </strong> or{" "}
-            <strong>{miles()} Miles</strong>{" "}
+            you will cover <strong>{leg.distance?.text} </strong>
+            {/* <strong>{miles()} Miles</strong>{" "} */}
             <strong>
               <strong>
                 {formattedCalsLost === ""
@@ -112,9 +118,7 @@ const GeoInformation: React.FC<GeoInformationProps> = ({ leg }) => {
           <div>
             <strong>Duration in minutes:</strong> {parsedMins}
           </div>
-          <div>
-            <strong>Duration in days:</strong> {leg.duration?.text}
-          </div>
+          <div>{/* <strong>Duration in hours:</strong> {parsedHours} */}</div>
           <hr />
           <h2>Directions</h2>
           <hr />

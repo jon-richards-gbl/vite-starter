@@ -1,0 +1,69 @@
+.about-container {
+  display: grid;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: black;
+  color: aliceblue;
+}
+
+.box {
+  background-color: #1f2e27;
+  grid-template-columns: 100%;
+  margin-left: 20%;
+  margin-right: 20%;
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2) !important;
+  padding: 10px 10px 10px 10px;
+}
+
+.about-hippo {
+  font-size: 200px;
+  display: flex;
+  margin: auto;
+  color: pink;
+  /* animation-name: move;
+  animation-duration: 2s;
+  animation-iteration-count: infinite; */
+  animation: colour 5s infinite;
+}
+
+.barHop-Header {
+  font-size: 2rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+@keyframes colour {
+  0% {
+  }
+  25% {
+    color: blue;
+  }
+  50% {
+    colour: red;
+  }
+
+  50% {
+    colour: #344e41;
+  }
+  75% {
+    colour: rgba(225, 225, 225, 0.555);
+  }
+  100% {
+    color: pink;
+  }
+}
+
+@keyframes move {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(90deg);
+  }
+  to {
+    transform: rotate(-90deg);
+  }
+  to {
+    transform: rotate(90deg);
+  }
+}

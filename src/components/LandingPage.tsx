@@ -25,10 +25,10 @@ const LandingPage = () => {
           <h2>What we do </h2>
 
           <p className="landing-p">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
-            est eos praesentium, asperiores cumque molestias voluptas rem
-            quibusdam numquam temporibus hic delectus, ratione, error suscipit
-            architecto! Corporis ratione voluptate laudantium!
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
+            ratione consequatur officia quasi dolore fugiat minus nisi quisquam!
+            Exercitationem, suscipit. Voluptates excepturi totam quas debitis,
+            quae nostrum? Modi, similique exercitationem.
           </p>
         </div>
       </main>
@@ -41,7 +41,7 @@ const LandingPage = () => {
                 <FontAwesomeIcon className="fa-icon  fa-beer" icon={faMapPin} />
               </div>
               <div className="landing-card-header">
-                <a href="/map">
+                <a href="/FormMap">
                   {" "}
                   <h3>Calorie Map</h3>
                 </a>

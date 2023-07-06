@@ -15,9 +15,6 @@
 }
 
 .loading-hippo {
-  animation-name: beat;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
   background-color: #a3b18a;
   font-size: 300px;
   display: flex;
@@ -34,7 +31,7 @@
   animation-iteration-count: infinite;
 }
 
-@keyframes main {
+@keyframes tip {
   from {
     transform: rotate(90deg);
   }
@@ -63,7 +60,7 @@
 
 .beer {
   display: grid;
-  animation-name: main;
+  animation-name: tip;
   animation-duration: 2s;
   animation-iteration-count: infinite;
 }
