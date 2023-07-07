@@ -7,12 +7,10 @@ import {
   selectUserWeight,
 } from "../../store/form/formSelectors";
 
-type GeoInformationProps = {
-  leg: google.maps.DirectionsLeg;
-  // route: google.maps.DirectionsRoute | undefined;
+type WaypointInformationProps = {
+  legs: google.maps.DirectionsLeg[] | undefined;
 };
-
-const GeoInformation: React.FC<GeoInformationProps> = ({ leg }) => {
+const WaypointInformation: React.FC<WaypointInformationProps> = ({ leg }) => {
   const userName = useAppSelector(selectUserName);
   const userWeight = useAppSelector(selectUserWeight);
   const userDropdown = useAppSelector(selectUserDropdown);
@@ -20,32 +18,28 @@ const GeoInformation: React.FC<GeoInformationProps> = ({ leg }) => {
   const [formattedInstructions, setFormattedInstructions] = useState<string[]>(
     []
   );
-
   function toggle() {
     setIsOpen((isOpen) => !isOpen);
   }
+  //Will change when [leg] is changed
   //Will change when [leg] is changed
   useEffect(() => {
     //Will  only execute if leg and leg.steps exist
     if (leg && leg.steps) {
       //Maps over each instruction in the leg
-      const instructions = leg.steps.map((step) => step.instructions);
+      const instructions = leg.steps.map(
+        (step: { instructions: any }) => step.instructions
+      );
       //Instructions array is mapped over and uses regEx to replpace the html tags
       // with empty strings
-      const formatted = instructions.map((instruction) =>
+      const formatted = instructions.map((instruction: string) =>
         instruction.replace(/<[^>]+>/g, "")
       );
       setFormattedInstructions(formatted);
     }
   }, [leg]);
-
-  if (!leg) {
-    return <div>No distance information available</div>;
-  }
-
   const parsedDropdown = parseFloat(userDropdown);
   const parsedWeight = parseFloat(userWeight);
-
   const mins = () => {
     if (leg.duration?.value === undefined) return "no duration";
     else return (leg.duration?.value / 60).toString();
@@ -54,21 +48,16 @@ const GeoInformation: React.FC<GeoInformationProps> = ({ leg }) => {
     if (leg.distance?.value === undefined) return "no distance";
     else return Math.floor((leg.distance?.value / 1000) * 0.621371);
   };
-
   const parsedMins = Math.floor(parseFloat(mins() || "0"));
-
   const calsLost = Math.floor(
     ((parsedDropdown * 3.5 * parsedWeight) / 200) * parsedMins
   );
-
   const formattedCalsLost = Number.isNaN(calsLost) ? "" : calsLost;
-
   return (
     <>
       <div className="distance-container">
         <h2>Distance Information</h2>
         <hr />
-
         <div>
           <strong>Start Address:</strong> {leg.start_address}
         </div>
@@ -130,12 +119,10 @@ const GeoInformation: React.FC<GeoInformationProps> = ({ leg }) => {
               ))}
             </div>
           )}
-
           <div className="instructions-container"> </div>
         </div>
       </div>
     </>
   );
 };
-
-export default GeoInformation;
+export default WaypointInformation;

@@ -1,9 +1,16 @@
 import { GoogleMap } from "@react-google-maps/api";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 
+import WaypointInformation from "./WaypointInformation";
+import GeoInformation from "./WaypointInformation";
+
 type MapOptions = google.maps.MapOptions;
 
-const WaypointMap = () => {
+interface WaypointMapProps {
+  legs: google.maps.DirectionsLeg[] | undefined;
+}
+
+const WaypointMap = ({ legs }: WaypointMapProps) => {
   const options = useMemo<MapOptions>(
     () => ({
       mapId: "55ec9d32771d5e8c",
@@ -12,6 +19,7 @@ const WaypointMap = () => {
     }),
     []
   );
+
   function initMap(): void {
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
@@ -31,62 +39,82 @@ const WaypointMap = () => {
         calculateAndDisplayRoute(directionsService, directionsRenderer);
       }
     );
-  }
 
-  function calculateAndDisplayRoute(
-    directionsService: google.maps.DirectionsService,
-    directionsRenderer: google.maps.DirectionsRenderer
-  ) {
-    const waypts: google.maps.DirectionsWaypoint[] = [];
-    const checkboxArray = document.getElementById(
-      "waypoints"
-    ) as HTMLSelectElement;
+    function calculateAndDisplayRoute(
+      directionsService: google.maps.DirectionsService,
+      directionsRenderer: google.maps.DirectionsRenderer
+    ) {
+      const waypts: google.maps.DirectionsWaypoint[] = [];
+      const checkboxArray = document.getElementById(
+        "waypoints"
+      ) as HTMLSelectElement;
 
-    for (let i = 0; i < checkboxArray.length; i++) {
-      if (checkboxArray.options[i].selected) {
-        waypts.push({
-          location: (checkboxArray[i] as HTMLOptionElement).value,
-          stopover: true,
-        });
-      }
-    }
-
-    directionsService
-      .route({
-        origin: (document.getElementById("start") as HTMLInputElement).value,
-        destination: (document.getElementById("end") as HTMLInputElement).value,
-        waypoints: waypts,
-        optimizeWaypoints: true,
-        travelMode: google.maps.TravelMode.WALKING,
-      })
-      .then((response) => {
-        directionsRenderer.setDirections(response);
-        console.log(response);
-
-        const route = response.routes[0];
-        const summaryPanel = document.getElementById(
-          "directions-panel"
-        ) as HTMLElement;
-
-        summaryPanel.innerHTML = "";
-
-        // For each route, display summary information.
-        for (let i = 0; i < route.legs.length; i++) {
-          const routeSegment = i + 1;
-
-          summaryPanel.innerHTML +=
-            "<b>Route Segment: " + routeSegment + "</b><br>";
-          summaryPanel.innerHTML += route.legs[i].start_address + " to ";
-          summaryPanel.innerHTML += route.legs[i].end_address + "<br>";
-          summaryPanel.innerHTML += route.legs[i].distance?.text + "<br><br>";
+      for (let i = 0; i < checkboxArray.length; i++) {
+        if (checkboxArray.options[i].selected) {
+          waypts.push({
+            location: (checkboxArray[i] as HTMLOptionElement).value,
+            stopover: true,
+          });
         }
-      })
-      .catch((e) => window.alert("Directions request failed due to "));
+      }
+
+      directionsService
+        .route({
+          origin: (document.getElementById("start") as HTMLInputElement).value,
+          destination: (document.getElementById("end") as HTMLInputElement)
+            .value,
+          waypoints: waypts,
+          optimizeWaypoints: true,
+          travelMode: google.maps.TravelMode.WALKING,
+        })
+        .then((response) => {
+          directionsRenderer.setDirections(response);
+          console.log(response);
+
+          const route = response.routes[0];
+          const summaryPanel = document.getElementById(
+            "directions-panel"
+          ) as HTMLElement;
+
+          summaryPanel.innerHTML = "";
+
+          // For each route, display summary information.
+          if (route && route.legs) {
+            for (let i = 0; i < route.legs.length; i++) {
+              const routeSegment = i + 1;
+              console.log("i", i);
+              summaryPanel.innerHTML +=
+                "<b>Route Segment: " + routeSegment + "</b><br>";
+              summaryPanel.innerHTML += route.legs[i].start_address + " to ";
+              summaryPanel.innerHTML += route.legs[i].end_address + "<br>";
+
+              const leg = route.legs[i];
+              const distanceText = leg.distance?.text || "Unknown distance";
+              console.log("distance", distanceText);
+              summaryPanel.innerHTML += distanceText + "<br><br>";
+
+              //   const leg1 = route.legs[i];
+              //   if (leg1 !== undefined)
+              //     for (let j = 0; j < leg1.steps.length; j++) {
+              //       const step = leg1.steps[j];
+              //       summaryPanel.innerHTML += step.distance?.text + "<br>";
+
+              //       // console.log("leg staps", leg.steps[j]);
+              //     }
+
+              //   summaryPanel.innerHTML += "<br>";
+            }
+          }
+        })
+        .catch((e) => window.alert("Directions request failed due to " + e));
+    }
   }
 
   useEffect(() => {
     initMap();
   }, []);
+
+  // Rest of the code...
 
   return (
     <>
@@ -191,7 +219,8 @@ const WaypointMap = () => {
           center={{ lat: 41.85, lng: -87.65 }}
           options={options}
         >
-          {/* Map components */}
+          {" "}
+          {legs && legs.length > 0 && <WaypointInformation leg={legs[0]} />}
         </GoogleMap>
       </div>
     </>
