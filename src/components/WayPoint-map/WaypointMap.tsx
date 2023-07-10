@@ -161,7 +161,7 @@ const WaypointMap = () => {
   // console.log(mins());
 
   // total calories of journey divide by the number of waypoints
-  const calslostDividedByWaypoint = calsLost1 / numOfWaypoints;
+  // const calslostDividedByWaypoint = calsLost1;
 
   //hours and minutes const
   const hours = Math.floor(journeyTime / 3600);
@@ -267,6 +267,7 @@ const WaypointMap = () => {
             {/* This logic stops the hours and minutes showing up before the route is calculte so NaN is not displayed */}
             {!isNaN(hours) &&
               !isNaN(minutes) &&
+              minutes > 0 &&
               (hours > 0 ? (
                 <p>
                   Your journey will take {hours} hour{hours === 1 ? "" : "s"}{" "}
@@ -279,14 +280,10 @@ const WaypointMap = () => {
                 </p>
               ))}
 
-            <p>
-              {userName === ""
-                ? ""
-                : `${userName} your journey will take ${journeyTime} `}
-            </p>
             <h1>
-              {!Number.isNaN(calslostDividedByWaypoint) &&
-                `you will lose ${calslostDividedByWaypoint} calories over the entire journey`}
+              {!Number.isNaN(calsLost1) &&
+                calsLost1 > 0 &&
+                `you will lose ${calsLost1} calories over the entire journey`}
             </h1>
           </div>
         </div>
