@@ -1,6 +1,5 @@
 import { GoogleMap } from "@react-google-maps/api";
-import { isNumber } from "lodash";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { useAppSelector } from "../../store";
 import {
@@ -22,6 +21,9 @@ const WaypointMap = () => {
   let totalDuration = 0;
   const [calsLost1, setCalsLost1] = useState<number>(0);
   const [numOfWaypoints, setNumOfWayoints] = useState<number>(0);
+  const [journeyTime, setJourneyTime] = useState<number>(0);
+  const [leg, setLeg] = useState<google.maps.DirectionsLeg | null>(null);
+
   const options = useMemo<MapOptions>(
     () => ({
       mapId: "55ec9d32771d5e8c",
@@ -88,6 +90,7 @@ const WaypointMap = () => {
           ) as HTMLElement;
 
           summaryPanel.innerHTML = "";
+          totalDuration = 0;
 
           // For each route, display summary information.
           if (route && route.legs) {
@@ -100,12 +103,15 @@ const WaypointMap = () => {
               summaryPanel.innerHTML += route.legs[i].end_address + "<br>";
               const length1 = route.legs.length;
 
+              //set the number of way points on journey
               setNumOfWayoints(length1);
-              const leg = route.legs[i];
 
+              const leg = route.legs[i];
+              setLeg(leg);
               const legDurationValue = leg.duration?.value || 0;
+              console.log("leg duration :", legDurationValue);
               totalDuration += legDurationValue;
-              console.log("Total duration 1:", totalDuration);
+              // console.log("Total duration 1:", totalDuration);
 
               const mins = (): string => {
                 if (leg.duration?.value === undefined) return "0";
@@ -119,6 +125,9 @@ const WaypointMap = () => {
                 ((parsedDropdown * 3.5 * parsedWeight) / 200) * parsedMins
               );
               const distanceText = leg.distance?.text || "Unknown distance";
+
+              // Update JourneyTime state
+              setJourneyTime(totalDuration);
 
               summaryPanel.innerHTML += distanceText + "<br><br>";
               summaryPanel.innerHTML += leg.duration?.text + "<br><br>";
@@ -135,10 +144,12 @@ const WaypointMap = () => {
         .catch((e) => window.alert("Directions request failed due to " + e));
     }
   }
+  // console.log(leg);
+  console.log("journey time: ", journeyTime);
+  console.log("num of way points ", numOfWaypoints);
 
   const processTotalDuration = (duration: number) => {
     // Access totalDuration here or perform any other operations
-    console.log("Total Duration 2:", duration);
 
     // Calculate calsLost1 using totalDuration
     const calsLost1 = Math.floor(
@@ -147,19 +158,20 @@ const WaypointMap = () => {
     setCalsLost1(calsLost1);
   };
 
-  // const formattedCalsLost = Number.isNaN(calsLost1) ? "" : calsLost1;
+  // console.log(mins());
+
+  // total calories of journey divide by the number of waypoints
   const calslostDividedByWaypoint = calsLost1 / numOfWaypoints;
-  console.log("big cals", calslostDividedByWaypoint);
+
+  //hours and minutes const
+  const hours = Math.floor(journeyTime / 3600);
+  const minutes = Math.floor((journeyTime % 3600) / 60);
+
+  console.log("leg way", leg?.steps);
 
   useEffect(() => {
     initMap();
   }, []);
-
-  console.log({ user: { userName } });
-  // console.log({ calories: { calslostDividedByWaypoint } });
-
-  // If calsLost returns NaN it will return an empty string
-  // const formattedCalsLost = Number.isNaN(calsLost1) ? "" : calsLost1;
 
   return (
     <>
@@ -252,12 +264,29 @@ const WaypointMap = () => {
               <input type="submit" id="submit" />
             </div>
             <div id="directions-panel"></div>
+            {/* This logic stops the hours and minutes showing up before the route is calculte so NaN is not displayed */}
+            {!isNaN(hours) &&
+              !isNaN(minutes) &&
+              (hours > 0 ? (
+                <p>
+                  Your journey will take {hours} hour{hours === 1 ? "" : "s"}{" "}
+                  and {minutes} minute{minutes === 1 ? "" : "s"}
+                </p>
+              ) : (
+                <p>
+                  Your journey will take {minutes} minute
+                  {minutes === 1 ? "" : "s"}
+                </p>
+              ))}
+
             <p>
-              {userName === "" ? "" : `${userName} your journey will take `}
+              {userName === ""
+                ? ""
+                : `${userName} your journey will take ${journeyTime} `}
             </p>
             <h1>
               {!Number.isNaN(calslostDividedByWaypoint) &&
-                `you will lose ${calslostDividedByWaypoint} over the entire journey`}
+                `you will lose ${calslostDividedByWaypoint} calories over the entire journey`}
             </h1>
           </div>
         </div>
