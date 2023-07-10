@@ -185,7 +185,7 @@ const GeoLocationMap = () => {
         setStepDisplay(new google.maps.InfoWindow());
         const request = {
           location: map.getCenter(),
-          radius: 1000,
+          radius: 5000,
           query: "brewery",
           fields: [
             "name",

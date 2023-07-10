@@ -1,7 +1,7 @@
 import GeoForm from "../GeoLocation-map/GeoForm";
 import WaypointMap from "./WaypointMap";
 
-const GeoLocationFormMap = () => {
+const WaypointFormMap = () => {
   return (
     <>
       <GeoForm />
@@ -10,4 +10,4 @@ const GeoLocationFormMap = () => {
   );
 };
 
-export default GeoLocationFormMap;
+export default WaypointFormMap;
