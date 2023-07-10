@@ -1,16 +1,27 @@
 import { GoogleMap } from "@react-google-maps/api";
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { isNumber } from "lodash";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import WaypointInformation from "./WaypointInformation";
-import GeoInformation from "./WaypointInformation";
+import { useAppSelector } from "../../store";
+import {
+  selectUserDropdown,
+  selectUserName,
+  selectUserWeight,
+} from "../../store/form/formSelectors";
 
 type MapOptions = google.maps.MapOptions;
 
-interface WaypointMapProps {
-  legs: google.maps.DirectionsLeg[] | undefined;
-}
+const WaypointMap = () => {
+  const userName = useAppSelector(selectUserName);
+  const userWeight = useAppSelector(selectUserWeight);
+  const userDropdown = useAppSelector(selectUserDropdown);
 
-const WaypointMap = ({ legs }: WaypointMapProps) => {
+  const parsedDropdown = parseFloat(userDropdown);
+  const parsedWeight = parseFloat(userWeight);
+
+  let totalDuration = 0;
+  const [calsLost1, setCalsLost1] = useState<number>(0);
+  const [numOfWaypoints, setNumOfWayoints] = useState<number>(0);
   const options = useMemo<MapOptions>(
     () => ({
       mapId: "55ec9d32771d5e8c",
@@ -82,27 +93,42 @@ const WaypointMap = ({ legs }: WaypointMapProps) => {
           if (route && route.legs) {
             for (let i = 0; i < route.legs.length; i++) {
               const routeSegment = i + 1;
-              console.log("i", i);
+
               summaryPanel.innerHTML +=
                 "<b>Route Segment: " + routeSegment + "</b><br>";
               summaryPanel.innerHTML += route.legs[i].start_address + " to ";
               summaryPanel.innerHTML += route.legs[i].end_address + "<br>";
+              const length1 = route.legs.length;
 
+              setNumOfWayoints(length1);
               const leg = route.legs[i];
+
+              const legDurationValue = leg.duration?.value || 0;
+              totalDuration += legDurationValue;
+              console.log("Total duration 1:", totalDuration);
+
+              const mins = (): string => {
+                if (leg.duration?.value === undefined) return "0";
+                else return (leg.duration?.value / 60).toString();
+              };
+
+              const parsedDropdown = parseFloat(userDropdown);
+              const parsedWeight = parseFloat(userWeight);
+              const parsedMins = Math.floor(parseFloat(mins() || "0"));
+              const calsLost = Math.floor(
+                ((parsedDropdown * 3.5 * parsedWeight) / 200) * parsedMins
+              );
               const distanceText = leg.distance?.text || "Unknown distance";
-              console.log("distance", distanceText);
+
               summaryPanel.innerHTML += distanceText + "<br><br>";
+              summaryPanel.innerHTML += leg.duration?.text + "<br><br>";
 
-              //   const leg1 = route.legs[i];
-              //   if (leg1 !== undefined)
-              //     for (let j = 0; j < leg1.steps.length; j++) {
-              //       const step = leg1.steps[j];
-              //       summaryPanel.innerHTML += step.distance?.text + "<br>";
+              // If the calorie form is not filled out this will not be displayed
+              if (!Number.isNaN(calsLost)) {
+                summaryPanel.innerHTML += `you will lose ${calsLost}<br><br>`;
+              }
 
-              //       // console.log("leg staps", leg.steps[j]);
-              //     }
-
-              //   summaryPanel.innerHTML += "<br>";
+              processTotalDuration(totalDuration);
             }
           }
         })
@@ -110,11 +136,30 @@ const WaypointMap = ({ legs }: WaypointMapProps) => {
     }
   }
 
+  const processTotalDuration = (duration: number) => {
+    // Access totalDuration here or perform any other operations
+    console.log("Total Duration 2:", duration);
+
+    // Calculate calsLost1 using totalDuration
+    const calsLost1 = Math.floor(
+      ((parsedDropdown * 3.5 * parsedWeight) / 200) * (duration / 60)
+    );
+    setCalsLost1(calsLost1);
+  };
+
+  // const formattedCalsLost = Number.isNaN(calsLost1) ? "" : calsLost1;
+  const calslostDividedByWaypoint = calsLost1 / numOfWaypoints;
+  console.log("big cals", calslostDividedByWaypoint);
+
   useEffect(() => {
     initMap();
   }, []);
 
-  // Rest of the code...
+  console.log({ user: { userName } });
+  // console.log({ calories: { calslostDividedByWaypoint } });
+
+  // If calsLost returns NaN it will return an empty string
+  // const formattedCalsLost = Number.isNaN(calsLost1) ? "" : calsLost1;
 
   return (
     <>
@@ -207,21 +252,23 @@ const WaypointMap = ({ legs }: WaypointMapProps) => {
               <input type="submit" id="submit" />
             </div>
             <div id="directions-panel"></div>
-          </div>
-          <div>
-            <label htmlFor="origin">Where you at: </label>
+            <p>
+              {userName === "" ? "" : `${userName} your journey will take `}
+            </p>
+            <h1>
+              {!Number.isNaN(calslostDividedByWaypoint) &&
+                `you will lose ${calslostDividedByWaypoint} over the entire journey`}
+            </h1>
           </div>
         </div>
+
         <GoogleMap
           id="map"
           mapContainerStyle={{ height: "400px", width: "100%" }}
           zoom={12}
           center={{ lat: 41.85, lng: -87.65 }}
           options={options}
-        >
-          {" "}
-          {legs && legs.length > 0 && <WaypointInformation leg={legs[0]} />}
-        </GoogleMap>
+        ></GoogleMap>
       </div>
     </>
   );

@@ -9,7 +9,6 @@ import {
 
 type GeoInformationProps = {
   leg: google.maps.DirectionsLeg;
-  // route: google.maps.DirectionsRoute | undefined;
 };
 
 const GeoInformation: React.FC<GeoInformationProps> = ({ leg }) => {
