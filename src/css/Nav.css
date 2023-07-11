@@ -2,9 +2,9 @@ nav {
   position: sticky;
   top: 0;
   width: 100%;
-  height: 50px;
+  height: 3.125em;
   background-color: #344e41;
-  margin-bottom: 50px;
+  margin-bottom: 3.125em;
 }
 
 .list {
@@ -19,8 +19,8 @@ nav {
 }
 
 .items {
-  margin-right: 20px;
-  font-size: 20px;
+  margin-right: 1.25em;
+  font-size: 1.25em;
   text-transform: uppercase;
   color: #f1f1f1;
   cursor: pointer;
@@ -29,21 +29,21 @@ nav {
 .btn {
   display: none;
   position: absolute;
-  right: 10px;
-  top: 7px;
-  padding: 5px;
+  right: 0.625em;
+  top: 0.438em;
+  padding: 0.313em;
   color: #000;
-  font-size: 18px;
+  font-size: 1.125em;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 31.25em) {
   .list {
     flex-direction: column;
     height: auto;
   }
   .items:nth-child(1) {
     border-top: 1px solid rgba(225, 225, 225, 0.555);
-    margin-top: 50px;
+    margin-top: 3.125em;
   }
   .items {
     width: 120%;
@@ -57,7 +57,7 @@ nav {
   }
 }
 
-@media screen and (max-width: 539px) {
+@media screen and (max-width: 33.688em) {
   .containerN {
     margin-bottom: 50px !important;
   }
@@ -76,15 +76,15 @@ nav {
 } */
 
 .containerN {
-  margin-bottom: 65px;
+  margin-bottom: 4.063em;
 }
 
 nav {
-  margin-bottom: -65px;
+  margin-bottom: -4.063em;
 }
 
-@media screen and (max-width: 540px) {
+@media screen and (max-width: 33.75) {
   nav {
-    margin-bottom: -50px;
+    margin-bottom: -3.125em;
   }
 }
