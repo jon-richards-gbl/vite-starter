@@ -1,15 +1,12 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 
-export interface validationMessage {
-  isError: boolean;
-  text: string;
-}
+import { ValidationMessage } from "../../../store/signUpPages/state";
 
 const ValidationChecklist = ({
   messageArray,
 }: {
-  messageArray: Array<validationMessage>;
+  messageArray: Array<ValidationMessage>;
 }): React.JSX.Element => {
   return (
     <ul className="validation-checklist">
