@@ -1,18 +1,20 @@
 /* signUpPages - state and initial empty state definitions */
 
+// New - to replace SignUpPageMessage
+export interface ValidationMessage {
+  isError: boolean;
+  text: string;
+}
+// export interface ValidationMessages extends Array<ValidationMessage>{}
+
 export interface SignUpPageInformation {
   id: string;
   isValid: boolean;
-  messages: string[];
+  messages: ValidationMessage[];
 }
 
 export interface SignUpPagesState {
   pages: SignUpPageInformation[];
-}
-
-export interface SignUpPageMessage {
-  id: string;
-  message: string;
 }
 
 export function createInitialSignUpPagesState(): SignUpPagesState {
