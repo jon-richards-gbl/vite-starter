@@ -30,7 +30,8 @@ const ValidationChecklist = ({
               title="error message"
             />
           )}
-          {` - ${message.text}`}
+          <span> - </span>
+          {message.text}
         </li>
       ))}
     </ul>
