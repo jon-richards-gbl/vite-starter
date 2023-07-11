@@ -1,7 +1,6 @@
-import React, { FocusEvent } from "react";
+import React from "react";
 
-import { useAppDispatch, useAppSelector } from "../../../store";
-import { selectIsValid } from "../../../store/signUpPages/selectors";
+import { useAppDispatch } from "../../../store";
 import { setValidTrue } from "../../../store/signUpPages/signUpPagesSlice";
 import "./styles.css";
 
