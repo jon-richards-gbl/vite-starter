@@ -1,8 +1,7 @@
 import { isUndefined } from "lodash";
-import React, {
-  ChangeEvent,
-  FocusEvent,
-  FormEvent,
+import React, { // ChangeEvent,
+  // FocusEvent,
+  // FormEvent,
   useEffect,
   useRef,
 } from "react";
@@ -153,15 +152,15 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
             onInput={inputUpdated}
             onClick={inputUpdated}
             onKeyDown={inputUpdated}
+            onKeyUp={inputUpdated}
+            onPaste={inputUpdated}
           />
 
           <div
-          // className="feedback-text"
-          // id="emailErrorDiv"
-          // ref={emailErrorDiv}
-          // // Once user has tried to input - show
-          // // aria-hidden={!isBlur}
-          // role="alert"
+            className="feedback-text"
+            id="emailErrorDiv"
+            // TODO: add this role to ValidationChecklist instead and test accessibility
+            // role="alert"
           >
             {/* Permanently show the error/success messages
           to give user consistent feedback */}
