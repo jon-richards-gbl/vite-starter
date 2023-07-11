@@ -1,10 +1,12 @@
-import React, { ChangeEvent, useRef } from "react";
+import { isUndefined } from "lodash";
+import React, { ChangeEvent, useEffect, useRef } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../../store";
 import { setEmail } from "../../../store/newUser/newUserSlice";
 import { selectEmail } from "../../../store/newUser/selectors";
 import {
-  selectIsValid, // selectMessages,
+  selectIsValid,
+  selectMessages,
 } from "../../../store/signUpPages/selectors";
 import {
   addMessage,
@@ -12,9 +14,7 @@ import {
   setValidFalse,
   setValidTrue,
 } from "../../../store/signUpPages/signUpPagesSlice";
-import ValidationChecklist, {
-  validationMessage,
-} from "../../common/ValidationChecklist";
+import ValidationChecklist from "../../common/ValidationChecklist";
 
 const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
   // selector hook for Redux store (getter)
@@ -27,127 +27,83 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
   // Specify the correct type for useRef to give type safe access
   const emailErrorDiv = useRef<HTMLDivElement>(null);
 
-  // TODO: remove test array and messages - move to Redux
-  let testMessages: validationMessage[] = [
-    {
-      isError: true,
-      text: "Must contain the @ symbol",
-    },
-    {
-      isError: true,
-      text: "Must contain a full stop",
-    },
-    {
-      isError: true,
-      text: "Must be in the format name@domain.com",
-    },
-  ];
-  // const messages = useAppSelector(selectMessages(id));
+  let messages = useAppSelector(selectMessages(id));
+  if (isUndefined(messages)) {
+    messages = [];
+  }
+
+  useEffect(() => {
+    if (messages?.length === 0) {
+      dispatch(
+        addMessage({
+          message: {
+            isError: true,
+            text: "Must contain the @ symbol",
+          },
+          pageId: id,
+        })
+      );
+      dispatch(
+        addMessage({
+          message: {
+            isError: true,
+            text: "Must contain a full stop",
+          },
+          pageId: id,
+        })
+      );
+      dispatch(
+        addMessage({
+          message: {
+            isError: true,
+            text: "Must be in the format - name@domain.com (or .co.uk)",
+          },
+          pageId: id,
+        })
+      );
+    }
+  }, []);
 
   /* Validate using sections of the RegEx and add the corresponding
     messages to redux state for this page */
   const validateEmail = () => {
+    console.log("validateEmail triggered");
     dispatch(resetMessages(id));
     dispatch(setValidFalse(id));
     const emailRegex = new RegExp(
       /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
     );
 
-    // TODO: remove test code
-    testMessages = [];
-
-    // if (email === "") {
-    //   console.log(email);
-    //   dispatch(addMessage({ id: id, message: "An email address is required" }));
-    // }
-
-    testMessages.push({
-      isError: !email.includes("@"),
-      text: "Email address must include an at '@' symbol",
-    });
-    testMessages.push({
-      // isError: !email.includes("."),
-      isError: false,
-      text: "Email address must include a full stop",
-    });
-    testMessages.push({
-      isError: !emailRegex.test(email),
-      text: "Email address must be in the format - name@domain.com (or .co.uk)",
-    });
-
-    if (!email.includes("@")) {
-      dispatch(
-        addMessage({
-          id: id,
-          message: "Must include an at '@' symbol",
-        })
-      );
-    }
-    if (!email.includes(".")) {
-      // TODO: testing
-      testMessages.push({
-        isError: true,
-        text: "The email address must contain a full stop",
-      });
-      dispatch(
-        addMessage({
-          id: id,
-          message: "The email address you entered is missing a full stop",
-        })
-      );
+    const testAt = email.includes("@");
+    const testStop = email.includes(".");
+    const testRegex = emailRegex.test(email);
+    if (testAt && testStop && testRegex) {
+      dispatch(setValidTrue);
     }
 
-    if (emailRegex.test(email)) {
-      dispatch(setValidTrue(id));
-      dispatch(
-        addMessage({
-          id: id,
-          message: "The email address you entered looks good",
-        })
-      );
-    } else {
-      dispatch(
-        addMessage({
-          id: id,
-          message:
-            "Email address must be in the format - name@domain.com (or .co.uk)",
-        })
-      );
-    }
+    // TODO: make enum of error messages?
+    dispatch(
+      addMessage({
+        message: { isError: !testAt, text: "Must contain the '@' symbol" },
+        pageId: id,
+      })
+    );
+    dispatch(
+      addMessage({
+        message: { isError: !testStop, text: "Must contain a full stop" },
+        pageId: id,
+      })
+    );
+    dispatch(
+      addMessage({
+        message: {
+          isError: !testRegex,
+          text: "Must be in the format - name@domain.com (or .co.uk)",
+        },
+        pageId: id,
+      })
+    );
   };
-
-  // If email is not valid, determine what is wrong
-  // and give a specific error message
-  // const emailErrorHTML = (): React.JSX.Element => {
-  //   //  Create an array of Fragments
-  //   const content: Array<JSX.Element> = [];
-  //   if (!messages) {
-  //     return <></>;
-  //   }
-
-  //   for (const message of messages) {
-  //     content.push(
-  //       <p
-  //         className={isValid ? "success" : "error"}
-  //         key={globalThis.crypto.randomUUID()}
-  //       >
-  //         {/* Output the relevant tick or cross depending on
-  //         if it is an error or success message */}
-  //         {isValid ? <span>&#10003;</span> : <span>&#10007;</span>}
-  //         {` - ${message}`}
-  //       </p>
-  //     );
-  //   }
-
-  //   return <Fragment>{content}</Fragment>;
-  // };
-
-  // When the email input has and then loses focus -
-  // validate the user's entry and update accordingly.
-  // const blurHandler = (e: FocusEvent<HTMLInputElement>) => {
-  //   dispatch(setEmail(e.target.value));
-  //   setIsBlur(true);
-  // };
 
   // When the text is changed inside the input field, update state
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -194,7 +150,7 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
             // aria-hidden={!isBlur}
             role="alert"
           >
-            <ValidationChecklist messageArray={testMessages} />
+            <ValidationChecklist messageArray={messages} />
           </div>
         </fieldset>
       </form>
