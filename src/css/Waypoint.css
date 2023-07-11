@@ -56,7 +56,7 @@ body {
   width: auto;
   border: solid 2px red;
 } */
-#floating-panel {
+/* #floating-panel {
   position: absolute;
   top: 10px;
   left: 25%;
@@ -96,4 +96,27 @@ body {
 }
 #sidebar > div {
   padding: 0.5rem;
+} */
+
+.waypointBtn {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  color: black;
+  background-color: pink;
+  border-radius: 5px;
+  color: black;
+  height: 40px;
+  width: 100%;
+}
+
+.waypointBtn:hover {
+  color: pink;
+  background-color: black;
+  border-radius: 5px;
+  border: pink 1px solid;
+  box-shadow: 0 4px 8px 0 white(0, 0, 0, 0.2);
+}
+
+.selection-boxes {
+  margin: 1em 0em 0.5em 0em;
 }

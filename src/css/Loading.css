@@ -6,7 +6,6 @@
   align-items: center;
   text-align: center;
   min-height: 100vh;
-  animation-name: beat;
 }
 
 .loading-row {
@@ -21,6 +20,9 @@
   margin: auto;
   color: pink;
   margin-top: 20px;
+  animation-name: beat;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
 }
 
 .loading-header {
@@ -68,3 +70,29 @@
 .loading-header {
   display: grid;
 }
+
+.loading-subHeader {
+  margin: 1em 0em 1em 0em;
+  font-size: 1.5em;
+}
+
+/* @media screen and (max-width: 500px) {
+  .loading-hippo {
+    background-color: #a3b18a;
+    font-size: 300px;
+    display: flex;
+    margin: auto;
+    color: blue;
+    margin-top: 20px;
+    animation-name: none;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+
+  .beer {
+    display: grid;
+    animation-name: none;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+} */

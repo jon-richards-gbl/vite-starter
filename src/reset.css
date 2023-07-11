@@ -55,3 +55,20 @@ select {
   cursor: pointer;
   float: right;
 }
+
+.header {
+  text-align: center;
+  padding-bottom: 1em;
+  color: pink;
+}
+
+.sub-header {
+  text-align: center;
+  padding-bottom: 0.5em;
+}
+
+.paragraph {
+  text-align: center;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}

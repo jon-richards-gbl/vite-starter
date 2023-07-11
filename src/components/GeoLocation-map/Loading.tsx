@@ -17,6 +17,7 @@ const Loading = () => {
             <FontAwesomeIcon className="fa-icon  fa-beer" icon={faBeer} />
           </div>
         </div>
+        <h2 className="loading-subHeader">Getting your location</h2>
         <div className="loading-row">
           <FontAwesomeIcon className=" loading-hippo" icon={faHippo} />{" "}
         </div>

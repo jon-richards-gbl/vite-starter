@@ -111,7 +111,6 @@ const WaypointMap = () => {
               const legDurationValue = leg.duration?.value || 0;
               console.log("leg duration :", legDurationValue);
               totalDuration += legDurationValue;
-              // console.log("Total duration 1:", totalDuration);
 
               const mins = (): string => {
                 if (leg.duration?.value === undefined) return "0";
@@ -134,7 +133,7 @@ const WaypointMap = () => {
 
               // If the calorie form is not filled out this will not be displayed
               if (!Number.isNaN(calsLost)) {
-                summaryPanel.innerHTML += `you will lose ${calsLost}<br><br>`;
+                summaryPanel.innerHTML += `you will lose ${calsLost} calories on this leg of the journey <br><br>`;
               }
 
               processTotalDuration(totalDuration);
@@ -144,9 +143,6 @@ const WaypointMap = () => {
         .catch((e) => window.alert("Directions request failed due to " + e));
     }
   }
-  // console.log(leg);
-  console.log("journey time: ", journeyTime);
-  console.log("num of way points ", numOfWaypoints);
 
   const processTotalDuration = (duration: number) => {
     // Access totalDuration here or perform any other operations
@@ -178,9 +174,18 @@ const WaypointMap = () => {
       <div className="map-container">
         <div className="controls-container">
           <div id="sidebar">
+            <h1 className="header">{userName}</h1>
+            <h2 className="sub-header">Bar Hop Map</h2>
+            <hr />
+            <p className="paragraph">
+              The bar hop map will show you how to hop around to your favourite
+              breweries and beer venues. Choose a starting venue a finishing
+              venue and as many in-between venues as you pls (Ctrl+Click or
+              Cmd+Click for multiple selections).
+            </p>
             <div>
-              <b>Start:</b>
-              <select id="start">
+              <select id="start" className="selection-boxes">
+                <option value=" ">Please select an origin Venue</option>
                 <option value=" 66 N Western St, Manchester M12 6DD">
                   Manchester Brewing
                 </option>
@@ -203,10 +208,8 @@ const WaypointMap = () => {
                   Northern Monk Refectory MCR
                 </option>
               </select>
-              <br />
-              <b>Waypoints:</b> <br />
-              <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br />
-              <select multiple id="waypoints">
+
+              <select multiple id="waypoints" className="selection-boxes">
                 <option value="15 Red Bank, Cheetham Hill, Manchester M4 4HF">
                   Beatnikz Republic Brewing Co.
                 </option>
@@ -235,9 +238,9 @@ const WaypointMap = () => {
                   Northern Monk Refectory MCR
                 </option>
               </select>
-              <br />
-              <b>End:</b>
-              <select id="end">
+
+              <select id="end" className="selection-boxes">
+                <option value=" ">Please select a destinination Venue</option>
                 <option value=" 66 N Western St, Manchester M12 6DD">
                   Manchester Brewing
                 </option>
@@ -261,9 +264,13 @@ const WaypointMap = () => {
                 </option>
               </select>
               <br />
-              <input type="submit" id="submit" />
+              <button className="waypointBtn" type="submit" id="submit">
+                {" "}
+                Get Directions
+              </button>
             </div>
             <div id="directions-panel"></div>
+
             {/* This logic stops the hours and minutes showing up before the route is calculte so NaN is not displayed */}
             {!isNaN(hours) &&
               !isNaN(minutes) &&

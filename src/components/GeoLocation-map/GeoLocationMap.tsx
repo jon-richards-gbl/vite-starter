@@ -1,6 +1,9 @@
 import { DirectionsRenderer, GoogleMap } from "@react-google-maps/api";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+import { useAppSelector } from "../../store";
+import { selectUserName } from "../../store/form/formSelectors";
+import { setUserName } from "../../store/form/formSlice";
 import GeoInformation from "./GeoInformation";
 import Loading from "./Loading";
 
@@ -20,7 +23,7 @@ const GeoLocationMap = () => {
   const [stepDisplay, setStepDisplay] = useState<google.maps.InfoWindow | null>(
     null
   );
-
+  const userName = useAppSelector(selectUserName);
   const [userLocation, setUserLocation] = useState({ lat: 0, lng: 0 });
   const directionsServiceRef = useRef<google.maps.DirectionsService | null>(
     null
@@ -232,10 +235,14 @@ const GeoLocationMap = () => {
       <div className="map-container">
         <div className="controls-container">
           <div>
-            <h2>Geo-Location </h2>
+            <h1 className="header">{userName}</h1>
+            <h2 className="sub-header">Geo-Location Map</h2>
             <hr />
-            <p>
-              Click on a brewey marker to get directions and travel dirctions
+            <p className="paragraph">
+              The geolocation map takes your position and displays all craft
+              beer bars and breweries in a radius of 5000 metres. Please click
+              on one to find more information about the venue and also find
+              directions with your calorie loss added. Enjoy!
             </p>
           </div>
           {directions && <GeoInformation leg={directions.routes[0].legs[0]} />}
