@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useAppDispatch } from "../../../store";
 import { setValidTrue } from "../../../store/signUpPages/signUpPagesSlice";
@@ -8,7 +8,10 @@ const GuidancePage = ({ id }: { id: string }): React.JSX.Element => {
   // Currently no user input or validation here,
   // so flag the page as valid on render
   const dispatch = useAppDispatch();
-  dispatch(setValidTrue(id));
+
+  useEffect(() => {
+    dispatch(setValidTrue(id));
+  });
 
   return (
     <div>
