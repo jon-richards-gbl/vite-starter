@@ -1,5 +1,11 @@
 import { isUndefined } from "lodash";
-import React, { ChangeEvent, useEffect, useRef } from "react";
+import React, {
+  ChangeEvent,
+  FocusEvent,
+  FormEvent,
+  useEffect,
+  useRef,
+} from "react";
 
 import { useAppDispatch, useAppSelector } from "../../../store";
 import { setEmail } from "../../../store/newUser/newUserSlice";
@@ -22,10 +28,10 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
   const isValid: boolean = useAppSelector(selectIsValid(id));
   // get the dispatch hook to call actions
   const dispatch = useAppDispatch();
-  // const [emailValid, setEmailValid] = useState(false);
-  //const [isBlur, setIsBlur] = useState(false);
+
   // Specify the correct type for useRef to give type safe access
-  const emailErrorDiv = useRef<HTMLDivElement>(null);
+  // const emailErrorDiv = useRef<HTMLDivElement>(null);
+  const inputEmailRef = useRef<HTMLInputElement>(null);
 
   let messages = useAppSelector(selectMessages(id));
   if (isUndefined(messages)) {
@@ -62,7 +68,7 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
         })
       );
     }
-  }, []);
+  });
 
   /* Validate using sections of the RegEx and add the corresponding
     messages to redux state for this page */
@@ -106,8 +112,12 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
   };
 
   // When the text is changed inside the input field, update state
-  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setEmail(e.target.value));
+  const inputUpdated = () => {
+    dispatch(
+      setEmail(
+        inputEmailRef.current === null ? "" : inputEmailRef.current.value
+      )
+    );
     validateEmail();
   };
 
@@ -115,7 +125,7 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
     <main>
       {/* Row of helper text, input or similar 
             control and then the error/success message */}
-      <form aria-labelledby="email-legend">
+      <form aria-labelledby="email-legend" onInput={validateEmail}>
         <fieldset>
           <legend id="email-legend">Your email address</legend>
           {/* For accessibility - show the help text BEFORE the input */}
@@ -137,19 +147,24 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
             aria-invalid={!isValid}
             value={email}
             autoComplete="email"
-            // onBlur={blurHandler}
-            onChange={changeHandler}
+            ref={inputEmailRef}
+            onBlur={inputUpdated}
+            onChange={inputUpdated}
+            onInput={inputUpdated}
+            onClick={inputUpdated}
+            onKeyDown={inputUpdated}
           />
-          {/* Permanently show the error/success messages 
-          to give user consistent feedback */}
+
           <div
-            className="feedback-text"
-            id="emailErrorDiv"
-            ref={emailErrorDiv}
-            // Once user has tried to input - show
-            // aria-hidden={!isBlur}
-            role="alert"
+          // className="feedback-text"
+          // id="emailErrorDiv"
+          // ref={emailErrorDiv}
+          // // Once user has tried to input - show
+          // // aria-hidden={!isBlur}
+          // role="alert"
           >
+            {/* Permanently show the error/success messages
+          to give user consistent feedback */}
             <ValidationChecklist messageArray={messages} />
           </div>
         </fieldset>
