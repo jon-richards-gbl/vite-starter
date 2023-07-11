@@ -60,30 +60,32 @@ input[aria-invalid="true"] {
   border-color: red;
 }
 
-.success {
-  color: #436e43;
+/* .success {
+  color: #6fb66f;
 }
 
 .error {
   color: #b22222;
 }
+
+*/
 .required {
   background-color: var(--secondary-colour);
   color: var(--primary-colour);
   margin: 1em;
 }
 /* Hide any elements visibly as well as for aria */
-div.feedback-text[aria-hidden="true"] {
-  /* display: none; */
+/* div.feedback-text[aria-hidden="true"] {
   visibility: hidden;
 }
 
+*/
 /* Visibly show any elements shown for aria */
-div.feedback-text[aria-hidden="false"] {
-  /* display: block; */
+/* div.feedback-text[aria-hidden="false"] {
   visibility: visible;
 }
 
+*/
 .checkbox-combo label {
   padding-left: 0.5em;
 }
