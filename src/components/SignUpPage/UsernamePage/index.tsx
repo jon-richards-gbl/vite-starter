@@ -78,7 +78,7 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
     const testStop = email.includes(".");
     const testRegex = emailRegex.test(email);
     if (testAt && testStop && testRegex) {
-      dispatch(setValidTrue);
+      dispatch(setValidTrue(id));
     }
 
     // TODO: make enum of error messages?
