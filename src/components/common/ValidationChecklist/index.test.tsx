@@ -6,12 +6,27 @@ import { ValidationMessage } from "../../../store/signUpPages/state";
 
 describe("Validation checklist", () => {
   describe("render", () => {
-    it("renders errors and success messages how we'd expect", () => {
+    it("renders an error message how we'd expect", () => {
       const testMessages: ValidationMessage[] = [
         {
           isError: true,
           text: "This is an example error",
         },
+      ];
+
+      renderComponent(<ValidationChecklist messageArray={testMessages} />);
+
+      // Alt text not used for icons, but title is used in it's place
+      expect(screen.getByTitle("Error:")).toBeInTheDocument();
+      expect(screen.getByText(testMessages[0].text)).toBeInTheDocument();
+
+      expect(screen.queryByText("OK:")).not.toBeInTheDocument();
+    });
+  });
+
+  describe("render", () => {
+    it("renders a success message how we'd expect", () => {
+      const testMessages: ValidationMessage[] = [
         {
           isError: false,
           text: "This is an example success message",
@@ -22,9 +37,9 @@ describe("Validation checklist", () => {
 
       // Alt text not used for icons, but title is used in it's place
       expect(screen.getByTitle("OK:")).toBeInTheDocument();
-      expect(screen.getByTitle("Error:")).toBeInTheDocument();
       expect(screen.getByText(testMessages[0].text)).toBeInTheDocument();
-      expect(screen.getByText(testMessages[1].text)).toBeInTheDocument();
+
+      expect(screen.queryByText("Error:")).not.toBeInTheDocument();
     });
   });
 });
