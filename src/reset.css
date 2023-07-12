@@ -73,3 +73,7 @@ select {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
+
+hr {
+  margin: 5px 0px 5px 0px;
+}

@@ -9,10 +9,9 @@
 .box {
   background-color: #1f2e27;
   grid-template-columns: 100%;
-  margin-left: 20%;
-  margin-right: 20%;
+  margin: 10% 20% 10% 20%;
   box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2) !important;
-  padding: 10px 10px 10px 10px;
+  padding: 20px 20px 20px 20px;
 }
 
 .about-hippo {
@@ -20,10 +19,13 @@
   display: flex;
   margin: auto;
   color: pink;
-  /* animation-name: move;
-  animation-duration: 2s;
-  animation-iteration-count: infinite; */
   animation: colour 5s infinite;
+}
+
+.about-logo-container {
+  display: flex;
+  height: 30vh;
+  background-color: #14452f;
 }
 
 .barHop-Header {
