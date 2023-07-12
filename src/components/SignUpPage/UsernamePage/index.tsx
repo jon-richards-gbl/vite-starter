@@ -154,10 +154,10 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
             onPaste={inputUpdated}
           />
 
-          <div className="feedback-text" id="emailErrorDiv">
-            {/* Permanently show the error/success messages to give user consistent feedback */}
-            <ValidationChecklist messageArray={messages} />
-          </div>
+          {/* <div className="feedback-text" id="emailErrorDiv"> */}
+          {/* Permanently show the error/success messages to give user consistent feedback */}
+          <ValidationChecklist messageArray={messages} />
+          {/* </div> */}
         </fieldset>
       </form>
     </section>
