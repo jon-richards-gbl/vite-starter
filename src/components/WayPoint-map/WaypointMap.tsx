@@ -185,7 +185,9 @@ const WaypointMap = () => {
             </p>
             <div>
               <select id="start" className="selection-boxes">
-                <option value=" ">Please select an origin Venue</option>
+                <option value="" disabled selected>
+                  Please select an origin Venue
+                </option>
                 <option value=" 66 N Western St, Manchester M12 6DD">
                   Manchester Brewing
                 </option>
@@ -210,6 +212,9 @@ const WaypointMap = () => {
               </select>
 
               <select multiple id="waypoints" className="selection-boxes">
+                <option value="" disabled selected>
+                  Please select your bars
+                </option>
                 <option value="15 Red Bank, Cheetham Hill, Manchester M4 4HF">
                   Beatnikz Republic Brewing Co.
                 </option>
@@ -240,7 +245,9 @@ const WaypointMap = () => {
               </select>
 
               <select id="end" className="selection-boxes">
-                <option value=" ">Please select a destinination Venue</option>
+                <option value="" disabled selected>
+                  Please select a destinination Venue
+                </option>
                 <option value=" 66 N Western St, Manchester M12 6DD">
                   Manchester Brewing
                 </option>

@@ -7,6 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 // import { parse, icon } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { round } from "lodash";
 import { FormEventHandler, useState } from "react";
 
 import { useAppDispatch } from "../store";
@@ -23,6 +24,7 @@ const About = () => {
   const [time, setTime] = useState<string>("");
   const [dropdown, setDropdown] = useState<string>("fast");
   const [calsBun, setCalsBun] = useState<number | string>("");
+  const [calsBunMin, setCalsBunMin] = useState<number | string>("");
   const [name, setName] = useState<string>("");
   const dispatch = useAppDispatch();
 
@@ -52,19 +54,35 @@ const About = () => {
       setCalsBun(Math.ceil(calculatedCalsBun));
     }
   };
+
+  const handleGetSpeedMin = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    event.preventDefault();
+    const weightValue = parseFloat(weight);
+    const dropdownValue = parseFloat(dropdown);
+
+    // Check if the parsed values are valid numbers
+    if (isNaN(weightValue) || isNaN(dropdownValue)) {
+      setCalsBunMin("Invalid input");
+    } else {
+      const calculatedCalsBunMin = (dropdownValue * 3.5 * weightValue) / 200;
+      const roundedCalsBunMin = calculatedCalsBunMin.toFixed(1);
+      setCalsBunMin(roundedCalsBunMin);
+    }
+  };
   return (
     <>
       <div className="about-container">
         <div className="box">
           {" "}
-          <h1 className="barHop-Header">Bar Hop UK</h1>
+          {/* <h1 className="barHop-Header">Bar Hop UK</h1> */}
           <p>
-            Hey hello and welcome. Bar Hop UK is a unique way of combining craft
-            derinking with a little bit of mindfullness to health. With our maps
-            we intergrate your how you move with your journey so you can visit
-            your favourite craft venue with knowledge o what pesky calories you
-            can loosse oin route. Just simply fill out the short form below and
-            then visit on our maps.
+            To find out your calorie loss please fill out the form below. Simply
+            add your name so we can address you properly, your weight in kgs,
+            the length you plan to walk (this is not essential but it will give
+            you an idea of how many calories you will lose over a waking period)
+            and the speed you walk.
           </p>
         </div>
       </div>
@@ -142,7 +160,10 @@ const About = () => {
             <div className="row">
               <input
                 className="submitBtn"
-                onClick={handleGetSpeed}
+                onClick={(e) => {
+                  handleGetSpeed(e);
+                  handleGetSpeedMin(e);
+                }}
                 type="submit"
               />
             </div>
@@ -158,6 +179,8 @@ const About = () => {
                   <p>
                     You burn {calsBun} calories on a {time} minute walk
                   </p>
+                  <hr />
+                  <p>You burn {calsBunMin} calories a minute </p>
                 </div>
               </div>
             </div>
@@ -165,7 +188,7 @@ const About = () => {
         </div>
       </form>
 
-      <div className="logo-container">
+      <div className="about-logo-container">
         <FontAwesomeIcon
           className="fa-icon fa-hippo about-hippo"
           icon={faHippo}
