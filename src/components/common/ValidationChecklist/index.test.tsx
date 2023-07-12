@@ -21,8 +21,8 @@ describe("Validation checklist", () => {
       renderComponent(<ValidationChecklist messageArray={testMessages} />);
 
       // Alt text not used for icons, but title is used in it's place
-      expect(screen.getByTitle("success message")).toBeInTheDocument();
-      expect(screen.getByTitle("error message")).toBeInTheDocument();
+      expect(screen.getByTitle("OK:")).toBeInTheDocument();
+      expect(screen.getByTitle("Error:")).toBeInTheDocument();
       expect(screen.getByText(testMessages[0].text)).toBeInTheDocument();
       expect(screen.getByText(testMessages[1].text)).toBeInTheDocument();
     });
