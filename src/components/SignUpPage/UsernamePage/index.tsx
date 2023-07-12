@@ -1,10 +1,5 @@
 import { isUndefined } from "lodash";
-import React, { // ChangeEvent,
-  // FocusEvent,
-  // FormEvent,
-  useEffect,
-  useRef,
-} from "react";
+import React, { useEffect, useRef } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../../store";
 import { setEmail } from "../../../store/newUser/newUserSlice";
@@ -22,6 +17,12 @@ import {
 import ValidationChecklist from "../../common/ValidationChecklist";
 
 const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
+  enum ValidationText {
+    AtTest = "Must contain the '@' symbol",
+    StopTest = "Must contain a full stop",
+    FormatTest = "Must be in the format - name@domain.com (or .co.uk)",
+  }
+
   // selector hook for Redux store (getter)
   const email = useAppSelector(selectEmail);
   const isValid: boolean = useAppSelector(selectIsValid(id));
@@ -43,7 +44,7 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
         addMessage({
           message: {
             isError: true,
-            text: "Must contain the @ symbol",
+            text: ValidationText.AtTest,
           },
           pageId: id,
         })
@@ -52,7 +53,7 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
         addMessage({
           message: {
             isError: true,
-            text: "Must contain a full stop",
+            text: ValidationText.StopTest,
           },
           pageId: id,
         })
@@ -61,7 +62,7 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
         addMessage({
           message: {
             isError: true,
-            text: "Must be in the format - name@domain.com (or .co.uk)",
+            text: ValidationText.FormatTest,
           },
           pageId: id,
         })
@@ -81,30 +82,26 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
 
     const testAt = email.includes("@");
     const testStop = email.includes(".");
-    const testRegex = emailRegex.test(email);
-    if (testAt && testStop && testRegex) {
+    const testFormat = emailRegex.test(email);
+    if (testAt && testStop && testFormat) {
       dispatch(setValidTrue(id));
     }
 
-    // TODO: make enum of error messages?
     dispatch(
       addMessage({
-        message: { isError: !testAt, text: "Must contain the '@' symbol" },
+        message: { isError: !testAt, text: ValidationText.AtTest },
         pageId: id,
       })
     );
     dispatch(
       addMessage({
-        message: { isError: !testStop, text: "Must contain a full stop" },
+        message: { isError: !testStop, text: ValidationText.StopTest },
         pageId: id,
       })
     );
     dispatch(
       addMessage({
-        message: {
-          isError: !testRegex,
-          text: "Must be in the format - name@domain.com (or .co.uk)",
-        },
+        message: { isError: !testFormat, text: ValidationText.FormatTest },
         pageId: id,
       })
     );
@@ -121,7 +118,7 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
   };
 
   return (
-    <main>
+    <section>
       {/* Row of helper text, input or similar 
             control and then the error/success message */}
       <form aria-labelledby="email-legend" onInput={validateEmail}>
@@ -147,28 +144,23 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
             value={email}
             autoComplete="email"
             ref={inputEmailRef}
+            // Lots of events handled to avoid issue with use of autofill on browser not triggering onChange
             onBlur={inputUpdated}
             onChange={inputUpdated}
             onInput={inputUpdated}
-            onClick={inputUpdated}
+            //onClick={inputUpdated}
             onKeyDown={inputUpdated}
             onKeyUp={inputUpdated}
             onPaste={inputUpdated}
           />
 
-          <div
-            className="feedback-text"
-            id="emailErrorDiv"
-            // TODO: add this role to ValidationChecklist instead and test accessibility
-            // role="alert"
-          >
-            {/* Permanently show the error/success messages
-          to give user consistent feedback */}
+          <div className="feedback-text" id="emailErrorDiv">
+            {/* Permanently show the error/success messages to give user consistent feedback */}
             <ValidationChecklist messageArray={messages} />
           </div>
         </fieldset>
       </form>
-    </main>
+    </section>
   );
 };
 
