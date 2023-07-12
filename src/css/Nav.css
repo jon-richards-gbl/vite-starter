@@ -26,6 +26,11 @@ nav {
   cursor: pointer;
 }
 
+.items:hover {
+  color: #000000;
+  text-shadow: -1px 0 pink, 0 1px pink, 1px 0 pink, 0 -1px pink;
+}
+
 .btn {
   display: none;
   position: absolute;
@@ -50,7 +55,7 @@ nav {
     border-top: 1px solid rgba(225, 225, 225, 0.555);
     text-align: center;
     margin-right: 0px;
-    padding: 20px 0;
+    padding: 1.25em 0;
   }
   .btn {
     display: block;
@@ -59,7 +64,7 @@ nav {
 
 @media screen and (max-width: 33.688em) {
   .containerN {
-    margin-bottom: 50px !important;
+    margin-bottom: 3.125em !important;
   }
   /* .container-card {
         margin-top: 30px;
