@@ -5,7 +5,7 @@ import { renderComponent } from "../../../../test/helpers/render";
 import { ValidationMessage } from "../../../store/signUpPages/state";
 
 describe("Validation checklist", () => {
-  describe("render", () => {
+  describe("Error message", () => {
     it("renders an error message how we'd expect", () => {
       const testMessages: ValidationMessage[] = [
         {
@@ -24,7 +24,7 @@ describe("Validation checklist", () => {
     });
   });
 
-  describe("render", () => {
+  describe("Success message", () => {
     it("renders a success message how we'd expect", () => {
       const testMessages: ValidationMessage[] = [
         {
