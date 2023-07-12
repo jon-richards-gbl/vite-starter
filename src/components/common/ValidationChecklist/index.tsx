@@ -2,6 +2,7 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { ValidationMessage } from "../../../store/signUpPages/state";
+import "./styles.css";
 
 const ValidationChecklist = ({
   messageArray,
@@ -9,15 +10,6 @@ const ValidationChecklist = ({
   messageArray: Array<ValidationMessage>;
 }): React.JSX.Element => {
   // Clip pattern to visually hide content to provide content for screen readers only
-  // const clipStyle = {
-  //   clip: "rect(0 0 0 0)",
-  //   clipPath: "inset(50 %)",
-  //   height: "1px",
-  //   overflow: "hidden",
-  //   position: "absolute",
-  //   whiteSpace: "nowrap",
-  //   width: "1px",
-  // };
 
   return (
     <ul
@@ -39,22 +31,30 @@ const ValidationChecklist = ({
         >
           {/* Font Awesome cross and tick - alt text added as titles */}
           {message.isError ? (
-            <i
-              className="fa-solid fa-xmark"
-              style={{ color: "#b22222" }}
-              //title="error message"
-              title="Error:"
-            />
+            <>
+              <i
+                className="fa-solid fa-xmark"
+                style={{ color: "#b22222" }}
+                aria-hidden="true"
+                title="Error:"
+              />
+              <span className="visually-hidden">Failed: {message.text}</span>
+            </>
           ) : (
-            <i
-              className="fa-solid fa-check"
-              style={{ color: "#436e43" }}
-              //title="success message"
-              title="OK:"
-            />
+            <>
+              <i
+                className="fa-solid fa-check"
+                style={{ color: "#436e43" }}
+                aria-hidden="true"
+                title="OK:"
+              />
+              <span className="visually-hidden">Passed: {message.text}</span>
+            </>
           )}
-          <span aria-hidden="true"> - </span>
-          {message.text}
+          <span aria-hidden="true">
+            {" "}
+            - <span>{message.text}</span>
+          </span>
         </li>
       ))}
     </ul>
