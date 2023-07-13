@@ -1,6 +1,8 @@
 import express from "express";
 import pkg from "pg";
 
+import usersRouter from "./src/routes/users.js";
+
 const { Client } = pkg;
 
 const app = express();
@@ -10,6 +12,8 @@ const port = 3000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+app.use(express.json());
+app.use("/users", usersRouter);
 
 // Create a new PostgreSQL client
 const client = new Client({
@@ -20,7 +24,7 @@ const client = new Client({
   database: "Jimmy.David",
 });
 
-async function run() {
+async function connectToDatabase() {
   try {
     await client.connect();
     console.log("Connected to the database");
@@ -36,4 +40,4 @@ async function run() {
   }
 }
 
-run();
+connectToDatabase();
