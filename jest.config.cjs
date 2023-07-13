@@ -41,6 +41,7 @@ const jestConfig = /** @type {import("jest").Config} */ {
     "node",
   ],
   resetMocks: true,
+  verbose: true,
 };
 
 module.exports = jestConfig;
