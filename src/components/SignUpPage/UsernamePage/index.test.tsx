@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/dom";
+import { screen } from "@testing-library/react";
 
 import UsernamePage from ".";
 import { renderComponent } from "../../../../test/helpers/render";
