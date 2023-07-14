@@ -45,6 +45,7 @@ const ValidationChecklist = ({
               <>
                 <i
                   className="fa-solid fa-xmark"
+                  role="img"
                   id="error"
                   style={{ color: "#b22222" }}
                   aria-hidden="true"
@@ -60,15 +61,14 @@ const ValidationChecklist = ({
               <>
                 <i
                   className="fa-solid fa-check"
+                  role="img"
                   id="ok"
                   style={{ color: "#436e43" }}
                   aria-hidden="true"
                   title="OK:"
                 />
                 {/* Visually hidden - screen reader friendly version of success message */}
-                <span className="visually-hidden" aria-errormessage="">
-                  Correct: {message.text}
-                </span>
+                <span className="visually-hidden">Correct: {message.text}</span>
               </>
             )}
             <span aria-hidden="true">
