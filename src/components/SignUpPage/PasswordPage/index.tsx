@@ -10,19 +10,31 @@ import {
   selectConfirmPassword,
   selectPassword,
 } from "../../../store/newUser/selectors";
+import { selectIsValid } from "../../../store/signUpPages/selectors";
 
-const PasswordPage = ({ index }: { index: number }): React.JSX.Element => {
+const PasswordPage = ({ id }: { id: string }): React.JSX.Element => {
   // get the Redux  dispatch hook to call actions
   const dispatch = useAppDispatch();
   // selector hook for Redux store (getter)
   const password = useAppSelector(selectPassword);
   const passwordConfirm = useAppSelector(selectConfirmPassword);
+  const isValid: boolean = useAppSelector(selectIsValid(id));
   const [pwdIsVisible, setPwdIsVisible] = useState(false);
-  // TODO: Remove when redux is fixed - store in SignUpPageInformation
-  // const [, setIsPwdValid] = useState(false);
 
-  // TODO: Can these change handers be combined?
-  //  - choose response based on triggering element?
+  // TODO: Create enum for all password validation messages
+  // TODO: useEffect - add all validation messages to state.
+
+  // const validate = () => {
+  //   // TODO: Validate for each stage - follow usernamePage example.
+  //   // Can the password checklist npm github help? - steal regex?
+  // }
+
+  // const inputUpdated = () => {
+  //   // TODO: create a ref for the pwd input fields and get the values here
+  //   // use that to update the password in state and call validate func
+  // }
+
+  // TODO: Combine handlers - set inputUpdated as the callback for each HTML element
   const changeHandlerPwd = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setPassword(e.target.value));
   };
@@ -35,8 +47,6 @@ const PasswordPage = ({ index }: { index: number }): React.JSX.Element => {
   // validate the user's entry and update accordingly.
   const blurHandler = (e: FocusEvent<HTMLInputElement>) => {
     dispatch(setPassword(e.target.value));
-    // TODO: Validation - or have a separate component to replace
-    // password checklist??
   };
 
   return (
@@ -109,6 +119,10 @@ const PasswordPage = ({ index }: { index: number }): React.JSX.Element => {
             onChange={changeHandlerConfirmPwd}
           />
         </fieldset>
+        {/* Permanently show the error/success messages to give user consistent feedback */}
+        {/* <ValidationChecklist messageArray={messages} /> */}
+
+        {/* TODO: Remove all traces of this  */}
         {/* <PasswordChecklist
           rules={[
             "minLength",
