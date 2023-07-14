@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FocusEvent, useState } from "react";
-import PasswordChecklist from "react-password-checklist";
 
+// import PasswordChecklist from "react-password-checklist";
 import { useAppDispatch, useAppSelector } from "../../../store";
 import {
   setConfirmPassword,
