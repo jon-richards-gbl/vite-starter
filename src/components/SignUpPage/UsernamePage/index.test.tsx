@@ -1,8 +1,8 @@
-import { fireEvent, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 
 import UsernamePage from ".";
 import { renderComponent } from "../../../../test/helpers/render";
-import SignUpPage, { formTitles } from "../../SignUpPage/index";
+import { formTitles } from "../../SignUpPage/index";
 
 describe("Username Page", () => {
   const id = formTitles[1];
