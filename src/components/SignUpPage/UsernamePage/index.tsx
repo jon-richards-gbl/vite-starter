@@ -18,9 +18,9 @@ import ValidationChecklist from "../../common/ValidationChecklist";
 
 const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
   enum ValidationText {
-    AtTest = "Must contain the '@' symbol",
-    StopTest = "Must contain a full stop",
-    FormatTest = "Must be in the format - name@domain.com (or .co.uk)",
+    AtTest = "Email must contain the '@' symbol",
+    StopTest = "Email must contain a full stop",
+    FormatTest = "Email must be in the format - name@domain.com (or .co.uk)",
   }
 
   // selector hook for Redux store (getter)
@@ -144,7 +144,9 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
             value={email}
             autoComplete="email"
             ref={inputEmailRef}
-            // Lots of events handled to avoid issue with use of autofill on browser not triggering onChange
+            aria-details="validation-checklist"
+            // Lots of events handled to avoid issue with use of
+            // autofill on browser not triggering onChange
             onBlur={inputUpdated}
             onChange={inputUpdated}
             onInput={inputUpdated}
