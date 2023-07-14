@@ -1,0 +1,17 @@
+/* CSS styles for the ValidationChecklist component */
+
+/* Clip pattern to visually hide content to provide content 
+ for screen readers only */
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.validation-checklist {
+  display: flex;
+}

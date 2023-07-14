@@ -4,24 +4,23 @@ import { RootState } from "../index";
 
 const signUpPageState = (state: RootState) => state.signUpPages;
 
-export const selectPageByIndex = (indexIn: number) =>
+export const selectPageByIndex = (pageId: number) =>
   createSelector([signUpPageState], (pageState) => {
-    return pageState.pages[indexIn];
+    return pageState.pages[pageId];
   });
 
-export const selectIsValid = (indexIn: string) =>
+export const selectIsValid = (pageId: string) =>
   createSelector([signUpPageState], (pageState) => {
-    // return pageState.pages[indexIn].isValid;
-    const page = pageState.pages.find((page) => page.id === indexIn);
+    const page = pageState.pages.find((page) => page.id === pageId);
     if (page) {
       return page.isValid;
     }
     return false;
   });
 
-export const pageExists = (indexIn: string) =>
+export const pageExists = (pageId: string) =>
   createSelector([signUpPageState], (pageState) => {
-    const page = pageState.pages.find((page) => page.id === indexIn);
+    const page = pageState.pages.find((page) => page.id === pageId);
     return !(page === null || page === undefined);
   });
 
@@ -30,17 +29,17 @@ export const selectNumPages = createSelector(
   (pageState) => pageState.pages.length
 );
 
-export const selectMessages = (indexIn: string) =>
+export const selectMessages = (pageId: string) =>
   createSelector([signUpPageState], (pageState) => {
-    const page = pageState.pages.find((page) => page.id === indexIn);
+    const page = pageState.pages.find((page) => page.id === pageId);
     return page?.messages;
   });
 
-// TODO: Test all following
+// TODO: Test all following if needed?
 // Testing alternative - working?
-// export const findPageByIndex = (indexIn: string) =>
+// export const findPageByIndex = (pageId: string) =>
 //   createSelector([signUpPageState], (pageState) => {
-//     return pageState.pages.find(({ id }) => id === indexIn);
+//     return pageState.pages.find(({ id }) => id === pageId);
 //   });
 // export const selectLastPage = createSelector([signUpPageState], (pageState) => {
 //   const lastIndex = pageState.pages.length - 1;

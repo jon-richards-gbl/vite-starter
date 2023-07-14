@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import {
   SignUpPageInformation,
-  SignUpPageMessage,
+  ValidationMessage,
   createInitialSignUpPagesState,
 } from "./state";
 
@@ -49,8 +49,14 @@ const signUpPageSlice = createSlice({
         page.messages = [];
       }
     },
-    addMessage(state, action: PayloadAction<SignUpPageMessage>): void {
-      const page = state.pages.find((page) => page.id === action.payload.id);
+
+    addMessage(
+      state,
+      action: PayloadAction<{ message: ValidationMessage; pageId: string }>
+    ): void {
+      const page = state.pages.find(
+        (page) => page.id === action.payload.pageId
+      );
       if (page) {
         page.messages.push(action.payload.message);
       }

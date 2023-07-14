@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FocusEvent, useState } from "react";
-import PasswordChecklist from "react-password-checklist";
 
+// import PasswordChecklist from "react-password-checklist";
 import { useAppDispatch, useAppSelector } from "../../../store";
 import {
   setConfirmPassword,
@@ -41,7 +41,6 @@ const PasswordPage = ({ index }: { index: number }): React.JSX.Element => {
 
   return (
     <main>
-      {/* <span>{thisPage.toString()}</span> */}
       <form aria-labelledby="enter-password">
         <fieldset>
           <legend id="enter-password">Create new password</legend>
@@ -110,7 +109,7 @@ const PasswordPage = ({ index }: { index: number }): React.JSX.Element => {
             onChange={changeHandlerConfirmPwd}
           />
         </fieldset>
-        <PasswordChecklist
+        {/* <PasswordChecklist
           rules={[
             "minLength",
             "maxLength",
@@ -125,7 +124,7 @@ const PasswordPage = ({ index }: { index: number }): React.JSX.Element => {
           valueAgain={passwordConfirm}
           // TODO: Get this page's info from state and update isValid there.
           // onChange={(isValid) => dispatch(setIsValid(isValid))}
-        />
+        /> */}
       </form>
     </main>
   );

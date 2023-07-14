@@ -1,18 +1,17 @@
-import React, { FocusEvent } from "react";
+import React, { useEffect } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../../store";
-import { selectIsValid } from "../../../store/signUpPages/selectors";
+import { useAppDispatch } from "../../../store";
 import { setValidTrue } from "../../../store/signUpPages/signUpPagesSlice";
 import "./styles.css";
 
 const GuidancePage = ({ id }: { id: string }): React.JSX.Element => {
-  // TODO: remove testing code
+  // Currently no user input or validation here,
+  // so flag the page as valid on render
   const dispatch = useAppDispatch();
-  const isValid: boolean = useAppSelector(selectIsValid(id));
 
-  const blurHandler = (e: FocusEvent<HTMLInputElement>) => {
+  useEffect(() => {
     dispatch(setValidTrue(id));
-  };
+  });
 
   return (
     <div>
@@ -28,9 +27,6 @@ const GuidancePage = ({ id }: { id: string }): React.JSX.Element => {
       <h4>Terms and Conditions</h4>
       <p id="terms_conditions">Terms and conditions to agree to here?</p>
       <br />
-      {/* TODO: remove testing code */}
-      <p>Testing isValid: {isValid.toString()}</p>
-      <input type="email" placeholder="Enter email here" onBlur={blurHandler} />
     </div>
   );
 };

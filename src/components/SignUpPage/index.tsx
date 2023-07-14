@@ -8,7 +8,7 @@ import "./styles.css";
 
 export const formTitles: Array<string> = [
   "Sign Up - Guidance",
-  "Email Address",
+  "Username",
   "Secure your account",
   "Address",
 ];
