@@ -137,6 +137,7 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
             autoFocus // For Screen Readers - this helps the focus start at the first input, rather than the buttons.
             name="email"
             id="email"
+            data-testid="email"
             type="text"
             aria-labelledby="emailLabel"
             aria-required="true"
@@ -144,22 +145,19 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
             value={email}
             autoComplete="email"
             ref={inputEmailRef}
-            aria-details="validation-checklist"
+            aria-errormessage={isValid ? "" : "validation-checklist"}
+            aria-details={isValid ? "validation-checklist" : ""}
             // Lots of events handled to avoid issue with use of
             // autofill on browser not triggering onChange
             onBlur={inputUpdated}
             onChange={inputUpdated}
             onInput={inputUpdated}
-            //onClick={inputUpdated}
             onKeyDown={inputUpdated}
             onKeyUp={inputUpdated}
             onPaste={inputUpdated}
           />
-
-          {/* <div className="feedback-text" id="emailErrorDiv"> */}
           {/* Permanently show the error/success messages to give user consistent feedback */}
           <ValidationChecklist messageArray={messages} />
-          {/* </div> */}
         </fieldset>
       </form>
     </section>

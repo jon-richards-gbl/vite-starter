@@ -9,55 +9,76 @@ const ValidationChecklist = ({
 }: {
   messageArray: Array<ValidationMessage>;
 }): React.JSX.Element => {
-  // Clip pattern to visually hide content to provide content for screen readers only
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     console.log("Test")
+  //   }, 2000);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
+  if (!messageArray.length) {
+    return <div id="validation-checklist"></div>;
+  }
   return (
-    <ul
-      className="validation-checklist"
-      // This will instruct a screen reader to announce the vadliation messages
-      // when the user pauses rather than on every key stroke. This role includes
-      // an 'aria-live' region by default
+    <div
+      id="validation-checklist"
+      // This will instruct a screen reader to announce the validiation messages
+      // as soon as possible. This role includes
+      // an 'aria-live='assertive' region by default
       role="status"
       // To maximize compatibility, it is advised to add this redundant aria-live
-      // when using the 'status' role
+      // when using the 'alert' role
       aria-live="polite"
       aria-atomic="true"
+      className="validation-checklist"
     >
-      {messageArray.map((message, i) => (
-        <li
-          className={message.isError ? "error-message" : "success-message"}
-          // As this will be a list, each item will need a unique key
-          key={uuidv4()}
-        >
-          {/* Font Awesome cross and tick - alt text added as titles */}
-          {message.isError ? (
-            <>
-              <i
-                className="fa-solid fa-xmark"
-                style={{ color: "#b22222" }}
-                aria-hidden="true"
-                title="Error:"
-              />
-              <span className="visually-hidden">Failed: {message.text}</span>
-            </>
-          ) : (
-            <>
-              <i
-                className="fa-solid fa-check"
-                style={{ color: "#436e43" }}
-                aria-hidden="true"
-                title="OK:"
-              />
-              <span className="visually-hidden">Passed: {message.text}</span>
-            </>
-          )}
-          <span aria-hidden="true">
-            {" "}
-            - <span>{message.text}</span>
-          </span>
-        </li>
-      ))}
-    </ul>
+      <ul>
+        {messageArray.map((message, i) => (
+          <li
+            className={message.isError ? "error-message" : "success-message"}
+            // As this will be a list, each item will need a unique key
+            key={uuidv4()}
+          >
+            {/* Font Awesome cross and tick - alt text added as titles
+              - Titles no longer required, see visually-hidden spans*/}
+            {message.isError ? (
+              <>
+                <i
+                  className="fa-solid fa-xmark"
+                  id="error"
+                  style={{ color: "#b22222" }}
+                  aria-hidden="true"
+                  // Not required if this is to be hidden from screen readers
+                  //role="img"
+                  //aria-label="failed"
+                  title="Error:"
+                />
+                {/* Visually hidden - screen reader friendly version of error message */}
+                <span className="visually-hidden">Error: {message.text}</span>
+              </>
+            ) : (
+              <>
+                <i
+                  className="fa-solid fa-check"
+                  id="ok"
+                  style={{ color: "#436e43" }}
+                  aria-hidden="true"
+                  title="OK:"
+                />
+                {/* Visually hidden - screen reader friendly version of success message */}
+                <span className="visually-hidden" aria-errormessage="">
+                  Correct: {message.text}
+                </span>
+              </>
+            )}
+            <span aria-hidden="true">
+              {" "}
+              - <span>{message.text}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

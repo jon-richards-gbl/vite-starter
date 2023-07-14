@@ -14,6 +14,10 @@ describe("Sign Up Page", () => {
     it.todo("Previous button is enabled on initial render and middle pages");
     it.todo("Previous button is disabled when last page is reached");
     it.todo("Next button is not enabled");
+    it.todo(
+      "Should not enable the next button if the page is in a valid state"
+    );
+    it.todo("Should enable the next button if the page is in a valid state");
   });
 });
 //const prevBtn: HTMLElement = screen.getByText("Previous");

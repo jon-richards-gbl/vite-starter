@@ -109,7 +109,7 @@ const PasswordPage = ({ index }: { index: number }): React.JSX.Element => {
             onChange={changeHandlerConfirmPwd}
           />
         </fieldset>
-        <PasswordChecklist
+        {/* <PasswordChecklist
           rules={[
             "minLength",
             "maxLength",
@@ -124,7 +124,7 @@ const PasswordPage = ({ index }: { index: number }): React.JSX.Element => {
           valueAgain={passwordConfirm}
           // TODO: Get this page's info from state and update isValid there.
           // onChange={(isValid) => dispatch(setIsValid(isValid))}
-        />
+        /> */}
       </form>
     </main>
   );
