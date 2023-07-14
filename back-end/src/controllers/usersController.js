@@ -1,10 +1,22 @@
 import UserModel, { updateUser } from "../models/userModel.js";
 
 // POST /users
+// export const createUser = async (req, res) => {
+//   try {
+//     const { f_name, l_name, age } = req.body;
+//     const user = await UserModel.createUser(f_name, l_name, age);
+//     res.status(201).json({ message: "User created successfully", user });
+//   } catch (error) {
+//     console.error("Error creating user:", error);
+//     res.status(500).json({ message: "Failed to create user" });
+//   }
+// };
+
+// POST /users
 export const createUser = async (req, res) => {
   try {
-    const { f_name, l_name, age } = req.body;
-    const user = await UserModel.createUser(f_name, l_name, age);
+    const { f_name, l_name, age, email, pic } = req.body;
+    const user = await UserModel.createUser(f_name, l_name, age, email, pic);
     res.status(201).json({ message: "User created successfully", user });
   } catch (error) {
     console.error("Error creating user:", error);
@@ -72,10 +84,10 @@ export const deleteUserById = async (req, res) => {
 export const updateUserController = async (req, res) => {
   try {
     const { id } = req.params;
-    const { f_name, l_name, age } = req.body;
+    const { f_name, l_name, age, email, pic } = req.body;
 
     // Call the updateUser method from the model
-    await updateUser(id, { f_name, l_name, age });
+    await updateUser(id, { f_name, l_name, age, email, pic });
 
     res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
