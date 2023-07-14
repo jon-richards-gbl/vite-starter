@@ -9,13 +9,6 @@ const ValidationChecklist = ({
 }: {
   messageArray: Array<ValidationMessage>;
 }): React.JSX.Element => {
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     console.log("Test")
-  //   }, 2000);
-  //   return () => clearTimeout(timer);
-  // }, []);
-
   if (!messageArray.length) {
     return <div id="validation-checklist"></div>;
   }
@@ -49,9 +42,6 @@ const ValidationChecklist = ({
                   id="error"
                   style={{ color: "#b22222" }}
                   aria-hidden="true"
-                  // Not required if this is to be hidden from screen readers
-                  //role="img"
-                  //aria-label="failed"
                   title="Error:"
                 />
                 {/* Visually hidden - screen reader friendly version of error message */}
