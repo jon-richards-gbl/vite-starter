@@ -23,7 +23,13 @@ describe("Username Page", () => {
     );
   });
 
-  describe("contain 3 error message on initial render", () => {});
+  describe("renders as we'd expect", () => {
+    it("contains the input and error messages", () => {
+      renderComponent(<UsernamePage id={id} />);
+
+      expect(screen.getByTestId("email")).toBeInTheDocument();
+    });
+  });
 
   // TODO: Get these tests working!
   //describe("valid user input", () => {
