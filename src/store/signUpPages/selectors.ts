@@ -37,7 +37,7 @@ export const selectMessages = (pageId: string) =>
     }
 
     // TODO: Throw an error here?
-    return [{ isError: true, text: "Page not found" }];
+    return [{ isError: true, text: "Error - page not found" }];
   });
 
 // TODO: Test all following if needed?
