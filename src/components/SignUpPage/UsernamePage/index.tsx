@@ -37,35 +37,21 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
     messages = [];
   }
 
+  // On first render, add all error messages to state, as user has not yet entered
+  // valid input
   useEffect(() => {
     if (messages?.length === 0) {
-      dispatch(
-        addMessage({
-          message: {
-            isError: true,
-            text: ValidationText.AtTest,
-          },
-          pageId: id,
-        })
-      );
-      dispatch(
-        addMessage({
-          message: {
-            isError: true,
-            text: ValidationText.StopTest,
-          },
-          pageId: id,
-        })
-      );
-      dispatch(
-        addMessage({
-          message: {
-            isError: true,
-            text: ValidationText.FormatTest,
-          },
-          pageId: id,
-        })
-      );
+      for (const vText in ValidationText) {
+        dispatch(
+          addMessage({
+            message: {
+              isError: true,
+              text: vText,
+            },
+            pageId: id,
+          })
+        );
+      }
     }
   });
 
