@@ -58,7 +58,6 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
   /* Validate using sections of the RegEx and add the corresponding
     messages to redux state for this page */
   const validateEmail = () => {
-    console.log("validateEmail triggered");
     dispatch(resetMessages(id));
     dispatch(setValidFalse(id));
     const emailRegex = new RegExp(
