@@ -30,7 +30,6 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
   const dispatch = useAppDispatch();
 
   // Specify the correct type for useRef to give type safe access
-  // const emailErrorDiv = useRef<HTMLDivElement>(null);
   const inputEmailRef = useRef<HTMLInputElement>(null);
 
   let messages = useAppSelector(selectMessages(id));
