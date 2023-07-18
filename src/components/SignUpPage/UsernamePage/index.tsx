@@ -30,7 +30,6 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
   const dispatch = useAppDispatch();
 
   // Specify the correct type for useRef to give type safe access
-  // const emailErrorDiv = useRef<HTMLDivElement>(null);
   const inputEmailRef = useRef<HTMLInputElement>(null);
 
   let messages = useAppSelector(selectMessages(id));
@@ -38,64 +37,50 @@ const UsernamePage = ({ id }: { id: string }): React.JSX.Element => {
     messages = [];
   }
 
+  // On first render, add all error messages to state,
+  // as user has not yet entered valid input
   useEffect(() => {
     if (messages?.length === 0) {
-      dispatch(
-        addMessage({
-          message: {
-            isError: true,
-            text: ValidationText.AtTest,
-          },
-          pageId: id,
-        })
-      );
-      dispatch(
-        addMessage({
-          message: {
-            isError: true,
-            text: ValidationText.StopTest,
-          },
-          pageId: id,
-        })
-      );
-      dispatch(
-        addMessage({
-          message: {
-            isError: true,
-            text: ValidationText.FormatTest,
-          },
-          pageId: id,
-        })
-      );
+      for (const [, vText] of Object.entries(ValidationText)) {
+        dispatch(
+          addMessage({
+            message: {
+              isError: true,
+              text: vText,
+            },
+            pageId: id,
+          })
+        );
+      }
     }
-  });
+  }, [ValidationText, dispatch, id, messages.length]);
 
-  /* Validate using sections of the RegEx and add the corresponding
-    messages to redux state for this page */
+  /* Validate and add the corresponding messages to
+  redux state for this page */
   const validateEmail = () => {
-    console.log("validateEmail triggered");
     dispatch(resetMessages(id));
     dispatch(setValidFalse(id));
     const emailRegex = new RegExp(
       /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
     );
 
-    const testAt = email.includes("@");
-    const testStop = email.includes(".");
+    // TODO: rename these to __Test
+    const atTest = email.includes("@");
+    const stopTest = email.includes(".");
     const testFormat = emailRegex.test(email);
-    if (testAt && testStop && testFormat) {
+    if (atTest && stopTest && testFormat) {
       dispatch(setValidTrue(id));
     }
 
     dispatch(
       addMessage({
-        message: { isError: !testAt, text: ValidationText.AtTest },
+        message: { isError: !atTest, text: ValidationText.AtTest },
         pageId: id,
       })
     );
     dispatch(
       addMessage({
-        message: { isError: !testStop, text: ValidationText.StopTest },
+        message: { isError: !stopTest, text: ValidationText.StopTest },
         pageId: id,
       })
     );

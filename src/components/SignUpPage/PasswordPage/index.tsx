@@ -1,6 +1,6 @@
-import React, { ChangeEvent, FocusEvent, useState } from "react";
+import { isUndefined } from "lodash";
+import React, { useEffect, useRef, useState } from "react";
 
-// import PasswordChecklist from "react-password-checklist";
 import { useAppDispatch, useAppSelector } from "../../../store";
 import {
   setConfirmPassword,
@@ -10,42 +10,165 @@ import {
   selectConfirmPassword,
   selectPassword,
 } from "../../../store/newUser/selectors";
+import {
+  selectIsValid,
+  selectMessages,
+} from "../../../store/signUpPages/selectors";
+import {
+  addMessage,
+  resetMessages,
+  setValidFalse,
+  setValidTrue,
+} from "../../../store/signUpPages/signUpPagesSlice";
+import ValidationChecklist from "../../common/ValidationChecklist";
 
-const PasswordPage = ({ index }: { index: number }): React.JSX.Element => {
-  // get the Redux  dispatch hook to call actions
-  const dispatch = useAppDispatch();
-  // selector hook for Redux store (getter)
+const PasswordPage = ({ id }: { id: string }): React.JSX.Element => {
+  // TODO: Complete message text for special char (which chars?)
+  enum ValidationText {
+    MinLength = "Password must contain at least 8 characters",
+    MaxLength = "Password can only contain a maximum of 15 characters",
+    SpecialCharacter = "Password must contain one of the following characters- !#$%&*€£@+=?",
+    UppercaseCharacter = "Password must contain an uppercase letter",
+    Number = "Password must contain a number",
+    Match = "Password and confirmation must match",
+  }
+
+  // Selector hook for Redux store (getter)
   const password = useAppSelector(selectPassword);
   const passwordConfirm = useAppSelector(selectConfirmPassword);
+  // TODO: have two local variables, one for each password input?
+  const isValid: boolean = useAppSelector(selectIsValid(id));
+
   const [pwdIsVisible, setPwdIsVisible] = useState(false);
-  // TODO: Remove when redux is fixed - store in SignUpPageInformation
-  // const [, setIsPwdValid] = useState(false);
+  const [confirmPwdIsVisible, setConfirmPwdIsVisible] = useState(false);
+  // get the Redux  dispatch hook to call actions
+  const dispatch = useAppDispatch();
 
-  // TODO: Can these change handers be combined?
-  //  - choose response based on triggering element?
-  const changeHandlerPwd = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setPassword(e.target.value));
+  const passwordInputRef = useRef<HTMLInputElement>(null);
+  const passwordConfirmInputRef = useRef<HTMLInputElement>(null);
+
+  let messages = useAppSelector(selectMessages(id));
+  if (isUndefined(messages)) {
+    messages = [];
+  }
+
+  // On first render, add all error messages to state,
+  // as user has not yet entered valid input
+  useEffect(() => {
+    if (messages?.length === 0) {
+      for (const [, vText] of Object.entries(ValidationText)) {
+        dispatch(
+          addMessage({
+            message: {
+              isError: true,
+              text: vText,
+            },
+            pageId: id,
+          })
+        );
+      }
+    }
+  }, [ValidationText, dispatch, id, messages.length]);
+
+  const validatePassword = () => {
+    // TODO: Validate for each stage - follow usernamePage example.
+    // Can the password checklist npm github help? - steal regex?
+    dispatch(resetMessages(id));
+    dispatch(setValidFalse(id));
+    // Note: No global flags required, just need to find one uppercase character,
+    // one number and one special character
+    const specialCharRegex = new RegExp("[!#$%&*€£@+=?]");
+    const uppercaseCharRegex = new RegExp("[A-Z]");
+    const numberRegex = new RegExp("[0-9]");
+
+    const specialCharTest = specialCharRegex.test(password);
+    const minCharTest = password.length >= 8;
+    const maxCharTest = password.length <= 15;
+    const uppercaseTest = uppercaseCharRegex.test(password);
+    const numberTest = numberRegex.test(password);
+    const pwdsMatchTest = password === passwordConfirm;
+
+    if (
+      specialCharTest &&
+      minCharTest &&
+      maxCharTest &&
+      uppercaseTest &&
+      numberTest &&
+      pwdsMatchTest
+    ) {
+      dispatch(setValidTrue(id));
+    }
+
+    // Add messages again and set error = true/false for each
+    dispatch(
+      addMessage({
+        message: {
+          isError: !specialCharTest,
+          text: ValidationText.SpecialCharacter,
+        },
+        pageId: id,
+      })
+    );
+    dispatch(
+      addMessage({
+        message: { isError: !minCharTest, text: ValidationText.MinLength },
+        pageId: id,
+      })
+    );
+    dispatch(
+      addMessage({
+        message: { isError: !maxCharTest, text: ValidationText.MaxLength },
+        pageId: id,
+      })
+    );
+    dispatch(
+      addMessage({
+        message: {
+          isError: !uppercaseTest,
+          text: ValidationText.UppercaseCharacter,
+        },
+        pageId: id,
+      })
+    );
+    dispatch(
+      addMessage({
+        message: { isError: !numberTest, text: ValidationText.Number },
+        pageId: id,
+      })
+    );
+    dispatch(
+      addMessage({
+        message: { isError: !pwdsMatchTest, text: ValidationText.Match },
+        pageId: id,
+      })
+    );
   };
 
-  const changeHandlerConfirmPwd = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setConfirmPassword(e.target.value));
-  };
-
-  // When the email input has and then loses focus -
-  // validate the user's entry and update accordingly.
-  const blurHandler = (e: FocusEvent<HTMLInputElement>) => {
-    dispatch(setPassword(e.target.value));
-    // TODO: Validation - or have a separate component to replace
-    // password checklist??
+  const inputUpdated = () => {
+    dispatch(
+      setPassword(
+        // passwordInputRef.current === null ? "" : passwordInputRef.current.value
+        passwordInputRef.current?.value ?? ""
+      )
+    );
+    dispatch(
+      setConfirmPassword(
+        passwordConfirmInputRef.current === null
+          ? ""
+          : passwordConfirmInputRef.current.value
+      )
+    );
+    validatePassword();
   };
 
   return (
-    <main>
+    <section>
       <form aria-labelledby="enter-password">
         <fieldset>
-          <legend id="enter-password">Create new password</legend>
+          <legend id="enter-password">Create a new password</legend>
           <label className="help-label" htmlFor="password" id="pwd-label">
-            Please enter a password:
+            Please enter a password, see checklist below for password
+            constraints:
             <span className="required" aria-hidden="true">
               Required
             </span>
@@ -78,17 +201,27 @@ const PasswordPage = ({ index }: { index: number }): React.JSX.Element => {
             id="password"
             autoComplete="new-password"
             type={pwdIsVisible ? "text" : "password"}
+            ref={passwordInputRef}
             aria-labelledby="pwd-label"
             aria-describedby="pwd-desc"
             aria-required="true"
+            aria-invalid={!isValid} // TODO: need two valid flags, one for each input?
             value={password}
-            onBlur={blurHandler}
-            onChange={changeHandlerPwd}
+            aria-errormessage={isValid ? "" : "validation-checklist"}
+            aria-details={isValid ? "validation-checklist" : ""}
+            // Lots of events handled to avoid issue with use of
+            // autofill on browser not triggering onChange
+            onBlur={inputUpdated}
+            onChange={inputUpdated}
+            onInput={inputUpdated}
+            onKeyDown={inputUpdated}
+            onKeyUp={inputUpdated}
+            onPaste={inputUpdated}
           />
-          <span className="help-label" id="pwd-desc">
+          {/* <span className="help-label" id="pwd-desc">
             Passwords must be between 8 and 15 characters and include uppercase
             and lowercase letters and a number
-          </span>
+          </span> */}
           <label
             className="help-label"
             htmlFor="password-confirm"
@@ -96,37 +229,56 @@ const PasswordPage = ({ index }: { index: number }): React.JSX.Element => {
           >
             Please re-type your new password to confirm:
           </label>
+          {/* Toggle between password visibility */}
+          <div className="checkbox-combo" id="password-combo">
+            <input
+              id="pwdConfirmCheckbox"
+              name="pwdConfirmCheckbox"
+              type="checkbox"
+              checked={confirmPwdIsVisible}
+              // aria-labelledby="pwdConfirmCheckboxLabel"
+              // aria-checked={confirmPwdIsVisible}
+              onChange={() => {
+                setConfirmPwdIsVisible(
+                  (confirmPwdIsVisible) => !confirmPwdIsVisible
+                );
+              }}
+            />
+            <label
+              className="checkbox-label"
+              htmlFor="pwdConfirmCheckbox"
+              id="pwdConfirmCheckboxLabel"
+            >
+              Show confirm password?
+            </label>
+          </div>
           <input
             className="block-input"
             name="password-confirm"
             id="password-confirm"
-            type="password"
+            type={confirmPwdIsVisible ? "text" : "password"}
             autoComplete="new-password"
             aria-labelledby="pwd-confirm-label"
             aria-required="true"
+            aria-invalid={!isValid}
             value={passwordConfirm}
-            // onBlur={blurHandler}
-            onChange={changeHandlerConfirmPwd}
+            aria-errormessage={isValid ? "" : "validation-checklist"}
+            aria-details={isValid ? "validation-checklist" : ""}
+            // Lots of events handled to avoid issue with use of
+            // autofill on browser not triggering onChange
+            onBlur={inputUpdated}
+            onChange={inputUpdated}
+            onInput={inputUpdated}
+            onKeyDown={inputUpdated}
+            onKeyUp={inputUpdated}
+            onPaste={inputUpdated}
+            ref={passwordConfirmInputRef}
           />
+          {/* Permanently show the error/success messages to give user consistent feedback */}
+          <ValidationChecklist messageArray={messages} />
         </fieldset>
-        {/* <PasswordChecklist
-          rules={[
-            "minLength",
-            "maxLength",
-            "specialChar",
-            "number",
-            "capital",
-            "match",
-          ]}
-          minLength={8}
-          maxLength={15}
-          value={password}
-          valueAgain={passwordConfirm}
-          // TODO: Get this page's info from state and update isValid there.
-          // onChange={(isValid) => dispatch(setIsValid(isValid))}
-        /> */}
       </form>
-    </main>
+    </section>
   );
 };
 

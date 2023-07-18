@@ -25,7 +25,7 @@ const signUpPageSlice = createSlice({
         const newPage: SignUpPageInformation = {
           id: action.payload,
           isValid: false,
-          messages: [],
+          messages: new Array<ValidationMessage>(),
         };
 
         state.pages.push(newPage);

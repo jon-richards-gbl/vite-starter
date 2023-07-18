@@ -24,7 +24,7 @@ const PageDisplay = ({ page }: { page: number }): React.JSX.Element => {
     case 1:
       return <UsernamePage id={formTitles[page]} />;
     case 2:
-      return <PasswordPage index={page} />;
+      return <PasswordPage id={formTitles[page]} />;
     case 3:
       return <div>Address</div>;
     default:

@@ -32,7 +32,12 @@ export const selectNumPages = createSelector(
 export const selectMessages = (pageId: string) =>
   createSelector([signUpPageState], (pageState) => {
     const page = pageState.pages.find((page) => page.id === pageId);
-    return page?.messages;
+    if (page) {
+      return page.messages;
+    }
+
+    // TODO: Throw an error here?
+    return [{ isError: true, text: "Error - page not found" }];
   });
 
 // TODO: Test all following if needed?

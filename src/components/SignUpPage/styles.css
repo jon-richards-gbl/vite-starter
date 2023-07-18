@@ -29,6 +29,7 @@ h4 {
   color: var(--secondary-colour);
   padding: 0.2em;
   margin: 0.2em 0;
+  font-weight: 700;
 }
 
 div.separator {
@@ -41,13 +42,14 @@ div.separator {
   padding: 0.5em;
   margin: 0.4em 0.5em;
   border-radius: 2px;
-  width: 60%;
+  width: 50%;
   transition: width 0.35s ease-in-out;
+  border-color: var(--secondary-colour);
 }
 
 .block-input:focus {
-  /* border: 1px solid var(--gl-orange); */
-  width: 80%;
+  border: 1.5px solid var(--secondary-color);
+  width: 60%;
 }
 .button-row {
   width: 100%;
@@ -57,9 +59,12 @@ div.separator {
 }
 
 input[aria-invalid="true"] {
-  border-color: red;
+  border-color: var(--gl-orange);
 }
 
+input[aria-invalid="false"] {
+  border-color: var(--secondary-colour);
+}
 /* .success {
   color: #6fb66f;
 }
