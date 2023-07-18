@@ -3,6 +3,7 @@ import {
   Route,
   createBrowserRouter,
   createRoutesFromElements,
+  useLocation,
 } from "react-router-dom";
 
 import App from "./App";
@@ -14,10 +15,11 @@ const FormMap = React.lazy(() => import("./components/FormMap"));
 const GeoLocationFormMap = React.lazy(
   () => import("./components/GeoLocation-map/GeoLocationFormMap")
 );
-
 const WaypointFormMap = React.lazy(
   () => import("./components/WayPoint-map/WaypointFormMap")
 );
+const Login = React.lazy(() => import("./components/Login"));
+const Registration = React.lazy(() => import("./components/Registration"));
 
 export const enum PageRoutes {
   LandingPage = "/",
@@ -29,6 +31,8 @@ export const enum PageRoutes {
   WaypointMap = "/waypointMap",
   MapWithDirections = "/mapwithdirections",
   WaypointFormMap = "WaypointFormMap",
+  Login = "Login",
+  Registration = "Registration",
 }
 
 const router = createBrowserRouter(
@@ -51,6 +55,14 @@ const router = createBrowserRouter(
       <Route
         path={PageRoutes.WaypointFormMap}
         element={<PageWrapper page={<WaypointFormMap />} />}
+      />
+      <Route
+        path={PageRoutes.Login}
+        element={<PageWrapper page={<Login />} />}
+      />
+      <Route
+        path={PageRoutes.Registration}
+        element={<PageWrapper page={<Registration />} />}
       />
     </Route>
   )

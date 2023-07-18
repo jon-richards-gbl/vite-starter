@@ -47,6 +47,7 @@ const Nav = () => {
               <li className="items" onClick={closeNav}>
                 <Link to="/waypointFormMap">Waypoint Map</Link>
               </li>
+              <Link to="/Login">Login</Link>
             </ul>
           )}
 

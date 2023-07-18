@@ -1,22 +1,17 @@
 import UserModel, { updateUser } from "../models/userModel.js";
 
-// POST /users
-// export const createUser = async (req, res) => {
-//   try {
-//     const { f_name, l_name, age } = req.body;
-//     const user = await UserModel.createUser(f_name, l_name, age);
-//     res.status(201).json({ message: "User created successfully", user });
-//   } catch (error) {
-//     console.error("Error creating user:", error);
-//     res.status(500).json({ message: "Failed to create user" });
-//   }
-// };
-
-// POST /users
+// POST /user
 export const createUser = async (req, res) => {
   try {
-    const { f_name, l_name, age, email, pic } = req.body;
-    const user = await UserModel.createUser(f_name, l_name, age, email, pic);
+    const { f_name, l_name, age, email, pic, password } = req.body;
+    const user = await UserModel.createUser(
+      f_name,
+      l_name,
+      age,
+      email,
+      pic,
+      password
+    );
     res.status(201).json({ message: "User created successfully", user });
   } catch (error) {
     console.error("Error creating user:", error);
@@ -24,7 +19,7 @@ export const createUser = async (req, res) => {
   }
 };
 
-// GET /users
+// GET /user
 export const getUsers = async (req, res) => {
   try {
     const users = await UserModel.getAllUsers();
@@ -54,7 +49,7 @@ export const getUserById = async (req, res) => {
   }
 };
 
-// DELETE /users
+// DELETE /user
 export const deleteAllUsers = async (req, res) => {
   try {
     await UserModel.deleteAllUsers();
@@ -80,7 +75,7 @@ export const deleteUserById = async (req, res) => {
   }
 };
 
-// UPDATE /users
+// UPDATE /user
 export const updateUserController = async (req, res) => {
   try {
     const { id } = req.params;
@@ -93,5 +88,28 @@ export const updateUserController = async (req, res) => {
   } catch (error) {
     console.error("Error updating user:", error);
     res.status(500).json({ message: "Failed to update user" });
+  }
+};
+
+// Login / login
+
+export const loginEmailPass = async (req, res) => {
+  try {
+    console.log("Request:", req);
+    const { email, password } = req.body;
+
+    console.log("Request payload:", req.body);
+    console.log("controller", req.body);
+    const user = await UserModel.loginEmailPass(email, password);
+
+    if (user) {
+      res.status(200).json({ message: "Login successful", user });
+    } else {
+      res.status(401).json({ message: "Invalid email or password" });
+    }
+  } catch (error) {
+    console.log("controller", req.body);
+    console.error("Error logging in user:", error);
+    res.status(500).json({ message: "Failed to log in user" });
   }
 };

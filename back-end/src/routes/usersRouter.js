@@ -6,10 +6,14 @@ import {
   deleteUserById,
   getUserById,
   getUsers,
+  loginEmailPass,
   updateUserController,
 } from "../controllers/usersController.js";
 
 const router = express.Router();
+
+// POST /user/login
+router.post("/login", loginEmailPass);
 
 // POST /user
 router.post("/", createUser);

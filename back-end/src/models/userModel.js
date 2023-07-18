@@ -1,9 +1,9 @@
 import db from "../database/db.js";
 
-export const createUser = async (f_name, l_name, age, email, pic) => {
+export const createUser = async (f_name, l_name, age, email, pic, password) => {
   const query =
-    "INSERT INTO bh_users (f_name, l_name, age, email, pic) VALUES ($1, $2, $3, $4, $5) RETURNING *";
-  const values = [f_name, l_name, age, email, pic];
+    "INSERT INTO bh_users (f_name, l_name, age, email, pic, password) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *";
+  const values = [f_name, l_name, age, email, pic, password];
   const result = await db.query(query, values);
   return result.rows[0];
 };
@@ -47,6 +47,14 @@ export const updateUser = async (userId, newData) => {
   await db.query(query, values);
 };
 
+export const loginEmailPass = async (email, password) => {
+  const query = "SELECT * FROM bh_users WHERE email = $1 AND password = $2";
+
+  const values = [email, password];
+  const result = await db.query(query, values);
+  return result.rows[0];
+};
+
 const UserModel = {
   createUser,
   getAllUsers,
@@ -54,6 +62,7 @@ const UserModel = {
   updateUser,
   getUserById,
   deleteUserById,
+  loginEmailPass,
 };
 
 export default UserModel;

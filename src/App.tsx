@@ -2,9 +2,11 @@ import { Outlet } from "react-router-dom";
 
 //Components
 import Footer from "./components/Footer";
-import Loading from "./components/GeoLocation-map/Loading";
+// import Loading from "./components/GeoLocation-map/Loading";
+import Login from "./components/Login";
 // import Loading from "./components/GeoLocation-map/Loading";
 import Nav from "./components/Nav";
+import Registration from "./components/Registration";
 //CSS
 import "./css/About.css";
 import "./css/CalorieMap.css";
@@ -19,7 +21,8 @@ function App() {
   return (
     <>
       <Nav />
-      {/* <Loading /> */}
+      {/* <Login />
+      <Registration /> */}
       <Outlet />
 
       <Footer />
