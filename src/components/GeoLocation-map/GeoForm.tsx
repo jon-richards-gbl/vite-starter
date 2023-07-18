@@ -53,7 +53,12 @@ const GeoForm = () => {
               />{" "}
               <p>{userDropdown}</p>
             </div>
-            <div className="row"></div>
+            <div className="row">
+              Fill in your details at{" "}
+              <a className="about-link" href="/about">
+                about
+              </a>
+            </div>
           </div>
 
           <div className="grid-one-columns">

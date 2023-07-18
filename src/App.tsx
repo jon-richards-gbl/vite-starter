@@ -2,8 +2,7 @@ import { Outlet } from "react-router-dom";
 
 //Components
 import Footer from "./components/Footer";
-// import Loading from "./components/GeoLocation-map/Loading";
-import Login from "./components/Login";
+
 // import Loading from "./components/GeoLocation-map/Loading";
 import Nav from "./components/Nav";
 import Registration from "./components/Registration";

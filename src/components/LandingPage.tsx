@@ -25,10 +25,15 @@ const LandingPage = () => {
           <h2>What we do </h2>
 
           <p className="landing-p">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
-            ratione consequatur officia quasi dolore fugiat minus nisi quisquam!
-            Exercitationem, suscipit. Voluptates excepturi totam quas debitis,
-            quae nostrum? Modi, similique exercitationem.
+            Hey, hello and welcome. Bar Hop UK is a unique way of combining
+            craft drinking with a little bit of mindfullness to health. With our
+            maps we can calculate your route, journey time with your the amount
+            of calories you will loose on the journey. Just fill out out your
+            own personal calorie form from our{" "}
+            <a className="about-link" href="/about">
+              about you page{" "}
+            </a>{" "}
+            you page then visit on our maps on of our maps.
           </p>
         </div>
       </main>
@@ -48,7 +53,11 @@ const LandingPage = () => {
                 <hr></hr>
               </div>
               <div className="landing-card-text">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                <p>
+                  {" "}
+                  A map that will calculate the distance, time and calorie loss
+                  across two seperate locations.
+                </p>
               </div>
             </div>
           </div>
@@ -64,12 +73,15 @@ const LandingPage = () => {
               </div>
               <div className="landing-card-header">
                 <a href="/waypointFormMap">
-                  <h3>Way-point map</h3>
+                  <h3>Bar HOP Map</h3>
                 </a>
                 <hr></hr>
               </div>
               <div className="landing-card-text">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                <p>
+                  A map to plot your route across Manchesters breweries and
+                  craft beer bars.{" "}
+                </p>
               </div>
             </div>
           </div>
@@ -88,7 +100,10 @@ const LandingPage = () => {
                 <hr></hr>
               </div>
               <div className="landing-card-text">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                <p>
+                  A map that displays the closest breweries and craft beer bars
+                  to your location.
+                </p>
               </div>
             </div>
           </div>
