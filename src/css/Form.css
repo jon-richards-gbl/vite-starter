@@ -54,7 +54,7 @@
 .icon {
   text-align: center;
   color: pink;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
 }
 
 .fa-icon {
@@ -85,7 +85,7 @@ select {
   resize: vertical;
 }
 
-input[type="submit"] {
+.submitBtn {
   background-color: pink;
   color: white;
   padding: 12px 20px;
@@ -96,7 +96,7 @@ input[type="submit"] {
   width: 100%;
 }
 
-input[type="submit"]:hover {
+.submitBtn:hover {
   color: pink;
   background-color: black;
   border-radius: 5px;
