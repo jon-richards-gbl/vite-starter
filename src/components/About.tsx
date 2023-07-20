@@ -12,7 +12,6 @@ import { FormEventHandler, useState } from "react";
 
 import { useAppDispatch } from "../store";
 import {
-  setUserCalsBun,
   setUserDropdown,
   setUserName,
   setUserTime,

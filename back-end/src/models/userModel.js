@@ -51,6 +51,7 @@ export const loginEmailPass = async (email, password) => {
   const query = "SELECT * FROM bh_users WHERE email = $1 AND password = $2";
 
   const values = [email, password];
+  p;
   const result = await db.query(query, values);
   return result.rows[0];
 };
