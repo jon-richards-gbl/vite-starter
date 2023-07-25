@@ -5,13 +5,40 @@ import {
   faMapPin,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useState } from "react";
+
+interface UserData {
+  f_name: string;
+  l_name: string;
+}
 
 const LandingPage = () => {
+  const [userData, setUserData] = useState<UserData>({
+    f_name: "",
+    l_name: "",
+  });
+  const getUserDataFromLocalStorage = () => {
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData));
+    }
+  };
+
+  useEffect(() => {
+    getUserDataFromLocalStorage();
+  }, []);
   return (
     <>
       <header>
         <div className="landing-header">
           <h1>bar hop uk</h1>
+          {userData ? (
+            <p>
+              Hello, {userData.f_name.trim()} {userData.l_name.trim()}!
+            </p>
+          ) : (
+            <p>Loading...</p>
+          )}
         </div>
       </header>
       <main>

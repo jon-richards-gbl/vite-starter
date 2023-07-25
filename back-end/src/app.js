@@ -11,10 +11,5 @@ app.use(cors());
 
 // Routes
 app.use("/user", usersRouter);
-// app.use("/login", usersRouter);
-
-// app.get("/", (req, res) => {
-//   res.send("Hello, World!");
-// });
 
 export default app;

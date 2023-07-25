@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 
 //Components
 import Footer from "./components/Footer";
+import LogoutMessage from "./components/LogoutMessage";
 import Nav from "./components/Nav";
 //CSS
 import "./css/About.css";
@@ -20,7 +21,7 @@ function App() {
       <Nav />
 
       <Outlet />
-
+      <LogoutMessage />
       <Footer />
     </>
   );

@@ -50,9 +50,9 @@ const Registration = () => {
             <div className="icon">
               <FontAwesomeIcon className="fa-icon-login" icon={faUser} />
               <input
+                type="name"
                 onChange={(e) => setFName(e.target.value)}
                 className="login-input"
-                type="name"
                 placeholder="first name"
                 name="f_name"
                 required
@@ -62,9 +62,9 @@ const Registration = () => {
               {" "}
               <FontAwesomeIcon className="fa-icon-login" icon={faUser} />
               <input
+                type="name"
                 onChange={(e) => setLName(e.target.value)}
                 className="login-input"
-                type="name"
                 placeholder="last name"
                 name="l_name"
                 required
@@ -74,9 +74,9 @@ const Registration = () => {
               <FontAwesomeIcon className="fa-icon-login" icon={faArrowUp91} />
 
               <input
+                type="integer"
                 onChange={(e) => setAge(e.target.value)}
                 className="login-input"
-                type="integer"
                 placeholder="age"
                 name="age"
                 required
@@ -86,9 +86,9 @@ const Registration = () => {
               <FontAwesomeIcon className="fa-icon-login" icon={faEnvelope} />
 
               <input
+                type="email"
                 onChange={(e) => setUserEmailReg(e.target.value)}
                 className="login-input"
-                type="email"
                 placeholder="email"
                 name="email"
                 required
@@ -98,11 +98,11 @@ const Registration = () => {
               <FontAwesomeIcon className="fa-icon-login" icon={faLock} />
 
               <input
+                type="password"
                 onChange={(e) => setPasswordReg(e.target.value)}
                 className="login-input"
-                type="password"
                 placeholder="password"
-                name="time"
+                name="password"
                 required
               />
             </div>

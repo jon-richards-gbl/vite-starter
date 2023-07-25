@@ -1,9 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import LogoutMessage from "./LogoutMessage";
+import { LogoutMessageProps } from "./Types";
 
 const Nav = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const [screenWidth, setScreenWidth] = useState(0);
+  const navigate = useNavigate();
+  const [logoutModal, setLogoutModal] = useState(false);
+
+  // const handleLogout = () => {
+
+  //   localStorage.removeItem("userData");
+
+  //   setLogoutModal(true);
+
+  //   const closeModal: LogoutMessageProps["closeModal"] = () => {
+  //     // Close the logout modal
+  //     setLogoutModal(false);
+  //   };
+  // };
 
   useEffect(() => {
     const changeWidth = () => {
@@ -26,6 +43,10 @@ const Nav = () => {
     setToggleMenu(false);
   };
 
+  function closeModal(): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <>
       <div className="containerN">
@@ -47,7 +68,12 @@ const Nav = () => {
               <li className="items" onClick={closeNav}>
                 <Link to="/waypointFormMap">Waypoint Map</Link>
               </li>
+
               <Link to="/Login">Login</Link>
+              <li className="items" onClick={closeNav}>
+                {/* <button onClick={handleLogout}>Logout</button> */}
+                <button>Logout</button>
+              </li>
             </ul>
           )}
 
@@ -56,6 +82,7 @@ const Nav = () => {
           </button>
         </nav>
       </div>
+      {logoutModal && <LogoutMessage closeModal={closeModal} />}
     </>
   );
 };
