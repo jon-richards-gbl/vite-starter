@@ -21,7 +21,7 @@ function App() {
       <Nav />
 
       <Outlet />
-      <LogoutMessage />
+
       <Footer />
     </>
   );

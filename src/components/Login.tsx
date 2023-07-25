@@ -1,7 +1,7 @@
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Axios from "axios";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -29,16 +29,12 @@ const Login = () => {
       })
       .catch((error) => {
         if (error.response) {
-          // The request was made and the server responded with a status code that falls out of the range of 2xx
           console.error("API error response:", error.response);
           if (error.response.status === 401) {
-            // Invalid credentials error
             console.log("Invalid email or password");
           } else if (error.response.status === 500) {
-            // Server error
             console.log("Server error");
           } else {
-            // Other status codes
             console.log("Other API error:", error.response.data.message);
           }
         } else if (error.request) {

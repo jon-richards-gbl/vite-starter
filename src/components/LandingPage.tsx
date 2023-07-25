@@ -17,6 +17,8 @@ const LandingPage = () => {
     f_name: "",
     l_name: "",
   });
+
+  //Stores JWT tokens so user data will p[ersist
   const getUserDataFromLocalStorage = () => {
     const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
@@ -27,6 +29,7 @@ const LandingPage = () => {
   useEffect(() => {
     getUserDataFromLocalStorage();
   }, []);
+
   return (
     <>
       <header>

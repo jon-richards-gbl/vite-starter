@@ -1,25 +1,33 @@
 import { useState } from "react";
 
-import { LogoutMessageProps } from "./types";
+// import { LogoutMessageProps } from "./Types";
 
-const LogoutMessage = () => {
-  const [modal, setModal] = useState(false);
+interface LogoutMessageProps {
+  modal: boolean;
+  toggleModal: () => void;
+}
 
-  const toggleModal = () => {
-    setModal(!modal);
-  };
-
+const LogoutMessage: React.FC<LogoutMessageProps> = ({
+  modal,
+  toggleModal,
+}) => {
   if (modal) {
     document.body.classList.add("active-modal");
   } else {
     document.body.classList.remove("active-modal");
   }
 
+  const logoutModal = () => {
+    localStorage.removeItem("userData");
+
+    window.location.reload();
+  };
+
   return (
     <>
       {modal && (
-        <div className="madal">
-          <div className="overlay">
+        <div className="modal">
+          <div onClick={toggleModal} className="overlay">
             <div className="modal-content">
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
@@ -27,7 +35,14 @@ const LogoutMessage = () => {
                 odio. Eaque commodi quo possimus eveniet incidunt, dignissimos
                 consectetur nisi veniam.
               </p>
-              <button onClick={toggleModal}>Close</button>
+              <button
+                onClick={() => {
+                  toggleModal();
+                  logoutModal();
+                }}
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>

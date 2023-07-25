@@ -2,26 +2,39 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import LogoutMessage from "./LogoutMessage";
-import { LogoutMessageProps } from "./Types";
+
+// import { LogoutMessageProps } from "./Types";
 
 const Nav = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const [screenWidth, setScreenWidth] = useState(0);
   const navigate = useNavigate();
-  const [logoutModal, setLogoutModal] = useState(false);
 
-  // const handleLogout = () => {
+  const [modal, setModal] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  //   localStorage.removeItem("userData");
+  const toggleModal = () => {
+    setModal(!modal);
+  };
 
-  //   setLogoutModal(true);
+  const handleLogout = () => {
+    toggleModal();
+    retrunToLannding();
+    setIsLoggedIn(!isLoggedIn);
+    // window.location.reload();
+  };
 
-  //   const closeModal: LogoutMessageProps["closeModal"] = () => {
-  //     // Close the logout modal
-  //     setLogoutModal(false);
-  //   };
-  // };
+  if (modal) {
+    document.body.classList.add("active-modal");
+  } else {
+    document.body.classList.remove("active-modal");
+  }
 
+  async function retrunToLannding() {
+    navigate("/");
+  }
+
+  // Re-sizing
   useEffect(() => {
     const changeWidth = () => {
       setScreenWidth(window.innerWidth);
@@ -42,10 +55,6 @@ const Nav = () => {
   const closeNav = () => {
     setToggleMenu(false);
   };
-
-  function closeModal(): void {
-    throw new Error("Function not implemented.");
-  }
 
   return (
     <>
@@ -68,12 +77,21 @@ const Nav = () => {
               <li className="items" onClick={closeNav}>
                 <Link to="/waypointFormMap">Waypoint Map</Link>
               </li>
-
-              <Link to="/Login">Login</Link>
-              <li className="items" onClick={closeNav}>
-                {/* <button onClick={handleLogout}>Logout</button> */}
-                <button>Logout</button>
-              </li>
+              {localStorage.getItem("userData") ? (
+                <>
+                  <li className="items" onClick={closeNav}>
+                    <Link onClick={handleLogout} to="/Login">
+                      Login
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="items" onClick={closeNav}>
+                    <Link to="/Login">Login</Link>
+                  </li>
+                </>
+              )}
             </ul>
           )}
 
@@ -82,7 +100,7 @@ const Nav = () => {
           </button>
         </nav>
       </div>
-      {logoutModal && <LogoutMessage closeModal={closeModal} />}
+      {modal && <LogoutMessage modal={modal} toggleModal={toggleModal} />}
     </>
   );
 };
