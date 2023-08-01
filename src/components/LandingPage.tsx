@@ -34,14 +34,19 @@ const LandingPage = () => {
     <>
       <header>
         <div className="landing-header">
-          <h1>bar hop uk</h1>
-          {userData ? (
+          <h1>bar hop uk</h1> <br />
+        </div>
+        <div className="name-header">
+          <p>
+            {/* {userData === null
+              ? ""
+              : `Hello ${userData.f_name.trim()} ${userData.l_name.trim()}`} */}
+          </p>
+          {userData.f_name && userData.l_name ? (
             <p>
-              Hello, {userData.f_name.trim()} {userData.l_name.trim()}!
+              Hello {userData.f_name.trim()} {userData.l_name.trim()}
             </p>
-          ) : (
-            <p>Loading...</p>
-          )}
+          ) : null}
         </div>
       </header>
       <main>

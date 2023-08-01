@@ -9,6 +9,8 @@ import Axios from "axios";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import ModalRegister from "./ModalRegister";
+
 const Registration = () => {
   const [userEmailReg, setUserEmailReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
@@ -18,6 +20,17 @@ const Registration = () => {
   const [pic, setPic] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
+
+  const [modalLogin, setModalLogin] = useState(false);
+  const toggleModalLogin = () => {
+    setModalLogin(!modalLogin);
+  };
+
+  if (modalLogin) {
+    document.body.classList.add("active-modalLogin");
+  } else {
+    document.body.classList.remove("active-modalLogin");
+  }
 
   const register = (event: { preventDefault: () => void }) => {
     event.preventDefault();
@@ -31,10 +44,10 @@ const Registration = () => {
 
       .then((response) => {
         console.log(response.data);
-
+        toggleModalLogin();
         // Update the URL to the landing page
-        const { from } = location.state || { from: { pathname: "/" } };
-        navigate(from);
+        // const { from } = location.state || { from: { pathname: "/" } };
+        // navigate(from);
       })
       .catch((error) => {
         console.error(error.response);
@@ -123,6 +136,9 @@ const Registration = () => {
           </button>
         </div>
       </form>
+      {modalLogin && (
+        <ModalRegister modal={modalLogin} toggleModal={toggleModalLogin} />
+      )}
     </>
   );
 };

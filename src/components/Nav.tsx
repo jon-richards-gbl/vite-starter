@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import LogoutMessage from "./LogoutMessage";
-
-// import { LogoutMessageProps } from "./Types";
+import Modal from "./Modal";
 
 const Nav = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -11,7 +9,6 @@ const Nav = () => {
   const navigate = useNavigate();
 
   const [modal, setModal] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleModal = () => {
     setModal(!modal);
@@ -20,7 +17,7 @@ const Nav = () => {
   const handleLogout = () => {
     toggleModal();
     retrunToLannding();
-    setIsLoggedIn(!isLoggedIn);
+    // setIsLoggedIn(!isLoggedIn);
     // window.location.reload();
   };
 
@@ -80,8 +77,8 @@ const Nav = () => {
               {localStorage.getItem("userData") ? (
                 <>
                   <li className="items" onClick={closeNav}>
-                    <Link onClick={handleLogout} to="/Login">
-                      Login
+                    <Link onClick={handleLogout} to="/">
+                      Logout
                     </Link>
                   </li>
                 </>
@@ -100,7 +97,7 @@ const Nav = () => {
           </button>
         </nav>
       </div>
-      {modal && <LogoutMessage modal={modal} toggleModal={toggleModal} />}
+      {modal && <Modal modal={modal} toggleModal={toggleModal} />}
     </>
   );
 };

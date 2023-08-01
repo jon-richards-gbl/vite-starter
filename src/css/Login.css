@@ -16,6 +16,16 @@
   height: 6em;
   border-radius: 0.5em;
 }
+.card-container-login-error {
+  padding: 16px 16px;
+  gap: 1rem;
+  background-color: #b20000;
+  color: white;
+  text-align: center;
+  justify-content: center;
+  height: 3em;
+  border-radius: 0.5em;
+}
 
 .grid-even-columns-login {
   display: grid;
