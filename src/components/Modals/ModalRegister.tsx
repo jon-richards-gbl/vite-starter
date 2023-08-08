@@ -46,7 +46,7 @@ const ModalRegister: React.FC<LogoutMessageProps> = ({
             <div className="modal-content">
               <h1>
                 {" "}
-                Hello, {userData.f_name.trim()} {userData.l_name.trim()}!
+                Hello
                 <hr />
               </h1>
               <p>You have successfully registered</p>

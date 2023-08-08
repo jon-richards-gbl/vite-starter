@@ -8,6 +8,13 @@ export const createUser = async (
   pic,
   hashedPass
 ) => {
+  const emailExistsQuery = "SELECT * FROM bh_users WHERE email = $1";
+  const emailExistsResult = await db.query(emailExistsQuery, [email]);
+
+  if (emailExistsResult.rows.length > 0) {
+    // Email already exists, handle the error or return null/undefined
+    return undefined;
+  }
   const query =
     "INSERT INTO bh_users (f_name, l_name, age, email, pic, password) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *";
   const values = [f_name, l_name, age, email, pic, hashedPass.trim()];
@@ -52,42 +59,6 @@ export const updateUser = async (userId, newData) => {
   ];
   await db.query(query, values);
 };
-
-//   email = email.trim();
-//   password = password.trim();
-//   console.log("Received email:", email);
-//   console.log("Received password:", password);
-
-//   const query =
-//     "SELECT *, password AS hashedPass FROM bh_users WHERE email = $1";
-
-//   const result = await db.query(query, [email]);
-
-//   console.log("Result from the database:", result.rows);
-
-//   if (result.rows.length === 0) {
-//     console.log("User not found");
-//     return null;
-//   }
-
-//   const user = result.rows[0];
-//   const isPasswordCorrect = await bcrypt.compare(
-//     password,
-//     user.password.trim()
-//   );
-//   console.log("Is password correct?", isPasswordCorrect);
-//   console.log("Hashed password in the database:", user.password);
-//   console.log("Hashed?:", user.hashedpass);
-//   console.log("Is password correct?", isPasswordCorrect);
-
-//   if (isPasswordCorrect) {
-//     console.log("Login successful");
-//     return user;
-//   } else {
-//     console.log("Invalid password");
-//     return null;
-//   }
-// };
 
 export const loginEmailPass = async (email) => {
   const query = "SELECT * FROM bh_users WHERE email = $1";

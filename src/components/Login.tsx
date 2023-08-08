@@ -2,17 +2,13 @@ import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Axios from "axios";
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 
-import Modal from "./Modal";
-import ModalLogin from "./ModalLogin";
+import ModalLogin from "./Modals/ModalLogin";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const location = useLocation();
-  const navigate = useNavigate();
 
   const [modalLogin, setModalLogin] = useState(false);
   const toggleModalLogin = () => {
@@ -38,9 +34,7 @@ const Login = () => {
         console.log("response  data user", response.data.user);
         localStorage.setItem("userData", JSON.stringify(userData));
         localStorage.setItem("accessToken", response.data.token);
-        // Update the URL to the landing page
-        // const { from } = location.state || { from: { pathname: "/" } };
-        // navigate(from);
+
         toggleModalLogin();
       })
       .catch((error) => {

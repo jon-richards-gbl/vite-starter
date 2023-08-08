@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import Modal from "./Modal";
+import Modal from "./Modals/Modal";
 
 const Nav = () => {
   const [toggleMenu, setToggleMenu] = useState(false);

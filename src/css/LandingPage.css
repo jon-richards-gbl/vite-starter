@@ -119,3 +119,9 @@
   /* padding-top: 5px; */
   padding: 0.313;
 }
+
+.picP {
+  height: 150px;
+  width: 150px;
+  border: 31px solid black;
+}

@@ -23,6 +23,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
     "bcryptjs": "^2.4.3",
+    "buffer": "^6.0.3",
     "lint": "^0.8.19",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
