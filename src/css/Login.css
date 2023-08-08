@@ -13,8 +13,41 @@
   color: white;
   text-align: center;
   justify-content: center;
-  height: 6em;
+  height: 4em;
   border-radius: 0.5em;
+  display: flex;
+}
+
+.card-container-login p {
+  align-self: center;
+}
+
+.card-container-login-error {
+  padding: 16px 16px;
+  gap: 1rem;
+  background-color: #b20000;
+  color: white;
+  text-align: center;
+  justify-content: center;
+  height: 3.5em;
+  border-radius: 0.5em;
+  vertical-align: middle;
+  display: flex;
+}
+
+.card-container-login-error .error-message {
+  align-self: center;
+}
+
+@media screen and (max-width: 280px) {
+  .card-container-login-error {
+    height: 4.5em;
+    vertical-align: middle;
+    letter-spacing: 0em;
+  }
+  .card-container-login p {
+    letter-spacing: 0;
+  }
 }
 
 .grid-even-columns-login {
@@ -47,8 +80,12 @@
   background-color: black;
 }
 
-/* .grid-one-columns1 {
-  display: grid;
-  place-items: center;
-  border-radius: 0.5em;
-} */
+.picture-input {
+  color: white;
+}
+
+.file-upload-button {
+  color: red;
+  background-color: red;
+  background: red;
+}

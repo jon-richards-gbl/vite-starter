@@ -1,9 +1,3 @@
-// const commutesPerYear = 260 * 2;
-// const litresPerKM = 10 / 100;
-// const gasLitreCost = 1.5;
-// const litreCostKM = litresPerKM * gasLitreCost;
-// const secondsPerDay = 60 * 60 * 24;
-import { Autocomplete } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 
 import { useAppSelector } from "../store";

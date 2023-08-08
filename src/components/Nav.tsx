@@ -1,10 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import Modal from "./Modals/Modal";
 
 const Nav = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const [screenWidth, setScreenWidth] = useState(0);
+  const navigate = useNavigate();
 
+  const [modal, setModal] = useState(false);
+
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
+  const handleLogout = () => {
+    toggleModal();
+    retrunToLannding();
+    // setIsLoggedIn(!isLoggedIn);
+    // window.location.reload();
+  };
+
+  if (modal) {
+    document.body.classList.add("active-modal");
+  } else {
+    document.body.classList.remove("active-modal");
+  }
+
+  async function retrunToLannding() {
+    navigate("/");
+  }
+
+  // Re-sizing
   useEffect(() => {
     const changeWidth = () => {
       setScreenWidth(window.innerWidth);
@@ -47,7 +74,21 @@ const Nav = () => {
               <li className="items" onClick={closeNav}>
                 <Link to="/waypointFormMap">Waypoint Map</Link>
               </li>
-              <Link to="/Login">Login</Link>
+              {localStorage.getItem("userData") ? (
+                <>
+                  <li className="items" onClick={closeNav}>
+                    <Link onClick={handleLogout} to="/">
+                      Logout
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="items" onClick={closeNav}>
+                    <Link to="/Login">Login</Link>
+                  </li>
+                </>
+              )}
             </ul>
           )}
 
@@ -56,6 +97,7 @@ const Nav = () => {
           </button>
         </nav>
       </div>
+      {modal && <Modal modal={modal} toggleModal={toggleModal} />}
     </>
   );
 };

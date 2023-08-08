@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Route,
   createBrowserRouter,
   createRoutesFromElements,
-  useLocation,
 } from "react-router-dom";
 
 import App from "./App";

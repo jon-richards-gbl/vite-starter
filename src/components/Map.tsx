@@ -1,13 +1,11 @@
 import {
   Autocomplete,
   DirectionsRenderer,
-  DirectionsService,
   GoogleMap,
 } from "@react-google-maps/api";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 
 import Distance from "./Distance";
-import Places from "./Places";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type DirectionsResult = google.maps.DirectionsResult;

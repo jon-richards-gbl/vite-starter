@@ -1,16 +1,29 @@
 import db from "../database/db.js";
 
-export const createUser = async (f_name, l_name, age, email, pic, password) => {
+export const createUser = async (
+  f_name,
+  l_name,
+  age,
+  email,
+  pic,
+  hashedPass
+) => {
+  const emailExistsQuery = "SELECT * FROM bh_users WHERE email = $1";
+  const emailExistsResult = await db.query(emailExistsQuery, [email]);
+
+  if (emailExistsResult.rows.length > 0) {
+    // Email already exists, handle the error or return null/undefined
+    return undefined;
+  }
   const query =
     "INSERT INTO bh_users (f_name, l_name, age, email, pic, password) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *";
-  const values = [f_name, l_name, age, email, pic, password];
+  const values = [f_name, l_name, age, email, pic, hashedPass.trim()];
   const result = await db.query(query, values);
   return result.rows[0];
 };
 
 export const getAllUsers = async () => {
   const query = "SELECT * FROM bh_users";
-
   const result = await db.query(query);
   return result.rows;
 };
@@ -47,13 +60,20 @@ export const updateUser = async (userId, newData) => {
   await db.query(query, values);
 };
 
-export const loginEmailPass = async (email, password) => {
-  const query = "SELECT * FROM bh_users WHERE email = $1 AND password = $2";
+export const loginEmailPass = async (email) => {
+  const query = "SELECT * FROM bh_users WHERE email = $1";
+  const result = await db.query(query, [email]);
 
-  const values = [email, password];
-  p;
-  const result = await db.query(query, values);
-  return result.rows[0];
+  if (result.rows.length === 0) {
+    // User not found, handle the error or return null/undefined
+    return null;
+  }
+
+  const user = result.rows[0];
+  console.log("Result from the database:", result.rows);
+
+  // Return the user object retrieved from the database
+  return user;
 };
 
 const UserModel = {

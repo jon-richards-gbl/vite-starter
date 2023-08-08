@@ -5,13 +5,80 @@ import {
   faMapPin,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Buffer } from "buffer";
+import { useEffect, useState } from "react";
+
+interface UserData {
+  f_name: string;
+  l_name: string;
+  pic: File | string | null;
+}
 
 const LandingPage = () => {
+  const [userData, setUserData] = useState<UserData>({
+    f_name: "",
+    l_name: "",
+    pic: null,
+  });
+
+  useEffect(() => {
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) {
+      const parsedUserData: UserData = JSON.parse(storedUserData);
+      console.log("Stored user data:", storedUserData);
+      console.log("Parsed user data:", parsedUserData);
+      setUserData(parsedUserData);
+    }
+  }, []);
+
+  let picSrc = null;
+
+  if (userData.pic instanceof File) {
+    console.log("pic is File");
+    picSrc = "fallback-image-url.jpg";
+  } else if (typeof userData.pic === "string") {
+    console.log("pic is string (URL)");
+    picSrc = userData.pic;
+  } else if (
+    userData.pic &&
+    (userData.pic as any)?.type === "Buffer" &&
+    Array.isArray((userData.pic as any)?.data)
+  ) {
+    console.log("pic is Buffer-like object");
+    const base64String = Buffer.from(userData.pic as any, "hex").toString(
+      "base64"
+    );
+
+    picSrc = `data:image/jpeg;base64,${base64String}`;
+
+    console.log("base64String", base64String);
+  } else {
+    console.log("pic is of unknown type:", userData.pic);
+  }
+
+  console.log("picSrc:", picSrc);
+
   return (
     <>
       <header>
         <div className="landing-header">
-          <h1>bar hop uk</h1>
+          <h1>bar hop uk</h1> <br />
+        </div>
+        <div className="name-header">
+          {userData.f_name && userData.l_name && picSrc ? (
+            <p>
+              Hello {userData.f_name.trim()} {userData.l_name.trim()}{" "}
+              {typeof picSrc === "string" ? (
+                <img
+                  id="image"
+                  className="picP"
+                  src={picSrc}
+                  alt={`${userData.f_name.trim()} ${userData.l_name.trim()}`}
+                  // loading="lazy"
+                />
+              ) : null}
+            </p>
+          ) : null}
         </div>
       </header>
       <main>
@@ -23,6 +90,17 @@ const LandingPage = () => {
         </div>
         <div className="landing-text">
           <h2>What we do </h2>
+          {userData && (
+            <img
+              src="data:image/png;base64,dXBsb2Fkcy9TY3JlZW5zaG90IDIwMjMtMDYtMjkgYXQgMTEuNDUuMDIucG5n"
+              alt="noooo"
+            />
+            // <img src={URL.createObjectURL(picSrc)} alt="A sample landscape" />
+            // <img
+            //   src="data:image/png;base64,/dXBsb2Fkcy9kb3dubG9hZC5qcGVnAA=="
+            //   alt="A sample landscape"
+            // />
+          )}
 
           <p className="landing-p">
             Hey, hello and welcome. Bar Hop UK is a unique way of combining
