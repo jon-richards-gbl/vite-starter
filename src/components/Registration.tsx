@@ -66,6 +66,30 @@ const Registration = () => {
       });
   };
 
+  const fileInput = document.getElementById("fileInput") as HTMLInputElement;
+
+  if (fileInput) {
+    fileInput.addEventListener("change", (e) => {
+      const files = fileInput.files;
+
+      if (files && files.length > 0) {
+        const file = files[0];
+        const reader = new FileReader();
+
+        reader.addEventListener("load", () => {
+          // Base64 Data URL 👇
+          console.log(reader.result);
+        });
+
+        reader.readAsDataURL(file);
+      } else {
+        console.error("No files selected.");
+      }
+    });
+  } else {
+    console.error("File input element not found.");
+  }
+
   return (
     <>
       <form className="login-form" onSubmit={register}>
@@ -139,6 +163,7 @@ const Registration = () => {
                 className="login-input picture-input"
                 name="profilePicture"
                 accept="image/*"
+                id="fileInput"
               />
             </div>
             {pic && (
