@@ -4,6 +4,7 @@ import UserModel, { updateUser } from "../models/userModel.js";
 import { generateToken } from "../utils/tokenUtils.js";
 
 // POST /user
+
 export const createUser = async (req, res) => {
   try {
     const { f_name, l_name, age, email, password } = req.body;
