@@ -1,20 +1,4 @@
-import multer from "multer";
-
-import addImage from "../models/imageModel.js";
-
-// Set up Multer storage for image uploads
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-    console.log("o,g", file.originalname);
-  },
-});
-
-const upload = multer({ storage: storage }).single("profilePicture");
-console.log("uploads", upload);
+import ImageModel, { addImage } from "../models/imageModel.js";
 
 export const addImageController = async (req, res) => {
   try {
@@ -32,5 +16,34 @@ export const addImageController = async (req, res) => {
   } catch (error) {
     console.error("Error saving image metadata:", error);
     res.status(500).json({ message: "Error saving image metadata" });
+  }
+};
+
+export const getAllImagesController = async (req, res) => {
+  try {
+    const image = await ImageModel.getAllImages();
+    console.log("images:", image);
+    res.status(200).json({ image: image });
+  } catch (error) {
+    console.error("Error fetching images:", error);
+    res.status(500).json({ message: "Failed to fetch images" });
+  }
+};
+
+export const getImageByIdController = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Call the method from the model to retrieve the user by ID
+    const image = await ImageModel.getImageById(id);
+
+    if (image) {
+      res.status(200).json({ image: image });
+    } else {
+      res.status(404).json({ message: "image not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching image by ID:", error);
+    res.status(500).json({ message: "Failed to fetch image by ID" });
   }
 };

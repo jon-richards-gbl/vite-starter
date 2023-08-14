@@ -1,6 +1,6 @@
 import db from "../database/db.js";
 
-const addImage = async (user_id, filename, alt_text, file_path) => {
+export const addImage = async (user_id, filename, alt_text, file_path) => {
   try {
     const query = `
         INSERT INTO images (user_id, filename,  alt_text, file_path)
@@ -17,4 +17,23 @@ const addImage = async (user_id, filename, alt_text, file_path) => {
   }
 };
 
-export default addImage;
+export const getAllImages = async () => {
+  const query = "SELECT * FROM images";
+  const result = await db.query(query);
+  return result.rows;
+};
+
+export const getImageById = async (imageId) => {
+  const query = "SELECT * FROM images WHERE id =$1";
+  const values = [imageId];
+  const result = await db.query(query, values);
+  return result.rows;
+};
+
+const ImageModel = {
+  addImage,
+  getAllImages,
+  getImageById,
+};
+
+export default ImageModel;

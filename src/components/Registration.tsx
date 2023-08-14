@@ -33,7 +33,9 @@ const Registration = () => {
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]; // Get the first selected file
+    const file = e.target.files?.[0];
+    console.log("pic", pic);
+    console.log("file", file);
     if (file) {
       setPic(file);
     }
@@ -46,19 +48,42 @@ const Registration = () => {
     formData.append("f_name", f_name);
     formData.append("l_name", l_name);
     formData.append("age", age);
-
     if (pic !== null) {
-      formData.append("profilePicture", pic);
+      console.log("pic", pic);
+      formData.append("file_path", `/uploads/${pic.name}`);
     }
-    console.log("form data", formData.append);
 
     Axios.post("http://localhost:3000/register", formData)
 
       .then((response) => {
-        // console.log(response.data);
+        const user_id = response.data.user.id;
+        console.log("user_Id", user_id);
         console.log("Response Data:", response.data);
+
+        const imageFormData = new FormData();
+        imageFormData.append("user_id", user_id);
+
+        // imageFormData.append("filename", pic?.name || "");
+        // imageFormData.append("alt_text", "Profile Picture");
+        if (pic !== null) {
+          console.log("pic", pic);
+          imageFormData.append("profilePicture", pic);
+          imageFormData.append("filename", `${pic.name}`);
+          imageFormData.append("alt_text", "Profile Picture");
+          imageFormData.append("file_path", `/uploads/${pic.name}`);
+        }
+        //Apending file path, alt,
+        console.log("file_path", `uploads/${pic?.name}`);
+        console.log("user_id:", user_id);
+        console.log("alt_text:", "Profile Picture");
+        console.log("profilePicture:", `uploads/${pic}`);
+        console.log("form data", formData);
+
+        Axios.post("http://localhost:3000/addImage", imageFormData);
+        console.log("imageFormData:", imageFormData);
         toggleModalLogin();
       })
+
       .catch((error) => {
         console.error(error.response);
         console.log("Registration Error:", error.response.data.message);
@@ -66,33 +91,13 @@ const Registration = () => {
       });
   };
 
-  const fileInput = document.getElementById("fileInput") as HTMLInputElement;
-
-  if (fileInput) {
-    fileInput.addEventListener("change", (e) => {
-      const files = fileInput.files;
-
-      if (files && files.length > 0) {
-        const file = files[0];
-        const reader = new FileReader();
-
-        reader.addEventListener("load", () => {
-          // Base64 Data URL 👇
-          console.log(reader.result);
-        });
-
-        reader.readAsDataURL(file);
-      } else {
-        console.error("No files selected.");
-      }
-    });
-  } else {
-    console.error("File input element not found.");
-  }
-
   return (
     <>
-      <form className="login-form" onSubmit={register}>
+      <form
+        className="login-form"
+        onSubmit={register}
+        encType="multipart/form-data"
+      >
         <div className="grid-container-login">
           <div className="grid-even-columns-login ">
             {" "}
@@ -163,14 +168,8 @@ const Registration = () => {
                 className="login-input picture-input"
                 name="profilePicture"
                 accept="image/*"
-                id="fileInput"
               />
             </div>
-            {pic && (
-              <div className="profile-picture-preview">
-                <img src={URL.createObjectURL(pic)} alt="Profile Preview" />
-              </div>
-            )}
           </div>
           <div className="grid-one-columns1">
             <div className="card-container-login">

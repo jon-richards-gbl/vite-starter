@@ -4,6 +4,7 @@ import multer from "multer";
 
 import { addImageController } from "./controllers/imageController.js";
 import { createUser } from "./controllers/usersController.js";
+import imageRouter from "./routes/imageRouter.js";
 import usersRouter from "./routes/usersRouter.js";
 
 const app = express();
@@ -28,5 +29,6 @@ app.post("/register", upload.single("profilePicture"), createUser);
 app.use("/uploads", express.static("uploads"));
 
 app.use("/user", usersRouter);
+app.use("/image", imageRouter);
 
 export default app;

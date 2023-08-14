@@ -5,12 +5,15 @@ import {
   faMapPin,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+// Import Axios from the 'axios' module
 import { useEffect, useState } from "react";
 
 interface UserData {
   f_name: string;
   l_name: string;
   pic: number[] | null;
+  id: number;
 }
 
 const LandingPage = () => {
@@ -18,6 +21,7 @@ const LandingPage = () => {
     f_name: "",
     l_name: "",
     pic: null,
+    id: 0,
   });
 
   //Stores JWT tokens so user data will p[ersist
@@ -32,6 +36,39 @@ const LandingPage = () => {
     getUserDataFromLocalStorage();
   }, []);
 
+  const [userImagePath, setUserImagePath] = useState("");
+  const fetchUserData = async (userId: number) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/user/${userId}`);
+      const userImageData = response.data.user;
+      console.log("userData yes", userImageData);
+      console.log("userData.id", userId);
+      console.log(userData.f_name);
+      console.log("userImageData name", userImageData.f_name);
+      console.log("pic", userData.pic);
+      const imageResponse = await axios.get(
+        `http://localhost:3000/images?user_id=${userImageData.id}`
+      );
+
+      const userImage = imageResponse.data[0]; // Assuming you get one image per user
+      setUserImagePath(userImage.file_path); // Set user image path
+      console.log("userImageData:", userImageData);
+      console.log("userImageData.id:", userImageData.id);
+      console.log("userImage.file_path", userImage.file_path);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+    // Rest of your code to set user data and fetch image path
+  };
+
+  useEffect(() => {
+    if (userData.id) {
+      fetchUserData(userData.id);
+    }
+  }, [userData.id]);
+
+  console.log(userData);
+
   return (
     <>
       <header>
@@ -39,7 +76,7 @@ const LandingPage = () => {
           <h1>bar hop uk</h1> <br />
         </div>
         <div className="name-header">
-          {userData.f_name && userData.l_name && userData.pic ? (
+          {userData.f_name && userData.l_name ? (
             <p>
               {userData ? (
                 <p>
@@ -61,10 +98,10 @@ const LandingPage = () => {
         </div>
         <div className="landing-text">
           <h2>What we do </h2>
-          {/* {userData && (
-              // <img id="image" className="picP" src={picSrc} alt="noooo" />
-              <img src={userData.pic} id="image" alt="" />
-            )} */}
+          {userData && (
+            // <img id="image" className="picP" src={picSrc} alt="noooo" />
+            <img src={userData.pic} id="image" alt="" />
+          )}
 
           <p className="landing-p">
             Hey, hello and welcome. Bar Hop UK is a unique way of combining

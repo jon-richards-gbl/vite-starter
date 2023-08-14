@@ -7,9 +7,9 @@ import { generateToken } from "../utils/tokenUtils.js";
 
 export const createUser = async (req, res) => {
   try {
-    const { f_name, l_name, age, email, password } = req.body;
+    const { f_name, l_name, age, email, file_path, password } = req.body;
     // console.log("pass", password);
-    const pic = req.file ? req.file.path : "";
+    // const pic = req.file ? req.file.path : "";
     const numSaltRounds = 8;
 
     const hashedPass = await bcrypt.hash(password, numSaltRounds);
@@ -19,7 +19,7 @@ export const createUser = async (req, res) => {
       l_name,
       age,
       email,
-      pic,
+      file_path,
       hashedPass
     );
     if (user === undefined) {
