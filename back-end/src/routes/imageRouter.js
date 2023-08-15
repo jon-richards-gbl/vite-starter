@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post("/addImage", addImageController);
 
-router.get("/addImage", getAllImagesController);
+router.get("/getAllImages", getAllImagesController);
 
 router.get("/:id", getImageByIdController);
 

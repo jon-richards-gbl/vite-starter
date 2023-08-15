@@ -29,9 +29,6 @@ const LandingPage = () => {
     const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
       setUserData(JSON.parse(storedUserData));
-
-      console.log("storedUserData", JSON.parse(storedUserData).id);
-      console.log("user data 35", userData);
     }
   };
   useEffect(() => {
@@ -68,9 +65,7 @@ const LandingPage = () => {
     }
   };
 
-  console.log(userData.id);
-
-  // console.log(userData);
+  console.log("userData", userData);
 
   return (
     <>
@@ -93,23 +88,27 @@ const LandingPage = () => {
         </div>
       </header>
       <main>
-        <div className="logo-container">
-          <FontAwesomeIcon
-            className="fa-icon fa-hippo landing-hippo"
-            icon={faHippo}
-          />{" "}
-        </div>
+        {" "}
+        <p>
+          {userData.f_name && userData.l_name ? (
+            <div className="profile-pic-container">
+              <img
+                src={`http://localhost:3000${userImagePath}`}
+                alt={userData.f_name}
+                className="profile-pic"
+              />
+            </div>
+          ) : (
+            <div className="logo-container">
+              <FontAwesomeIcon
+                className="fa-icon fa-hippo landing-hippo"
+                icon={faHippo}
+              />{" "}
+            </div>
+          )}
+        </p>
         <div className="landing-text">
           <h2>What we do </h2>
-          {/* {userData && ( */}
-          {/* <img id="image" className="picP" src={picSrc} alt="noooo" />
-           <img src={userData.pic} id="image" alt="" /> */}
-
-          {/* <img src="http://localhost:3000/${filePath}" alt={userData.f_name} /> */}
-          <img
-            src={`http://localhost:3000${userImagePath}`}
-            alt={userData.f_name}
-          />
 
           <p className="landing-p">
             Hey, hello and welcome. Bar Hop UK is a unique way of combining

@@ -10,10 +10,10 @@
   width: 100%;
   padding-top: 5px;
   -webkit-text-stroke-width: 0.3px;
-  -webkit-text-stroke-color: black;
+  /* -webkit-text-stroke-color: black; */
 }
 
-@media screen and (max-width: 17.5em) {
+@media screen and (max-width: 26.25em) {
   .name-header,
   .landing-header {
     font-size: 1.75em;
@@ -118,8 +118,15 @@
   padding: 0.313;
 }
 
-.picP {
+.profile-pic {
   height: 150px;
   width: 150px;
-  border: 31px solid black;
+  box-shadow: 0 0.5em 1em 0 rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+}
+
+.profile-pic-container {
+  text-align: center;
+  background-color: #a3b18a;
+  padding: 10px 0px 10px 0px;
 }

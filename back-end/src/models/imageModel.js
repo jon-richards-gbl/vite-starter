@@ -41,12 +41,8 @@ export const getImageByUserId = async (userId) => {
   try {
     const query = "SELECT * FROM images WHERE user_id = $1";
     const values = [userId];
-    console.log("Query:", query);
-    console.log("Values:", values);
-
     const result = await db.query(query, values);
     console.log("Query Result:", result);
-
     return result.rows;
   } catch (error) {
     console.error("Error fetching images:", error);
