@@ -30,10 +30,35 @@ export const getImageById = async (imageId) => {
   return result.rows;
 };
 
+// export const getImageByUserId = async (userId) => {
+//   const query = "SELECT * FROM images WHERE user_id =$1";
+//   const values = [userId];
+//   const result = await db.query(query, values);
+//   return result.rows;
+// };
+
+export const getImageByUserId = async (userId) => {
+  try {
+    const query = "SELECT * FROM images WHERE user_id = $1";
+    const values = [userId];
+    console.log("Query:", query);
+    console.log("Values:", values);
+
+    const result = await db.query(query, values);
+    console.log("Query Result:", result);
+
+    return result.rows;
+  } catch (error) {
+    console.error("Error fetching images:", error);
+    throw error;
+  }
+};
+
 const ImageModel = {
   addImage,
   getAllImages,
   getImageById,
+  getImageByUserId,
 };
 
 export default ImageModel;

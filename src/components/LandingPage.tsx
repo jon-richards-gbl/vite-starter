@@ -6,7 +6,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-// Import Axios from the 'axios' module
 import { useEffect, useState } from "react";
 
 interface UserData {
@@ -17,6 +16,7 @@ interface UserData {
 }
 
 const LandingPage = () => {
+  const [userImagePath, setUserImagePath] = useState<string>("");
   const [userData, setUserData] = useState<UserData>({
     f_name: "",
     l_name: "",
@@ -29,45 +29,48 @@ const LandingPage = () => {
     const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
       setUserData(JSON.parse(storedUserData));
+
+      console.log("storedUserData", JSON.parse(storedUserData).id);
+      console.log("user data 35", userData);
     }
   };
-
   useEffect(() => {
     getUserDataFromLocalStorage();
-  }, []);
-
-  const [userImagePath, setUserImagePath] = useState("");
-  const fetchUserData = async (userId: number) => {
-    try {
-      const response = await axios.get(`http://localhost:3000/user/${userId}`);
-      const userImageData = response.data.user;
-      console.log("userData yes", userImageData);
-      console.log("userData.id", userId);
-      console.log(userData.f_name);
-      console.log("userImageData name", userImageData.f_name);
-      console.log("pic", userData.pic);
-      const imageResponse = await axios.get(
-        `http://localhost:3000/images?user_id=${userImageData.id}`
-      );
-
-      const userImage = imageResponse.data[0]; // Assuming you get one image per user
-      setUserImagePath(userImage.file_path); // Set user image path
-      console.log("userImageData:", userImageData);
-      console.log("userImageData.id:", userImageData.id);
-      console.log("userImage.file_path", userImage.file_path);
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-    // Rest of your code to set user data and fetch image path
-  };
-
-  useEffect(() => {
-    if (userData.id) {
-      fetchUserData(userData.id);
-    }
+    fetchUserProfilePicture(userData.id);
   }, [userData.id]);
 
-  console.log(userData);
+  // useEffect(() => {
+  //   if (userData.id !== 0) {
+  //     // Introduce a delay before making the API call
+  //     const apiCallDelay = 5000; // 1 second delay (adjust as needed)
+
+  //     setTimeout(() => {
+  //       fetchUserProfilePicture(userData.id);
+  //     }, apiCallDelay);
+  //   }
+  // }, [userData.id]);
+
+  const fetchUserProfilePicture = async (userId: number) => {
+    try {
+      console.log("User ID before API request:", userId);
+      const response = await axios.get(
+        `http://localhost:3000/image/${userId}/image`
+      );
+      console.log("userId", userId);
+      console.log("url", `http://localhost:3000/image/${userId}/image`);
+
+      const filePath = response.data.images[0].file_path;
+
+      console.log("File path:", filePath);
+      setUserImagePath(filePath);
+    } catch (error) {
+      console.error("Error fetching user image:", error);
+    }
+  };
+
+  console.log(userData.id);
+
+  // console.log(userData);
 
   return (
     <>
@@ -98,10 +101,15 @@ const LandingPage = () => {
         </div>
         <div className="landing-text">
           <h2>What we do </h2>
-          {userData && (
-            // <img id="image" className="picP" src={picSrc} alt="noooo" />
-            <img src={userData.pic} id="image" alt="" />
-          )}
+          {/* {userData && ( */}
+          {/* <img id="image" className="picP" src={picSrc} alt="noooo" />
+           <img src={userData.pic} id="image" alt="" /> */}
+
+          {/* <img src="http://localhost:3000/${filePath}" alt={userData.f_name} /> */}
+          <img
+            src={`http://localhost:3000${userImagePath}`}
+            alt={userData.f_name}
+          />
 
           <p className="landing-p">
             Hey, hello and welcome. Bar Hop UK is a unique way of combining

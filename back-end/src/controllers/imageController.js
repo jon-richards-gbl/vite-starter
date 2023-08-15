@@ -47,3 +47,21 @@ export const getImageByIdController = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch image by ID" });
   }
 };
+
+export const getImageByUserIdController = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    console.log("userId", userId);
+
+    const images = await ImageModel.getImageByUserId(userId); // Use 'getImageByUserId' function
+    console.log("images", images);
+    if (images.length > 0) {
+      res.status(200).json({ images: images });
+    } else {
+      res.status(404).json({ message: "No images found for the user" });
+    }
+  } catch (error) {
+    console.error("Error fetching images by user ID:", error);
+    res.status(500).json({ message: "Failed to fetch images by user ID" });
+  }
+};
