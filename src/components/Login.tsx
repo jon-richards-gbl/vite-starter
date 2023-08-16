@@ -84,6 +84,7 @@ const Login = () => {
               />
             </div>
           </div>
+
           <div className="grid-one-columns1">
             <div className="card-container-login">
               <p>
@@ -95,9 +96,6 @@ const Login = () => {
               </p>
             </div>
           </div>
-          <button className="submitBtn" type="submit">
-            Login
-          </button>
           {errorMessage && (
             <div className="grid-one-columns1">
               <div className="card-container-login-error">
@@ -105,6 +103,16 @@ const Login = () => {
               </div>
             </div>
           )}
+          <button className="submitBtn" type="submit">
+            Login
+          </button>
+          {/* {errorMessage && (
+            <div className="grid-one-columns1">
+              <div className="card-container-login-error">
+                <p>Incorrect email or password </p>
+              </div>
+            </div>
+          )} */}
         </div>
       </form>
       {modalLogin && (

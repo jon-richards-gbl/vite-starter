@@ -5,58 +5,67 @@ import {
   faMapPin,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Buffer } from "buffer";
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 interface UserData {
   f_name: string;
   l_name: string;
-  pic: File | string | null;
+  pic: number[] | null;
+  id: number;
 }
 
 const LandingPage = () => {
+  const [userImagePath, setUserImagePath] = useState<string>("");
   const [userData, setUserData] = useState<UserData>({
     f_name: "",
     l_name: "",
     pic: null,
+    id: 0,
   });
 
-  useEffect(() => {
+  //Stores JWT tokens so user data will p[ersist
+  const getUserDataFromLocalStorage = () => {
     const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
-      const parsedUserData: UserData = JSON.parse(storedUserData);
-      console.log("Stored user data:", storedUserData);
-      console.log("Parsed user data:", parsedUserData);
-      setUserData(parsedUserData);
+      setUserData(JSON.parse(storedUserData));
     }
-  }, []);
+  };
+  useEffect(() => {
+    getUserDataFromLocalStorage();
+    fetchUserProfilePicture(userData.id);
+  }, [userData.id]);
 
-  let picSrc = null;
+  // useEffect(() => {
+  //   if (userData.id !== 0) {
+  //     // Introduce a delay before making the API call
+  //     const apiCallDelay = 5000; // 1 second delay (adjust as needed)
 
-  if (userData.pic instanceof File) {
-    console.log("pic is File");
-    picSrc = "fallback-image-url.jpg";
-  } else if (typeof userData.pic === "string") {
-    console.log("pic is string (URL)");
-    picSrc = userData.pic;
-  } else if (
-    userData.pic &&
-    (userData.pic as any)?.type === "Buffer" &&
-    Array.isArray((userData.pic as any)?.data)
-  ) {
-    console.log("pic is Buffer-like object");
-    const base64String = Buffer.from(userData.pic as any, "hex").toString(
-      "base64"
-    );
+  //     setTimeout(() => {
+  //       fetchUserProfilePicture(userData.id);
+  //     }, apiCallDelay);
+  //   }
+  // }, [userData.id]);
 
-    picSrc = `data:image/jpeg;base64,${base64String}`;
+  const fetchUserProfilePicture = async (userId: number) => {
+    try {
+      console.log("User ID before API request:", userId);
+      const response = await axios.get(
+        `http://localhost:3000/image/${userId}/image`
+      );
+      console.log("userId", userId);
+      console.log("url", `http://localhost:3000/image/${userId}/image`);
 
-    console.log("base64String", base64String);
-  } else {
-    console.log("pic is of unknown type:", userData.pic);
-  }
+      const filePath = response.data.images[0].file_path;
 
-  console.log("picSrc:", picSrc);
+      console.log("File path:", filePath);
+      setUserImagePath(filePath);
+    } catch (error) {
+      console.error("Error fetching user image:", error);
+    }
+  };
+
+  console.log("userData", userData);
 
   return (
     <>
@@ -65,42 +74,41 @@ const LandingPage = () => {
           <h1>bar hop uk</h1> <br />
         </div>
         <div className="name-header">
-          {userData.f_name && userData.l_name && picSrc ? (
+          {userData.f_name && userData.l_name ? (
             <p>
-              Hello {userData.f_name.trim()} {userData.l_name.trim()}{" "}
-              {typeof picSrc === "string" ? (
-                <img
-                  id="image"
-                  className="picP"
-                  src={picSrc}
-                  alt={`${userData.f_name.trim()} ${userData.l_name.trim()}`}
-                  // loading="lazy"
-                />
-              ) : null}
+              {userData ? (
+                <p>
+                  Hello, {userData.f_name.trim()} {userData.l_name.trim()}!
+                </p>
+              ) : (
+                <p>Loading...</p>
+              )}
             </p>
           ) : null}
         </div>
       </header>
       <main>
-        <div className="logo-container">
-          <FontAwesomeIcon
-            className="fa-icon fa-hippo landing-hippo"
-            icon={faHippo}
-          />{" "}
-        </div>
+        {" "}
+        <p>
+          {userData.f_name && userData.l_name ? (
+            <div className="profile-pic-container">
+              <img
+                src={`http://localhost:3000${userImagePath}`}
+                alt={userData.f_name}
+                className="profile-pic"
+              />
+            </div>
+          ) : (
+            <div className="logo-container">
+              <FontAwesomeIcon
+                className="fa-icon fa-hippo landing-hippo"
+                icon={faHippo}
+              />{" "}
+            </div>
+          )}
+        </p>
         <div className="landing-text">
           <h2>What we do </h2>
-          {userData && (
-            <img
-              src="data:image/png;base64,dXBsb2Fkcy9TY3JlZW5zaG90IDIwMjMtMDYtMjkgYXQgMTEuNDUuMDIucG5n"
-              alt="noooo"
-            />
-            // <img src={URL.createObjectURL(picSrc)} alt="A sample landscape" />
-            // <img
-            //   src="data:image/png;base64,/dXBsb2Fkcy9kb3dubG9hZC5qcGVnAA=="
-            //   alt="A sample landscape"
-            // />
-          )}
 
           <p className="landing-p">
             Hey, hello and welcome. Bar Hop UK is a unique way of combining
