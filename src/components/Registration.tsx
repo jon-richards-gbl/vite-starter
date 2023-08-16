@@ -33,6 +33,7 @@ const Registration = () => {
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //Get first file that is selected by the user
     const file = e.target.files?.[0];
     console.log("pic", pic);
     console.log("file", file);

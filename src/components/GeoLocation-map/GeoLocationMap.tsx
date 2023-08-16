@@ -189,7 +189,7 @@ const GeoLocationMap = () => {
         const request = {
           location: map.getCenter(),
           radius: 5000,
-          query: "brewery",
+          query: "bar",
           fields: [
             "name",
             "geometry",

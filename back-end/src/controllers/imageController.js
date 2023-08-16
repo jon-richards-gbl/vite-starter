@@ -54,7 +54,7 @@ export const getImageByUserIdController = async (req, res) => {
     console.log("userId", userId);
 
     const images = await ImageModel.getImageByUserId(userId); // Use 'getImageByUserId' function
-    console.log("images", images);
+    // console.log("images", images);
     if (images.length > 0) {
       res.status(200).json({ images: images });
     } else {

@@ -29,7 +29,7 @@
   color: white;
   text-align: center;
   justify-content: center;
-  height: 3.5em;
+  /* height: 3.5em; */
   border-radius: 0.5em;
   vertical-align: middle;
   display: flex;
@@ -82,10 +82,4 @@
 
 .picture-input {
   color: white;
-}
-
-.file-upload-button {
-  color: red;
-  background-color: red;
-  background: red;
 }

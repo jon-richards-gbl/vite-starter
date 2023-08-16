@@ -16,8 +16,8 @@ export const createUser = async (
     return undefined;
   }
   const query =
-    "INSERT INTO bh_users (f_name, l_name, age, email, file_path, password) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *";
-  const values = [f_name, l_name, age, email, pic, hashedPass.trim()];
+    "INSERT INTO bh_users (f_name, l_name, age, email, password, file_path) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *";
+  const values = [f_name, l_name, age, email, hashedPass, pic];
   const result = await db.query(query, values);
   return result.rows[0];
 };

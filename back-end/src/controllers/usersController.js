@@ -8,7 +8,7 @@ import { generateToken } from "../utils/tokenUtils.js";
 export const createUser = async (req, res) => {
   try {
     const { f_name, l_name, age, email, file_path, password } = req.body;
-    // console.log("pass", password);
+    console.log("pass", password);
     // const pic = req.file ? req.file.path : "";
     const numSaltRounds = 8;
 
@@ -33,15 +33,6 @@ export const createUser = async (req, res) => {
     res.status(500).json({ message: "Failed to create user" });
   }
 };
-
-// if (newUser) {
-//   // User successfully created
-//   res.status(201).json({ message: 'User created successfully', user: newUser });
-//   console.log("user ", user)
-// } else {
-//   // User not created due to duplicate email or other error
-//   res.status(400).json({ error: 'User registration failed' });
-// };
 
 // GET /user
 export const getUsers = async (req, res) => {
