@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
+import formReducer from "./form/formSlice";
 import userReducer from "./user/userSlice";
 
 export const createStore = (preloadedState = {}) =>
@@ -10,6 +11,7 @@ export const createStore = (preloadedState = {}) =>
     preloadedState,
     reducer: {
       user: userReducer,
+      form: formReducer,
     },
   });
 

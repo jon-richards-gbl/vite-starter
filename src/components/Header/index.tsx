@@ -14,7 +14,7 @@ const Header = () => {
 
       <nav>
         <NavLink to={PageRoutes.LandingPage}>Home</NavLink>
-        <NavLink to={PageRoutes.UserPage}>User</NavLink>
+        {/* <NavLink to={PageRoutes.UserPage}>User</NavLink> */}
       </nav>
     </header>
   );

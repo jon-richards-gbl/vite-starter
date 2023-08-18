@@ -1,0 +1,124 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  padding: 10px;
+
+  gap: 0.5rem;
+  background-color: black;
+  color: aliceblue;
+}
+
+@media screen and (max-width: 500px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+  .card-container {
+    display: grid;
+    grid-template-columns: 100%;
+  }
+}
+
+.grid-even-columns {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 50% 1fr;
+  justify-content: center;
+  align-items: center;
+  background-color: #344e41;
+  padding: 10px;
+  /* height: 20vh; */
+}
+
+.grid-even-columns1 {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 50% 1fr;
+  justify-content: center;
+  align-items: center;
+  background-color: #344e41;
+  padding: 10px;
+}
+
+@media screen and (max-width: 500px) {
+  .grid-even-columns {
+    grid-template-columns: 50%;
+  }
+}
+
+.grid-one-columns {
+  display: grid;
+  place-items: center;
+  background-color: #a3b18a;
+}
+
+.icon {
+  text-align: center;
+  color: pink;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+}
+
+.fa-icon {
+  padding: 2px;
+}
+
+.card-container {
+  padding: 2px 16px;
+  background-color: #a3b18a;
+  color: white;
+  text-align: center;
+  justify-content: center;
+}
+
+h4,
+.name {
+  text-align: center;
+  justify-content: center;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.submitBtn {
+  background-color: pink;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+  width: 100%;
+}
+
+.submitBtn:hover {
+  color: pink;
+  background-color: black;
+  border-radius: 5px;
+  border: pink 1px solid;
+  box-shadow: 0 4px 8px 0 white(0, 0, 0, 0.2);
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.about-link {
+  color: pink;
+}
+
+.about-link:hover {
+  color: black;
+  text-shadow: -1px 0 pink, 0 1px pink, 1px 0 pink, 0 -1px pink;
+}

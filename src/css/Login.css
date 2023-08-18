@@ -1,0 +1,85 @@
+.grid-container-login {
+  display: grid;
+  padding: 2.5em 3.125em 2.5em 3.125em;
+  gap: 0.5em;
+  background-color: black;
+  color: aliceblue;
+}
+
+.card-container-login {
+  padding: 16px 16px;
+  gap: 1rem;
+  background-color: #a3b18a;
+  color: white;
+  text-align: center;
+  justify-content: center;
+  height: 4em;
+  border-radius: 0.5em;
+  display: flex;
+}
+
+.card-container-login p {
+  align-self: center;
+}
+
+.card-container-login-error {
+  padding: 16px 16px;
+  gap: 1rem;
+  background-color: #b20000;
+  color: white;
+  text-align: center;
+  justify-content: center;
+  /* height: 3.5em; */
+  border-radius: 0.5em;
+  vertical-align: middle;
+  display: flex;
+}
+
+.card-container-login-error .error-message {
+  align-self: center;
+}
+
+@media screen and (max-width: 280px) {
+  .card-container-login-error {
+    height: 4.5em;
+    vertical-align: middle;
+    letter-spacing: 0em;
+  }
+  .card-container-login p {
+    letter-spacing: 0;
+  }
+}
+
+.grid-even-columns-login {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 50% 1fr;
+  justify-content: center;
+  align-items: center;
+  background-color: #344e41;
+  padding: 0.625em;
+  border-radius: 0.5em;
+}
+
+.login-input {
+  width: 100%;
+  padding: 0.75em;
+  border: 1px solid #ccc;
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.fa-icon-login {
+  padding: 0.7em;
+  font-size: 1.25em;
+}
+
+.login-form {
+  height: 90vh;
+  background-color: black;
+}
+
+.picture-input {
+  color: white;
+}
